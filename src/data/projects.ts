@@ -24,11 +24,19 @@ export const projects: Project[] = [
       "Enterprise document automation system that processes lease agreements and generates tenant welcome packs using AI.",
     longDescription:
       "A full-stack application that leverages AI to automate the processing of lease documents. Upload a lease PDF, and the system extracts key terms, tenant information, and generates a comprehensive welcome pack. Built for property management companies to streamline onboarding.",
-    techStack: ["TypeScript", "React", "Node.js", "OpenAI", "Tailwind CSS", "Framer Motion"],
+    techStack: [
+      "TypeScript",
+      "React",
+      "Node.js",
+      "OpenAI",
+      "Tailwind CSS",
+      "Framer Motion",
+    ],
     category: "ai",
     thumbnail: "/images/projects/ai-lease-processing.png",
     demoVideo: "/videos/projects/ai-lease-processing.mp4",
-    githubUrl: "https://github.com/AnamGTR99/AI-Powered-Lease-Processing-Tenant-Welcome-Pack-Generator",
+    githubUrl:
+      "https://github.com/AnamGTR99/AI-Powered-Lease-Processing-Tenant-Welcome-Pack-Generator",
     featured: true,
     year: 2025,
   },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 interface LiquidGlassCardProps {
   children: React.ReactNode;
@@ -22,44 +22,43 @@ export default function LiquidGlassCard({
   const mouseRef = useRef({ x: 0.5, y: 0.5, inside: false });
   const smoothRef = useRef({ x: 0.5, y: 0.5 });
 
-  const tick = useCallback(() => {
-    const card = cardRef.current;
-    const shine = shineRef.current;
-    const rim = rimRef.current;
-    if (!card || !shine || !rim) {
+  useEffect(() => {
+    function tick() {
+      const card = cardRef.current;
+      const shine = shineRef.current;
+      const rim = rimRef.current;
+      if (!card || !shine || !rim) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
+      const lerp = mouseRef.current.inside ? 0.08 : 0.04;
+      smoothRef.current.x += (mouseRef.current.x - smoothRef.current.x) * lerp;
+      smoothRef.current.y += (mouseRef.current.y - smoothRef.current.y) * lerp;
+
+      const sx = smoothRef.current.x;
+      const sy = smoothRef.current.y;
+
+      const tiltX = (sy - 0.5) * -tiltMax;
+      const tiltY = (sx - 0.5) * tiltMax;
+
+      card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+
+      const shineX = sx * 100;
+      const shineY = sy * 100;
+      const shineOpacity = mouseRef.current.inside ? 1 : 0;
+      shine.style.background = `radial-gradient(${shineSize}px circle at ${shineX}% ${shineY}%, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0) 70%)`;
+      shine.style.opacity = String(shineOpacity);
+
+      const rimAngle = Math.atan2(sy - 0.5, sx - 0.5) * (180 / Math.PI) + 90;
+      rim.style.background = `conic-gradient(from ${rimAngle}deg, rgba(255,255,255,0.35) 0deg, rgba(255,255,255,0.0) 60deg, rgba(255,255,255,0.0) 300deg, rgba(255,255,255,0.35) 360deg)`;
+
       rafRef.current = requestAnimationFrame(tick);
-      return;
     }
 
-    const lerp = mouseRef.current.inside ? 0.08 : 0.04;
-    smoothRef.current.x += (mouseRef.current.x - smoothRef.current.x) * lerp;
-    smoothRef.current.y += (mouseRef.current.y - smoothRef.current.y) * lerp;
-
-    const sx = smoothRef.current.x;
-    const sy = smoothRef.current.y;
-
-    const tiltX = (sy - 0.5) * -tiltMax;
-    const tiltY = (sx - 0.5) * tiltMax;
-
-    card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-
-    const shineX = sx * 100;
-    const shineY = sy * 100;
-    const shineOpacity = mouseRef.current.inside ? 1 : 0;
-    shine.style.background = `radial-gradient(${shineSize}px circle at ${shineX}% ${shineY}%, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0) 70%)`;
-    shine.style.opacity = String(shineOpacity);
-
-    const rimAngle =
-      Math.atan2(sy - 0.5, sx - 0.5) * (180 / Math.PI) + 90;
-    rim.style.background = `conic-gradient(from ${rimAngle}deg, rgba(255,255,255,0.35) 0deg, rgba(255,255,255,0.0) 60deg, rgba(255,255,255,0.0) 300deg, rgba(255,255,255,0.35) 360deg)`;
-
-    rafRef.current = requestAnimationFrame(tick);
-  }, [tiltMax, shineSize]);
-
-  useEffect(() => {
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [tick]);
+  }, [tiltMax, shineSize]);
 
   useEffect(() => {
     const card = cardRef.current;

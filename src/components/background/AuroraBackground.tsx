@@ -70,11 +70,7 @@ function generateParticles(count: number): Particle[] {
 // Component
 // ---------------------------------------------------------------------------
 
-export default function AuroraBackground({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AuroraBackground({ children }: { children: React.ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const particleRefs = useRef<(HTMLDivElement | null)[]>([]);
   const trailRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -158,10 +154,8 @@ export default function AuroraBackground({
 
     // --- Smooth cursor for particles ---
     const lerp = 0.07;
-    smoothCursorRef.current.x +=
-      (cursorRef.current.x - smoothCursorRef.current.x) * lerp;
-    smoothCursorRef.current.y +=
-      (cursorRef.current.y - smoothCursorRef.current.y) * lerp;
+    smoothCursorRef.current.x += (cursorRef.current.x - smoothCursorRef.current.x) * lerp;
+    smoothCursorRef.current.y += (cursorRef.current.y - smoothCursorRef.current.y) * lerp;
     const cx = smoothCursorRef.current.x;
     const cy = smoothCursorRef.current.y;
 
@@ -175,10 +169,8 @@ export default function AuroraBackground({
 
       const dx = point.x - leader.x;
       const dy = point.y - leader.y;
-      const fx =
-        -TRAIL_SPRING_STIFFNESS * dx - TRAIL_SPRING_DAMPING * point.vx;
-      const fy =
-        -TRAIL_SPRING_STIFFNESS * dy - TRAIL_SPRING_DAMPING * point.vy;
+      const fx = -TRAIL_SPRING_STIFFNESS * dx - TRAIL_SPRING_DAMPING * point.vx;
+      const fy = -TRAIL_SPRING_STIFFNESS * dy - TRAIL_SPRING_DAMPING * point.vy;
 
       point.vx += fx * dt;
       point.vy += fy * dt;
@@ -230,10 +222,8 @@ export default function AuroraBackground({
 
       const p = particles[i];
 
-      const driftX =
-        Math.sin(t * p.driftSpeedX + p.driftPhaseX) * p.driftAmplitudeX;
-      const driftY =
-        Math.cos(t * p.driftSpeedY + p.driftPhaseY) * p.driftAmplitudeY;
+      const driftX = Math.sin(t * p.driftSpeedX + p.driftPhaseX) * p.driftAmplitudeX;
+      const driftY = Math.cos(t * p.driftSpeedY + p.driftPhaseY) * p.driftAmplitudeY;
       const rot = p.rotation + t * 8;
 
       const pdx = cx - p.baseX;

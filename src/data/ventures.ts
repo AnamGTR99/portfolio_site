@@ -47,9 +47,7 @@ In the creator economy, talent management is part agent, part strategist, part t
 The technical skills from software engineering directly translate — building tools for analytics, automating outreach, and creating the digital infrastructure that lets talent focus on what they do best.`,
     status: "ongoing",
     thumbnail: "/images/ventures/hugozbor.jpg",
-    links: [
-      { label: "HUGOZBOR Website", url: "https://hugozbor.com" },
-    ],
+    links: [{ label: "HUGOZBOR Website", url: "https://hugozbor.com" }],
     metrics: [
       { label: "Focus", value: "Digital Creators" },
       { label: "Scope", value: "Brand Deals & Growth" },
