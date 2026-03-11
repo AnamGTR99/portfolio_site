@@ -215,11 +215,51 @@ export default function ProjectDetailPage() {
           </motion.div>
         )}
 
-        {/* ─── Quick Facts ─── */}
+        {/* ─── Tech Stack ─── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.35 }}
+          style={{ marginBottom: "var(--spacing-group)" }}
+        >
+          <h2
+            style={{
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "rgba(245,245,245,0.35)",
+              marginBottom: "16px",
+            }}
+          >
+            Tech Stack
+          </h2>
+          <div className="flex flex-wrap" style={{ gap: "8px" }}>
+            {project.techStack.map((tech) => (
+              <span
+                key={tech}
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 400,
+                  letterSpacing: "0.02em",
+                  color: "rgba(245,245,245,0.6)",
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  padding: "6px 16px",
+                  borderRadius: "9999px",
+                }}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ─── Quick Facts ─── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           style={{ marginBottom: "var(--spacing-group)" }}
         >
           <h2
@@ -276,46 +316,6 @@ export default function ProjectDetailPage() {
                   </div>
                 </div>
               ))}
-          </div>
-        </motion.div>
-
-        {/* ─── Tech Stack ─── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          style={{ marginBottom: "var(--spacing-group)" }}
-        >
-          <h2
-            style={{
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "rgba(245,245,245,0.35)",
-              marginBottom: "16px",
-            }}
-          >
-            Tech Stack
-          </h2>
-          <div className="flex flex-wrap" style={{ gap: "8px" }}>
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                style={{
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  letterSpacing: "0.02em",
-                  color: "rgba(245,245,245,0.6)",
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  padding: "6px 16px",
-                  borderRadius: "9999px",
-                }}
-              >
-                {tech}
-              </span>
-            ))}
           </div>
         </motion.div>
 
