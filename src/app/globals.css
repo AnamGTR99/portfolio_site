@@ -38,7 +38,7 @@
 body {
   background: var(--color-background);
   color: var(--color-text-primary);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-geist), system-ui, sans-serif;
 }
 
 /* ─── Glass Utilities ─── */
@@ -52,6 +52,34 @@ body {
 .glass:hover {
   background: var(--color-glass-fill-hover);
   border-color: var(--color-glass-border-hover);
+}
+
+/* ─── Glass Text ─── */
+.glass-text {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
+}
+
+.glass-text-hero {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.35) 35%,
+    rgba(255, 255, 255, 0.12) 70%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 20px rgba(255, 255, 255, 0.12));
 }
 
 .glass-subtle {
