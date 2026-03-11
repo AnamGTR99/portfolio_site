@@ -1,4 +1,9 @@
-export type ProjectCategory = "web-app" | "mobile" | "ai" | "website" | "other";
+export type ProjectCategory =
+  | "ai-native"
+  | "web-app"
+  | "mobile"
+  | "client-website"
+  | "passion-project";
 
 export interface Project {
   slug: string;
@@ -6,7 +11,7 @@ export interface Project {
   description: string;
   longDescription?: string;
   techStack: string[];
-  category: ProjectCategory;
+  categories: ProjectCategory[];
   thumbnail: string;
   images?: string[];
   demoVideo?: string;
@@ -15,136 +20,272 @@ export interface Project {
   featured: boolean;
   year: number;
   award?: string;
+  badge?: string;
+  buildTime?: string;
+  role?: string;
+  purpose?: string;
 }
 
 export const projects: Project[] = [
   {
+    slug: "dive",
+    title: "Dive",
+    description:
+      "Spatial canvas for branching AI conversations — fork discussions, maintain context, and explore knowledge non-linearly. Solves context collapse in AI workflows.",
+    longDescription:
+      "Dive is a cognitive augmentation tool that transforms documents and web pages into branching chat trees. Instead of linear AI chat, you create concept anchors from any text, start AI conversations from them, and fork responses to explore multiple reasoning paths — all while maintaining full context inheritance. Built in 72 hours at FoundersHack Melbourne 2025 with Team NUU.",
+    techStack: [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "Convex",
+      "ReactFlow",
+      "OpenAI GPT-4o",
+      "Tailwind CSS",
+      "shadcn/ui",
+    ],
+    categories: ["ai-native"],
+    thumbnail: "/images/projects/dive.png",
+    demoVideo: "/videos/projects/dive.mp4",
+    liveUrl: "https://www.youtube.com/watch?v=w22c15X_1BA",
+    githubUrl: "https://github.com/nathan-luo/dive-web",
+    featured: true,
+    year: 2025,
+    award: "3rd Place — FoundersHack Melbourne 2025",
+    buildTime: "48 hours",
+    role: "Backend Lead",
+    purpose: "Hackathon",
+  },
+  {
+    slug: "medpal",
+    title: "MedPal AI",
+    description:
+      "Mobile app that scans medication labels and translates medical jargon into plain language using AI. Includes dose tracking, smart reminders, and a medication library.",
+    longDescription:
+      "MedPal addresses medication literacy and adherence challenges. Patients scan a prescription label via camera and the AI instantly translates complex medical terminology into clear, understandable language. Features a senior-friendly interface with dose tracking and smart reminders. Built at MelbourneHack 2025.",
+    techStack: [
+      "TypeScript",
+      "React Native",
+      "Expo",
+      "Google Cloud Vision",
+      "Google Gemini AI",
+    ],
+    categories: ["ai-native", "mobile", "passion-project"],
+    thumbnail: "/images/projects/medpal.png",
+    demoVideo: "/videos/projects/medpal.mp4",
+    liveUrl: "https://devpost.com/software/medpal-q87jmd",
+    githubUrl: "https://github.com/AnamGTR99/medpal_ai",
+    featured: true,
+    year: 2025,
+    award: "Healthcare Track Winner — MelbourneHack 2025",
+    buildTime: "48 hours",
+    role: "Team Lead & Full-stack",
+    purpose: "Hackathon",
+  },
+  {
     slug: "ai-lease-processing",
     title: "AI-Powered Lease Processing",
     description:
-      "Enterprise document automation system that processes lease agreements and generates tenant welcome packs using AI.",
+      "Full-stack document automation that extracts 14 key fields from lease agreements and generates tenant welcome packs. Achieved 100% accuracy across 70 fields.",
     longDescription:
-      "A full-stack application that leverages AI to automate the processing of lease documents. Upload a lease PDF, and the system extracts key terms, tenant information, and generates a comprehensive welcome pack. Built for property management companies to streamline onboarding.",
+      "An AI-powered web app that automates extraction of key data fields from signed lease documents (PDF/DOCX) and generates customized Tenant Welcome Pack documents. Built for a property management firm handling 200+ Melbourne rental properties. Achieved 100% accuracy — 70/70 fields correct across 5 sample leases, 39/39 verification checks passed.",
     techStack: [
       "TypeScript",
       "React",
-      "Node.js",
-      "OpenAI",
+      "Python",
+      "FastAPI",
+      "Google Gemini",
+      "Supabase",
       "Tailwind CSS",
       "Framer Motion",
     ],
-    category: "ai",
+    categories: ["ai-native", "web-app"],
     thumbnail: "/images/projects/ai-lease-processing.png",
     demoVideo: "/videos/projects/ai-lease-processing.mp4",
+    liveUrl: "https://ai-powered-lease-processing-tenant.vercel.app/",
     githubUrl:
       "https://github.com/AnamGTR99/AI-Powered-Lease-Processing-Tenant-Welcome-Pack-Generator",
     featured: true,
     year: 2025,
+    buildTime: "2 days",
+    role: "Solo Full-stack",
+    purpose: "Technical Assessment",
   },
   {
     slug: "airtable-clone",
     title: "Airtable Clone",
     description:
-      "A fully functional Airtable clone with real-time data tables, filtering, sorting, and column management.",
-    techStack: ["TypeScript", "React", "Node.js", "PostgreSQL", "Tailwind CSS"],
-    category: "web-app",
+      "High-performance Airtable clone handling 1 million rows with sub-25s bulk insertion, virtualized scrolling, and keyboard-driven spreadsheet navigation.",
+    longDescription:
+      "A full-featured spreadsheet application built on the T3 Stack. Features cursor-based pagination with virtualized infinite scroll for 1M+ rows, Airtable-style keyboard navigation, JSONB-based flexible column schema, and saved views with persistent filter/sort configurations. Separated read path (serverless) from write path (dedicated worker) for scale.",
+    techStack: [
+      "TypeScript",
+      "Next.js",
+      "tRPC",
+      "PostgreSQL",
+      "Prisma",
+      "TanStack Table",
+      "Zustand",
+      "Tailwind CSS",
+    ],
+    categories: ["web-app"],
     thumbnail: "/images/projects/airtable-clone.png",
     demoVideo: "/videos/projects/airtable-clone.mp4",
-    githubUrl: "https://github.com/AnamGTR99/airtable-clone",
+    githubUrl: "https://github.com/AnamGTR99/anam-lyra-airtable",
     featured: true,
     year: 2025,
+    buildTime: "9 days",
+    role: "Solo Full-stack",
+    purpose: "Client Work",
+  },
+  {
+    slug: "liquid-glass",
+    title: "React Liquid Glass",
+    description:
+      "Open-source React component library with iOS 26-inspired liquid glass effects. Published on npm with zero dependencies beyond React.",
+    longDescription:
+      "A published npm package providing cursor-reactive specular highlights with gaussian falloff, smooth 3D perspective tilt, animated conic rim lighting, inner refraction glow, and chromatic prismatic tinting. Full keyboard and screen-reader accessibility. The same glass components powering this portfolio site.",
+    techStack: ["TypeScript", "React"],
+    categories: ["passion-project"],
+    thumbnail: "/images/projects/liquid-glass.png",
+    liveUrl: "https://www.npmjs.com/package/anam-react-liquid-glass",
+    githubUrl: "https://github.com/AnamGTR99/anam-react-liquid-glass",
+    featured: true,
+    year: 2025,
+    badge: "Published on npm",
+    buildTime: "2–3 days",
+    role: "Solo",
+    purpose: "Open-source",
+  },
+  {
+    slug: "yunmakai",
+    title: "Yunmakai",
+    description:
+      "Immersive digital universe merging music releases with e-commerce — 3D product visualization, Shopify integration, and Stripe payments. Co-developed for HUGOZBOR.",
+    longDescription:
+      "An interactive platform where music releases and physical/digital products are experienced together inside a 3D environment. Features multi-scene interactive environments, a music player, Shopify storefront integration, Stripe payments, Supabase auth and storage, and 3D GLB model rendering. Co-developed as commissioned client work through HUGOZBOR.",
+    techStack: [
+      "TypeScript",
+      "Next.js",
+      "Supabase",
+      "Shopify API",
+      "Stripe",
+      "Zustand",
+      "model-viewer",
+      "Tailwind CSS",
+    ],
+    categories: ["web-app", "client-website"],
+    thumbnail: "/images/projects/yunmakai.png",
+    demoVideo: "/videos/projects/yunmakai.mp4",
+    githubUrl: "https://github.com/AnamGTR99/ym_website",
+    featured: false,
+    year: 2025,
+    badge: "Commissioned Work",
+    buildTime: "2+ months",
+    role: "Full-stack Co-developer",
+    purpose: "Client Work",
   },
   {
     slug: "pokemon-ai",
-    title: "Pokemon AI",
+    title: "PokeAI Scanner",
     description:
-      "OCR-powered Pokemon card scanner that identifies cards and scrapes real-time market prices.",
-    techStack: ["TypeScript", "React", "Tesseract.js", "Web Scraping", "Node.js"],
-    category: "ai",
+      "Mobile app that uses AI-powered OCR to scan physical Pokemon cards via camera, identify them, and display real-time market pricing across card grades.",
+    techStack: [
+      "TypeScript",
+      "React Native",
+      "Expo",
+      "Google Cloud Vision",
+      "React Native Reanimated",
+    ],
+    categories: ["ai-native", "mobile", "passion-project"],
     thumbnail: "/images/projects/pokemon-ai.png",
     demoVideo: "/videos/projects/pokemon-ai.mp4",
+    liveUrl: "https://www.youtube.com/shorts/3uaLCT03-T8",
     githubUrl: "https://github.com/AnamGTR99/pokemon_ai",
-    featured: true,
+    featured: false,
     year: 2025,
+    buildTime: "3–4 days",
+    role: "Solo",
+    purpose: "Passion Project",
   },
   {
-    slug: "ai-anime-girl",
+    slug: "ai-anime-companion",
     title: "AI Anime Girlfriend",
     description:
-      "Conversational AI character powered by Gemini with Elevenlabs voice synthesis for real-time voice responses.",
-    techStack: ["TypeScript", "React", "Gemini API", "Elevenlabs", "Node.js"],
-    category: "ai",
-    thumbnail: "/images/projects/ai-anime-girl.png",
-    demoVideo: "/videos/projects/ai-anime-girl.mp4",
+      "3D anime avatar with real-time voice calling, lip-sync, and emotional expression changes driven by conversation sentiment. Supports OpenAI, Claude, and Gemini.",
+    techStack: [
+      "TypeScript",
+      "React",
+      "Three.js",
+      "VRM",
+      "ElevenLabs",
+      "OpenAI",
+      "Tailwind CSS",
+    ],
+    categories: ["ai-native", "mobile", "passion-project"],
+    thumbnail: "/images/projects/ai-anime-companion.png",
+    demoVideo: "/videos/projects/ai-anime-companion.mp4",
     githubUrl: "https://github.com/AnamGTR99/ai_anime_girl",
     featured: false,
     year: 2025,
+    buildTime: "1–2 days",
+    role: "Solo",
+    purpose: "Passion Project",
   },
   {
-    slug: "vape-tracker",
-    title: "Vape Tracker App",
+    slug: "puff",
+    title: "Puff",
     description:
-      "Mobile application for tracking usage with stats, charts, and historical data visualization.",
-    techStack: ["TypeScript", "React Native", "Expo", "Chart.js"],
-    category: "mobile",
-    thumbnail: "/images/projects/vape-tracker.png",
-    demoVideo: "/videos/projects/vape-tracker.mp4",
+      "Cross-platform mobile app for tracking vaping habits with custom SVG charts, spring-based animated counters, and interactive daily/weekly/monthly analytics.",
+    techStack: [
+      "TypeScript",
+      "React Native",
+      "Expo",
+      "React Native Reanimated",
+      "React Native SVG",
+    ],
+    categories: ["mobile", "passion-project"],
+    thumbnail: "/images/projects/puff.png",
+    demoVideo: "/videos/projects/puff.mp4",
     githubUrl: "https://github.com/AnamGTR99/vape_app_tracker",
     featured: false,
     year: 2025,
-  },
-  {
-    slug: "lyra-airtable",
-    title: "Lyra Job Application Tracker",
-    description:
-      "Airtable-style application for managing job applications with status tracking and notes.",
-    techStack: ["TypeScript", "React", "Node.js", "Tailwind CSS"],
-    category: "web-app",
-    thumbnail: "/images/projects/lyra-airtable.png",
-    demoVideo: "/videos/projects/lyra-airtable.mp4",
-    githubUrl: "https://github.com/AnamGTR99/anam-lyra-airtable",
-    featured: false,
-    year: 2025,
+    buildTime: "1–2 days",
+    role: "Solo",
+    purpose: "Passion Project",
   },
   {
     slug: "hugozbor-website",
     title: "HUGOZBOR Website",
     description:
-      "Portfolio website for HUGOZBOR talent management, showcasing artist profiles and content.",
-    techStack: ["JavaScript", "HTML", "CSS"],
-    category: "website",
+      "Official website for HUGOZBOR talent management with custom API layer, analytics integration, and full branding suite.",
+    techStack: ["JavaScript", "Vite", "Tailwind CSS"],
+    categories: ["client-website"],
     thumbnail: "/images/projects/hugozbor.png",
     demoVideo: "/videos/projects/hugozbor.mp4",
-    liveUrl: "https://hugozbor.com",
-    githubUrl: "https://github.com/AnamGTR99/hz_website",
+    liveUrl: "https://www.hugozbor.com",
     featured: false,
     year: 2024,
-  },
-  {
-    slug: "lux-vestra",
-    title: "Lux Vestra Website",
-    description:
-      "Commissioned company website with polished visual design and smooth interactions.",
-    techStack: ["HTML", "CSS", "JavaScript"],
-    category: "website",
-    thumbnail: "/images/projects/lux-vestra.png",
-    demoVideo: "/videos/projects/lux-vestra.mp4",
-    githubUrl: "https://github.com/AnamGTR99/lux_vestra_website",
-    featured: false,
-    year: 2024,
+    badge: "Commissioned Work",
+    buildTime: "1–2 weeks",
+    role: "Co-developer",
+    purpose: "Client Work",
   },
   {
     slug: "startuplink",
     title: "StartupLink Website",
     description:
-      "Website for the University of Melbourne's startup society, connecting student entrepreneurs.",
-    techStack: ["TypeScript", "React", "Next.js", "Tailwind CSS"],
-    category: "website",
+      "Website for the University of Melbourne's startup society — connecting student founders, faculty, and startup resources. TypeScript-first with CI/CD pipeline.",
+    techStack: ["TypeScript", "Vite", "Tailwind CSS"],
+    categories: ["client-website"],
     thumbnail: "/images/projects/startuplink.png",
     demoVideo: "/videos/projects/startuplink.mp4",
-    githubUrl: "https://github.com/AnamGTR99/startuplink_website",
+    liveUrl: "https://www.startuplinkunimelb.net/",
     featured: false,
     year: 2024,
+    buildTime: "1–2 weeks",
+    role: "Co-developer",
+    purpose: "University Society",
   },
 ];
 
@@ -157,5 +298,5 @@ export function getProjectBySlug(slug: string): Project | undefined {
 }
 
 export function getProjectsByCategory(category: ProjectCategory): Project[] {
-  return projects.filter((p) => p.category === category);
+  return projects.filter((p) => p.categories.includes(category));
 }
