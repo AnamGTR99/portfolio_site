@@ -14,6 +14,7 @@ export interface Project {
   githubUrl?: string;
   featured: boolean;
   year: number;
+  award?: string;
 }
 
 export const projects: Project[] = [

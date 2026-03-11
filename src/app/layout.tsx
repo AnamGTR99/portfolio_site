@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import AuroraBackground from "@/components/background/AuroraBackground";
 import Navigation from "@/components/layout/Navigation";
+import IntroProvider from "@/components/intro/IntroProvider";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -32,10 +33,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geist.variable} ${geist.className} antialiased`}>
-        <AuroraBackground>
-          <Navigation />
-          {children}
-        </AuroraBackground>
+        <IntroProvider>
+          <AuroraBackground>
+            <Navigation />
+            {children}
+          </AuroraBackground>
+        </IntroProvider>
       </body>
     </html>
   );

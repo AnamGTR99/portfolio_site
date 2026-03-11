@@ -1,69 +1,363 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { getFeaturedProjects } from "@/data/projects";
+import { ventures } from "@/data/ventures";
+import LiquidGlassCard from "@/components/glass/LiquidGlassCard";
+import HKSkyline from "@/components/hero/HKSkyline";
+
+const featuredProjects = getFeaturedProjects();
+const featuredVenture = ventures[0]; // Anam Hotel
 
 export default function Home() {
   return (
-    <main className="relative flex h-screen flex-col items-center justify-center">
-      {/* Hero content */}
-      <div className="flex flex-col items-center gap-5 px-6">
-        <h1
-          className="glass-text-hero"
-          style={{
-            fontSize: "clamp(52px, 12vw, 96px)",
-            fontWeight: 800,
-            letterSpacing: "-0.04em",
-            lineHeight: 1,
-          }}
-        >
-          Anam
-        </h1>
-        <p
-          className="text-center"
-          style={{
-            fontSize: "clamp(15px, 2.5vw, 19px)",
-            fontWeight: 300,
-            color: "rgba(245,245,245,0.55)",
-            letterSpacing: "0.01em",
-          }}
-        >
-          Software, hospitality, and the spaces between.
-        </p>
-      </div>
+    <>
+      {/* ─── Scroll Progress Bar ─── */}
+      <ScrollProgress />
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 flex flex-col items-center gap-1"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
+      {/* ─── Hero ─── */}
+      <section
+        className="relative flex flex-col items-center justify-center"
+        style={{ height: "calc(100vh - 60px)" }}
       >
-        <span
+        <HKSkyline />
+        <div className="relative z-10 flex flex-col items-center gap-5 px-6">
+          <h1
+            className="glass-text-hero"
+            style={{
+              fontSize: "clamp(52px, 12vw, 96px)",
+              fontWeight: 800,
+              letterSpacing: "-0.04em",
+              lineHeight: 1,
+            }}
+          >
+            Anam
+          </h1>
+          <p
+            className="text-center"
+            style={{
+              fontSize: "clamp(15px, 2.5vw, 19px)",
+              fontWeight: 300,
+              color: "rgba(245,245,245,0.55)",
+              letterSpacing: "0.01em",
+            }}
+          >
+            Software, hospitality, and the spaces between.
+          </p>
+        </div>
+
+        {/* Scroll chevron */}
+        <motion.div
+          className="absolute bottom-6 flex flex-col items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+        >
+          <motion.svg
+            width="20"
+            height="10"
+            viewBox="0 0 20 10"
+            fill="none"
+            animate={{ y: [0, 5, 0] }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <path
+              d="M1 1L10 8L19 1"
+              stroke="rgba(245,245,245,0.35)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </motion.svg>
+        </motion.div>
+      </section>
+
+      {/* ─── Featured Work ─── */}
+      <section
+        style={{
+          padding: "0 24px",
+          paddingBottom: "var(--spacing-section)",
+        }}
+      >
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <h2
+            className="glass-text"
+            style={{
+              fontSize: "clamp(28px, 5vw, 40px)",
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              marginBottom: "var(--spacing-group)",
+            }}
+          >
+            Featured Work
+          </h2>
+
+          {/* Cards grid — large first card, two smaller below on desktop */}
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2"
+            style={{ gap: "20px" }}
+          >
+            {/* Large featured card — spans full width */}
+            <div style={{ gridColumn: "1 / -1" }}>
+              <FeaturedCard
+                href={`/ventures/${featuredVenture.slug}`}
+                title={featuredVenture.title}
+                description={featuredVenture.description}
+                label={featuredVenture.role}
+                category="Venture"
+                large
+              />
+            </div>
+
+            {/* Two project cards side by side */}
+            {featuredProjects.slice(0, 2).map((project) => (
+              <FeaturedCard
+                key={project.slug}
+                href={`/projects/${project.slug}`}
+                title={project.title}
+                description={project.description}
+                label={project.techStack.slice(0, 2).join(" · ")}
+                category={project.category === "ai" ? "AI" : "Web App"}
+              />
+            ))}
+          </div>
+
+          {/* View all link */}
+          <div
+            style={{
+              marginTop: "var(--spacing-component)",
+              textAlign: "center",
+            }}
+          >
+            <Link
+              href="/projects"
+              style={{
+                fontSize: "14px",
+                fontWeight: 400,
+                color: "rgba(245,245,245,0.45)",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "rgba(245,245,245,0.8)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "rgba(245,245,245,0.45)")
+              }
+            >
+              View all projects →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA ─── */}
+      <section
+        style={{
+          padding: "var(--spacing-section) 24px",
+          textAlign: "center",
+        }}
+      >
+        <div
+          className="flex flex-col items-center"
+          style={{ gap: "var(--spacing-element)" }}
+        >
+          <h2
+            className="glass-text"
+            style={{
+              fontSize: "clamp(24px, 5vw, 36px)",
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Let&apos;s build something together.
+          </h2>
+          <p
+            style={{
+              fontSize: "16px",
+              fontWeight: 300,
+              color: "rgba(245,245,245,0.45)",
+              maxWidth: "420px",
+            }}
+          >
+            Open to opportunities in software, hospitality, and everything in
+            between.
+          </p>
+          <Link
+            href="/contact"
+            className="glass"
+            style={{
+              marginTop: "12px",
+              display: "inline-block",
+              padding: "12px 36px",
+              borderRadius: "9999px",
+              fontSize: "14px",
+              fontWeight: 500,
+              letterSpacing: "0.02em",
+              color: "#f5f5f5",
+              transition: "all 0.2s",
+            }}
+          >
+            Get in touch
+          </Link>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  return (
+    <motion.div
+      style={{
+        scaleX,
+        transformOrigin: "left",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: "2px",
+        background:
+          "linear-gradient(90deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.15) 100%)",
+        zIndex: 70,
+      }}
+    />
+  );
+}
+
+function FeaturedCard({
+  href,
+  title,
+  description,
+  label,
+  category,
+  thumbnail,
+  large = false,
+}: {
+  href: string;
+  title: string;
+  description: string;
+  label: string;
+  category: string;
+  thumbnail?: string;
+  large?: boolean;
+}) {
+  return (
+    <Link href={href} style={{ display: "block" }}>
+      <LiquidGlassCard className="rounded-2xl">
+        {/* Thumbnail area */}
+        <div
           style={{
-            fontSize: "10px",
-            fontWeight: 400,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase" as const,
-            color: "rgba(245,245,245,0.25)",
+            position: "relative",
+            height: large ? "220px" : "160px",
+            overflow: "hidden",
+            borderRadius: "16px 16px 0 0",
           }}
         >
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          style={{
-            width: "1px",
-            height: "28px",
-            background:
-              "linear-gradient(180deg, rgba(245,245,245,0.3) 0%, transparent 100%)",
-          }}
-        />
-      </motion.div>
-    </main>
+          {thumbnail ? (
+            <img
+              src={thumbnail}
+              alt={title}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: 0.7,
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                background: `linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)`,
+              }}
+            />
+          )}
+          {/* Bottom fade into card content */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "60px",
+              background:
+                "linear-gradient(to top, rgba(17,17,17,0.9) 0%, transparent 100%)",
+            }}
+          />
+          {/* Category badge */}
+          <span
+            style={{
+              position: "absolute",
+              top: "14px",
+              left: "16px",
+              fontSize: "10px",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "rgba(245,245,245,0.5)",
+              background: "rgba(0,0,0,0.4)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              padding: "4px 10px",
+              borderRadius: "6px",
+              border: "1px solid rgba(255,255,255,0.08)",
+            }}
+          >
+            {category}
+          </span>
+        </div>
+
+        {/* Text content */}
+        <div style={{ padding: "20px 24px 24px" }}>
+          <div
+            className="flex items-center justify-between"
+            style={{ marginBottom: "8px" }}
+          >
+            <h3
+              style={{
+                fontSize: "clamp(17px, 2.5vw, 20px)",
+                fontWeight: 600,
+                color: "#f5f5f5",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {title}
+            </h3>
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 400,
+                color: "rgba(245,245,245,0.3)",
+                flexShrink: 0,
+                marginLeft: "12px",
+              }}
+            >
+              {label}
+            </span>
+          </div>
+          <p
+            style={{
+              fontSize: "13px",
+              fontWeight: 300,
+              color: "rgba(245,245,245,0.45)",
+              lineHeight: 1.6,
+            }}
+          >
+            {description}
+          </p>
+        </div>
+      </LiquidGlassCard>
+    </Link>
   );
 }
