@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { getFeaturedProjects } from "@/data/projects";
 import { ventures } from "@/data/ventures";
 import LiquidGlassCard from "@/components/glass/LiquidGlassCard";
+import ProjectCard from "@/components/cards/ProjectCard";
 import HKSkyline from "@/components/hero/HKSkyline";
 
 const featuredProjects = getFeaturedProjects();
@@ -116,14 +117,7 @@ export default function Home() {
 
             {/* Two project cards side by side */}
             {featuredProjects.slice(0, 2).map((project) => (
-              <FeaturedCard
-                key={project.slug}
-                href={`/projects/${project.slug}`}
-                title={project.title}
-                description={project.description}
-                label={project.techStack.slice(0, 2).join(" · ")}
-                category={project.category === "ai" ? "AI" : "Web App"}
-              />
+              <ProjectCard key={project.slug} project={project} />
             ))}
           </div>
 
