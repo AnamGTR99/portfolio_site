@@ -261,7 +261,7 @@ export const projects: Project[] = [
       "Official website for HUGOZBOR talent management with custom API layer, analytics integration, and full branding suite.",
     techStack: ["JavaScript", "Vite", "Tailwind CSS"],
     categories: ["client-website"],
-    thumbnail: "/images/projects/hugozbor.png",
+    thumbnail: "https://i.gyazo.com/4adf6a6ce1449314c0d5c0400a237867.gif",
     demoVideo: "/videos/projects/hugozbor.mp4",
     liveUrl: "https://www.hugozbor.com",
     featured: false,
