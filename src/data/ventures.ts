@@ -6,6 +6,8 @@ export interface Venture {
   fullContent: string;
   status: "ongoing" | "completed";
   thumbnail: string;
+  heroImage?: string;
+  heroVideo?: string;
   images?: string[];
   links?: { label: string; url: string }[];
   metrics?: { label: string; value: string }[];
@@ -25,35 +27,46 @@ From concept to operations, every detail has been hands-on — from interior des
 
 Running a hotel teaches you things software never will: reading people, managing chaos with grace, and understanding that the best systems are invisible to the people they serve.`,
     status: "ongoing",
-    thumbnail: "/images/ventures/anam-hotel.jpg",
-    links: [],
+    thumbnail: "/images/ventures/anam-hotel-logo.svg",
+    heroImage: "/images/ventures/anam-hotel.jpg",
+    links: [
+      { label: "Website", url: "https://anamhostels.com/" },
+      { label: "Instagram", url: "https://instagram.com/theanamlk" },
+    ],
     metrics: [
       { label: "Location", value: "Colombo, Sri Lanka" },
       { label: "Type", value: "Boutique Hotel" },
+      { label: "Opened", value: "January 2024" },
       { label: "Status", value: "Operational" },
     ],
-    year: 2023,
+    year: 2024,
   },
   {
     slug: "hugozbor",
-    title: "HUGOZBOR Talent Management",
+    title: "HUGO ZBOR",
     role: "Talent Manager",
     description:
-      "Managing digital talent — building brands, negotiating partnerships, and scaling creator careers.",
-    fullContent: `HUGOZBOR is a talent management operation focused on digital creators and emerging artists. The role spans everything from content strategy and brand partnerships to contract negotiation and audience growth.
+      "Managing a multi-disciplinary creative — building his brand, negotiating partnerships, and scaling his career.",
+    fullContent: `HUGO ZBOR is a multi-disciplinary creative whose work spans content, music, and visual art. As his talent manager, the role covers everything from content strategy and brand partnerships to contract negotiation and audience growth.
 
 In the creator economy, talent management is part agent, part strategist, part therapist. It requires understanding platform algorithms, brand deal structures, audience psychology, and the human side of creative work.
 
 The technical skills from software engineering directly translate — building tools for analytics, automating outreach, and creating the digital infrastructure that lets talent focus on what they do best.`,
     status: "ongoing",
-    thumbnail: "/images/ventures/hugozbor.jpg",
-    links: [{ label: "HUGOZBOR Website", url: "https://hugozbor.com" }],
+    thumbnail: "/images/ventures/hugozbor-logo.png",
+    heroVideo: "/images/ventures/hugozbor-banner.mp4",
+    links: [
+      { label: "Website", url: "https://hugozbor.com" },
+      { label: "Instagram", url: "https://instagram.com/hugozbor" },
+      { label: "Manager", url: "https://instagram.com/sheivault" },
+    ],
     metrics: [
-      { label: "Focus", value: "Digital Creators" },
+      { label: "Focus", value: "Multi-Disciplinary Creative" },
       { label: "Scope", value: "Brand Deals & Growth" },
+      { label: "Collaborations", value: "23+" },
       { label: "Status", value: "Active" },
     ],
-    year: 2024,
+    year: 2025,
   },
 ];
 
