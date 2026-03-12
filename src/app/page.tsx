@@ -7,6 +7,7 @@ import { ventures } from "@/data/ventures";
 import LiquidGlassCard from "@/components/glass/LiquidGlassCard";
 import ProjectCard from "@/components/cards/ProjectCard";
 import HKSkyline from "@/components/hero/HKSkyline";
+import GitHubActivity from "@/components/dashboard/GitHubActivity";
 
 const featuredProjects = getFeaturedProjects();
 const featuredVenture = ventures[0]; // Anam Hotel
@@ -20,7 +21,7 @@ export default function Home() {
       {/* ─── Hero ─── */}
       <section
         className="relative flex flex-col items-center justify-center"
-        style={{ height: "calc(100vh - 60px)" }}
+        style={{ height: "calc(100vh - 80px)" }}
       >
         <HKSkyline />
         <div className="relative z-10 flex flex-col items-center gap-5 px-6">
@@ -150,6 +151,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ─── Git Activity ─── */}
+      <GitHubActivity />
 
       {/* ─── CTA ─── */}
       <section
