@@ -4,6 +4,8 @@ import "./globals.css";
 import AuroraBackground from "@/components/background/AuroraBackground";
 import Navigation from "@/components/layout/Navigation";
 import IntroProvider from "@/components/intro/IntroProvider";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -39,6 +41,8 @@ export default function RootLayout({
             {children}
           </AuroraBackground>
         </IntroProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
