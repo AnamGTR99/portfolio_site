@@ -143,7 +143,12 @@ function ContributionHeatmap({
   });
 
   return (
-    <div style={{ width: "100%", overflowX: "auto" }}>
+    <a
+      href="https://github.com/anamgtr99"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ display: "block", width: "100%", overflowX: "auto" }}
+    >
       <svg
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         width="100%"
@@ -220,7 +225,7 @@ function ContributionHeatmap({
           }),
         )}
       </svg>
-    </div>
+    </a>
   );
 }
 

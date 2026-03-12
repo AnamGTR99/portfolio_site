@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import AuroraBackground from "@/components/background/AuroraBackground";
 import Navigation from "@/components/layout/Navigation";
+import Footer from "@/components/layout/Footer";
 import IntroProvider from "@/components/intro/IntroProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -39,6 +40,7 @@ export default function RootLayout({
           <AuroraBackground>
             <Navigation />
             {children}
+            <Footer />
           </AuroraBackground>
         </IntroProvider>
         <Analytics />
