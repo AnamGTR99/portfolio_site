@@ -93,11 +93,11 @@ const LEVEL_COLORS = [
 ];
 
 const TODAY_LEVEL_COLORS = [
-  "rgba(255,160,0,0.35)",
-  "rgba(255,160,0,0.5)",
-  "rgba(255,160,0,0.7)",
-  "rgba(255,160,0,0.85)",
-  "rgba(255,160,0,1)",
+  "rgba(255,30,30,0.4)",
+  "rgba(255,30,30,0.55)",
+  "rgba(255,30,30,0.7)",
+  "rgba(255,30,30,0.85)",
+  "rgba(255,30,30,1)",
 ];
 
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -108,6 +108,13 @@ function ContributionHeatmap({
 }: {
   heatmap: GitHubActivityData["heatmap"];
 }) {
+  const [tooltip, setTooltip] = useState<{
+    x: number;
+    y: number;
+    text: string;
+    alignRight?: boolean;
+  } | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
   const todayStr = new Date().toISOString().split("T")[0];
 
   // Organize into weeks (columns of 7 days)
@@ -147,9 +154,11 @@ function ContributionHeatmap({
       href="https://github.com/anamgtr99"
       target="_blank"
       rel="noopener noreferrer"
-      style={{ display: "block", width: "100%", overflowX: "auto" }}
+      style={{ display: "block", width: "100%", overflowX: "auto", position: "relative" }}
+      onMouseLeave={() => setTooltip(null)}
     >
       <svg
+        ref={svgRef}
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         width="100%"
         style={{ display: "block" }}
@@ -197,6 +206,8 @@ function ContributionHeatmap({
               ? TODAY_LEVEL_COLORS[day.level] || TODAY_LEVEL_COLORS[0]
               : LEVEL_COLORS[day.level];
 
+            const tooltipText = `${day.count} contribution${day.count !== 1 ? "s" : ""} on ${day.date}${isToday ? " (today)" : ""}`;
+
             return (
               <motion.rect
                 key={day.date}
@@ -209,22 +220,65 @@ function ContributionHeatmap({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, delay: wi * 0.03 }}
-                style={
-                  isToday
+                style={{
+                  cursor: "pointer",
+                  ...(isToday
                     ? { animation: "pulse-today 2s ease-in-out infinite" }
-                    : undefined
-                }
-              >
-                <title>
-                  {day.date}: {day.count} contribution
-                  {day.count !== 1 ? "s" : ""}
-                  {isToday ? " (today)" : ""}
-                </title>
-              </motion.rect>
+                    : {}),
+                }}
+                onMouseEnter={() => {
+                  const svg = svgRef.current;
+                  if (!svg) return;
+                  const svgRect = svg.getBoundingClientRect();
+                  // Map SVG viewBox coords to screen coords
+                  const scaleX = svgRect.width / svgWidth;
+                  const scaleY = svgRect.height / svgHeight;
+                  const cellX = labelWidth + wi * (cellSize + cellGap);
+                  const cellY = monthLabelHeight + di * (cellSize + cellGap);
+                  const screenX = cellX * scaleX + (cellSize * scaleX) / 2;
+                  const screenY = cellY * scaleY;
+                  // Check if tooltip would overflow right edge
+                  const overflowRight = screenX > svgRect.width - 80;
+                  setTooltip({
+                    x: screenX,
+                    y: screenY,
+                    text: tooltipText,
+                    alignRight: overflowRight,
+                  });
+                }}
+                onMouseLeave={() => setTooltip(null)}
+              />
             );
           }),
         )}
       </svg>
+      {tooltip && (
+        <div
+          style={{
+            position: "absolute",
+            left: tooltip.alignRight ? "auto" : tooltip.x,
+            right: tooltip.alignRight ? 0 : "auto",
+            top: tooltip.y,
+            transform: tooltip.alignRight
+              ? "translateY(-100%)"
+              : "translate(-50%, -100%)",
+            background: "rgba(0,0,0,0.85)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: "6px",
+            padding: "5px 10px",
+            fontSize: "11px",
+            fontWeight: 400,
+            color: "rgba(245,245,245,0.85)",
+            whiteSpace: "nowrap",
+            pointerEvents: "none",
+            zIndex: 10,
+          }}
+        >
+          {tooltip.text}
+        </div>
+      )}
     </a>
   );
 }
