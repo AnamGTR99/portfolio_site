@@ -112,6 +112,7 @@ export default function Home() {
                 description={featuredVenture.description}
                 label={featuredVenture.role}
                 category="Venture"
+                thumbnail={featuredVenture.thumbnail}
                 large
               />
             </div>
@@ -261,7 +262,30 @@ function FeaturedCard({
             borderRadius: "16px 16px 0 0",
           }}
         >
-          {thumbnail ? (
+          {thumbnail && thumbnail.match(/\.(png|webp|svg)$/) ? (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background:
+                  "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)",
+              }}
+            >
+              <img
+                src={thumbnail}
+                alt={title}
+                style={{
+                  maxWidth: "40%",
+                  maxHeight: "60%",
+                  objectFit: "contain",
+                  opacity: 0.5,
+                }}
+              />
+            </div>
+          ) : thumbnail ? (
             <img
               src={thumbnail}
               alt={title}

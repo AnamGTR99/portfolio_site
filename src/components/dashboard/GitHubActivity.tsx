@@ -60,7 +60,7 @@ function StatCounter({
       </div>
       <div
         style={{
-          fontSize: "clamp(20px, 3vw, 28px)",
+          fontSize: "clamp(18px, 2.5vw, 24px)",
           fontWeight: 600,
           color: "rgba(245,245,245,0.85)",
           letterSpacing: "-0.02em",
@@ -263,35 +263,34 @@ export default function GitHubActivity() {
         paddingBottom: "var(--spacing-group)",
       }}
     >
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
         {/* Section label */}
         <h2
+          className="glass-text"
           style={{
-            fontSize: "11px",
-            fontWeight: 500,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: "rgba(245,245,245,0.35)",
-            marginBottom: "16px",
+            fontSize: "clamp(28px, 5vw, 40px)",
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            marginBottom: "var(--spacing-group)",
           }}
         >
           Git Activity
         </h2>
 
         <LiquidGlassCard className="rounded-2xl">
-          <div style={{ padding: "24px" }}>
+          <div style={{ padding: "18px 20px" }}>
             {!isValidData ? (
               /* Skeleton */
               <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "20px",
+                  gap: "14px",
                 }}
               >
                 <div
                   className="grid grid-cols-2 sm:grid-cols-4"
-                  style={{ gap: "20px" }}
+                  style={{ gap: "14px" }}
                 >
                   {[1, 2, 3, 4].map((i) => (
                     <div key={i} style={{ textAlign: "center" }}>
@@ -373,7 +372,7 @@ export default function GitHubActivity() {
                     inView={inView}
                   />
                   <StatCounter
-                    label="YTD Contributions"
+                    label="2026 Contributions"
                     value={data.totalContributions}
                     inView={inView}
                   />
