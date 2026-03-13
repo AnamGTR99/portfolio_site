@@ -75,7 +75,7 @@ The technical skills from software engineering directly translate — building t
     metrics: [
       { label: "Focus", value: "Multi-Disciplinary Creative" },
       { label: "Scope", value: "Brand Deals & Growth" },
-      { label: "Collaborations", value: "23+" },
+      { label: "Collaborations", value: "45+" },
       { label: "Status", value: "Active" },
     ],
     year: 2025,
