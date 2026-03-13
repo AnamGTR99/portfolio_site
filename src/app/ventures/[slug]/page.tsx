@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ventures, getVentureBySlug } from "@/data/ventures";
+import LiquidGlassCard from "@/components/glass/LiquidGlassCard";
 
 export default function VentureDetailPage() {
   const params = useParams();
@@ -312,6 +313,81 @@ export default function VentureDetailPage() {
             ))}
           </div>
         </motion.div>
+
+        {/* ─── Brand Collaborations ─── */}
+        {venture.brandLogos && venture.brandLogos.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.38 }}
+            style={{ marginBottom: "var(--spacing-group)" }}
+          >
+            <h2
+              style={{
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "rgba(245,245,245,0.35)",
+                marginBottom: "24px",
+              }}
+            >
+              Some Collaborations
+            </h2>
+            <div
+              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5"
+              style={{ gap: "12px" }}
+            >
+              {venture.brandLogos.map((logo) => (
+                <LiquidGlassCard key={logo.name} className="rounded-xl">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "16px 12px 12px",
+                      gap: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        height: "40px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img
+                        src={logo.src}
+                        alt={logo.name}
+                        style={{
+                          maxWidth: "80px",
+                          maxHeight: "40px",
+                          objectFit: "contain",
+                          filter: "grayscale(1) brightness(0) invert(1)",
+                          opacity: 0.7,
+                        }}
+                      />
+                    </div>
+                    <span
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: 400,
+                        letterSpacing: "0.04em",
+                        color: "rgba(245,245,245,0.35)",
+                        textAlign: "center",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {logo.name}
+                    </span>
+                  </div>
+                </LiquidGlassCard>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* ─── Links ─── */}
         {venture.links && venture.links.length > 0 && (

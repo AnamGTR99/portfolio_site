@@ -9,6 +9,7 @@ export interface Venture {
   heroImage?: string;
   heroVideo?: string;
   images?: string[];
+  brandLogos?: { src: string; name: string }[];
   links?: { label: string; url: string }[];
   metrics?: { label: string; value: string }[];
   year: number;
@@ -55,6 +56,17 @@ The technical skills from software engineering directly translate — building t
     status: "ongoing",
     thumbnail: "/images/ventures/hugozbor-logo.png",
     heroVideo: "/images/ventures/hugozbor-banner.mp4",
+    brandLogos: [
+      { src: "/images/brands/Converse-Logo.png", name: "CONVERSE" },
+      { src: "/images/brands/BENECULTURE.webp", name: "BENECULTURE" },
+      { src: "/images/brands/CONROY-US.webp", name: "CONROY US" },
+      { src: "/images/brands/BLACK-_CLEAR_.png", name: "99CLOVER" },
+      { src: "/images/brands/LOVENANGELS.png", name: "LOVENANGELS" },
+      { src: "/images/brands/ULTRALIGHT-TEXT-LOGO.png", name: "ULTRALIGHT LONDON" },
+      { src: "/images/brands/aformunseen.png", name: "A FORM UNSEEN" },
+      { src: "/images/brands/omnee.png", name: "OMNEE WORLD" },
+      { src: "/images/brands/pcmkr.png", name: "PEACEMAKER" },
+    ],
     links: [
       { label: "Website", url: "https://hugozbor.com" },
       { label: "Instagram", url: "https://instagram.com/hugozbor" },
