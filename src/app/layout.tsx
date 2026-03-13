@@ -15,15 +15,15 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   title: {
-    default: "Anam — Software Engineer, Hotelier, Talent Manager",
+    default: "Anam — AI Software Engineer, Hotelier, Talent Manager",
     template: "%s | Anam",
   },
   description:
-    "Portfolio of Anam — software engineering, hospitality, and talent management.",
+    "Portfolio of Anam — AI software engineering, hospitality, and talent management.",
   openGraph: {
-    title: "Anam — Software Engineer, Hotelier, Talent Manager",
+    title: "Anam — AI Software Engineer, Hotelier, Talent Manager",
     description:
-      "Portfolio of Anam — software engineering, hospitality, and talent management.",
+      "Portfolio of Anam — AI software engineering, hospitality, and talent management.",
     type: "website",
   },
 };
