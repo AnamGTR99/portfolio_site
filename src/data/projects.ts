@@ -70,7 +70,7 @@ export const projects: Project[] = [
       "Google Cloud Vision",
       "Google Gemini AI",
     ],
-    categories: ["ai-native", "mobile", "passion-project"],
+    categories: ["ai-native", "mobile"],
     thumbnail: "/images/projects/medpal.png",
     demoVideo: "/videos/projects/medpal.mp4",
     liveUrl: "https://devpost.com/software/medpal-q87jmd",
