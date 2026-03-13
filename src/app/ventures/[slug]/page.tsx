@@ -109,7 +109,8 @@ export default function VentureDetailPage() {
               style={{
                 fontSize: "10px",
                 fontWeight: 500,
-                letterSpacing: "0.06em",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
                 color:
                   venture.status === "ongoing"
                     ? "rgba(100,220,100,0.85)"
@@ -124,8 +125,22 @@ export default function VentureDetailPage() {
                   venture.status === "ongoing"
                     ? "1px solid rgba(100,220,100,0.15)"
                     : "1px solid rgba(255,255,255,0.08)",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
               }}
             >
+              {venture.status === "ongoing" && (
+                <span
+                  className="live-dot"
+                  style={{
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "50%",
+                    background: "rgba(100,220,100,0.85)",
+                  }}
+                />
+              )}
               {venture.status === "ongoing" ? "Ongoing" : "Completed"}
             </span>
 

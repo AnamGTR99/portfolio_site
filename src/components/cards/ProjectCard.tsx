@@ -85,7 +85,7 @@ export default function ProjectCard({ project, large = false, onClick }: Project
           }}
         />
 
-        {/* Badges container */}
+        {/* Top badges container */}
         <div
           style={{
             position: "absolute",
@@ -119,8 +119,8 @@ export default function ProjectCard({ project, large = false, onClick }: Project
             {categoryLabels[primaryCategory] || primaryCategory}
           </span>
 
-          {/* Award or Badge */}
-          {topRightLabel && (
+          {/* Non-award badges stay top-right (gold) */}
+          {topRightLabel && !isAward && (
             <span
               style={{
                 fontSize: "10px",
@@ -140,6 +140,35 @@ export default function ProjectCard({ project, large = false, onClick }: Project
             </span>
           )}
         </div>
+
+        {/* Award badge — bottom left corner */}
+        {isAward && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "10px",
+              left: "16px",
+              zIndex: 2,
+            }}
+          >
+            <span
+              style={{
+                fontSize: "10px",
+                fontWeight: 500,
+                letterSpacing: "0.06em",
+                color: "rgba(255,215,0,0.85)",
+                background: "rgba(0,0,0,0.5)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                padding: "4px 10px",
+                borderRadius: "6px",
+                border: "1px solid rgba(255,215,0,0.15)",
+              }}
+            >
+              {topRightLabel}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* ─── Content ─── */}

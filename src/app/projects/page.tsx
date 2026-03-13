@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { projects, type ProjectCategory } from "@/data/projects";
 import ProjectCard from "@/components/cards/ProjectCard";
 
-type FilterKey = "all" | ProjectCategory;
+type FilterKey = "all" | ProjectCategory | "competition";
 
 const filters: { key: FilterKey; label: string }[] = [
   { key: "all", label: "All" },
@@ -14,6 +14,7 @@ const filters: { key: FilterKey; label: string }[] = [
   { key: "mobile", label: "Mobile Apps" },
   { key: "client-website", label: "Client Websites" },
   { key: "passion-project", label: "Passion Projects" },
+  { key: "competition", label: "Competitions" },
 ];
 
 export default function ProjectsPage() {
@@ -21,6 +22,8 @@ export default function ProjectsPage() {
 
   const filtered = useMemo(() => {
     if (activeFilter === "all") return projects;
+    if (activeFilter === "competition")
+      return projects.filter((p) => p.purpose === "Hackathon");
     return projects.filter((p) => p.categories.includes(activeFilter));
   }, [activeFilter]);
 

@@ -113,6 +113,7 @@ export default function Home() {
                 label={featuredVenture.role}
                 category="Venture"
                 thumbnail={featuredVenture.thumbnail}
+                status={featuredVenture.status}
                 large
               />
             </div>
@@ -240,6 +241,7 @@ function FeaturedCard({
   label,
   category,
   thumbnail,
+  status,
   large = false,
 }: {
   href: string;
@@ -248,6 +250,7 @@ function FeaturedCard({
   label: string;
   category: string;
   thumbnail?: string;
+  status?: "ongoing" | "completed";
   large?: boolean;
 }) {
   return (
@@ -317,27 +320,65 @@ function FeaturedCard({
                 "linear-gradient(to top, rgba(17,17,17,0.9) 0%, transparent 100%)",
             }}
           />
-          {/* Category badge */}
-          <span
+          {/* Badges */}
+          <div
             style={{
               position: "absolute",
               top: "14px",
               left: "16px",
-              fontSize: "10px",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "rgba(245,245,245,0.5)",
-              background: "rgba(0,0,0,0.4)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              padding: "4px 10px",
-              borderRadius: "6px",
-              border: "1px solid rgba(255,255,255,0.08)",
+              display: "flex",
+              gap: "6px",
             }}
           >
-            {category}
-          </span>
+            <span
+              style={{
+                fontSize: "10px",
+                fontWeight: 500,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "rgba(245,245,245,0.5)",
+                background: "rgba(0,0,0,0.4)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                padding: "4px 10px",
+                borderRadius: "6px",
+                border: "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              {category}
+            </span>
+            {status === "ongoing" && (
+              <span
+                style={{
+                  fontSize: "10px",
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "rgba(100,220,100,0.85)",
+                  background: "rgba(0,0,0,0.4)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  padding: "4px 10px",
+                  borderRadius: "6px",
+                  border: "1px solid rgba(100,220,100,0.15)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}
+              >
+                <span
+                  className="live-dot"
+                  style={{
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "50%",
+                    background: "rgba(100,220,100,0.85)",
+                  }}
+                />
+                Ongoing
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Text content */}

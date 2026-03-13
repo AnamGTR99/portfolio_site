@@ -159,9 +159,23 @@ export default function VenturesPage() {
                             ? "1px solid rgba(100,220,100,0.15)"
                             : "1px solid rgba(255,255,255,0.08)",
                         zIndex: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                       }}
                     >
-                      {venture.status === "ongoing" ? "Ongoing" : "Completed"}
+                      {venture.status === "ongoing" && (
+                        <span
+                          className="live-dot"
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            background: "rgba(100,220,100,0.85)",
+                          }}
+                        />
+                      )}
+                      {venture.status === "ongoing" ? "ONGOING" : "COMPLETED"}
                     </span>
 
                     {/* Content overlay at bottom */}

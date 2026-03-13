@@ -129,3 +129,19 @@ body {
     opacity: 0.7;
   }
 }
+
+@keyframes pulse-live {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.75);
+  }
+}
+
+.live-dot {
+  animation: pulse-live 1.5s ease-in-out infinite;
+}

@@ -168,7 +168,21 @@ export default function ProjectDetailPage() {
               "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)",
           }}
         >
-          {project.thumbnail && (
+          {project.demoVideo ? (
+            <video
+              src={project.demoVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: 0.8,
+              }}
+            />
+          ) : project.thumbnail ? (
             <img
               src={project.thumbnail}
               alt={project.title}
@@ -179,8 +193,9 @@ export default function ProjectDetailPage() {
                 opacity: 0.8,
               }}
             />
-          )}
+          ) : null}
         </motion.div>
+
 
         {/* ─── Overview ─── */}
         {project.longDescription && (
