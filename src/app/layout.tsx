@@ -15,15 +15,15 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   title: {
-    default: "Anam — AI Engineer at InLogic",
+    default: "Anam — AI Engineer, Talent Manager & Hotelier",
     template: "%s | Anam",
   },
   description:
-    "Portfolio of Sheik Anam Milfer — AI Engineer at InLogic. Projects, ventures, and everything in between.",
+    "Portfolio of Sheik Anam Milfer — AI Engineer, Talent Manager and Hotelier.",
   openGraph: {
-    title: "Anam — AI Engineer at InLogic",
+    title: "Anam — AI Engineer, Talent Manager & Hotelier",
     description:
-      "Portfolio of Sheik Anam Milfer — AI Engineer at InLogic. Projects, ventures, and everything in between.",
+      "Portfolio of Sheik Anam Milfer — AI Engineer, Talent Manager and Hotelier.",
     type: "website",
     url: "https://anam.info",
     images: [
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anam — AI Engineer at InLogic",
+    title: "Anam — AI Engineer, Talent Manager & Hotelier",
     description:
-      "Portfolio of Sheik Anam Milfer — AI Engineer at InLogic.",
+      "Portfolio of Sheik Anam Milfer — AI Engineer, Talent Manager and Hotelier.",
     images: ["https://anam.info/og-image.png"],
   },
 };
