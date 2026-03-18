@@ -163,14 +163,14 @@ export default function ProjectDetailPage() {
             overflow: "hidden",
             marginBottom: "var(--spacing-group)",
             border: "1px solid rgba(255,255,255,0.08)",
-            aspectRatio: project.slug === "pokemon-ai" ? "9 / 16" : "16 / 9",
-            ...(project.slug === "pokemon-ai" && {
+            aspectRatio: ["pokemon-ai", "puff"].includes(project.slug) ? "9 / 16" : "16 / 9",
+            ...(["pokemon-ai", "puff"].includes(project.slug) && {
               maxHeight: "600px",
               margin: "0 auto var(--spacing-group)",
               width: "auto",
               background: "transparent",
             }),
-            ...( project.slug !== "pokemon-ai" && {
+            ...(!["pokemon-ai", "puff"].includes(project.slug) && {
               background:
                 "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)",
             }),
@@ -186,7 +186,7 @@ export default function ProjectDetailPage() {
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: "cover",
+                objectFit: ["pokemon-ai", "puff"].includes(project.slug) ? "contain" : "cover",
                 opacity: 0.8,
               }}
             />
