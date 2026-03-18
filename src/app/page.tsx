@@ -45,7 +45,7 @@ export default function Home() {
               letterSpacing: "0.01em",
             }}
           >
-            Software, hospitality, and the spaces between.
+            Artificial Intelligence Engineer at InLogic
           </p>
         </div>
 
