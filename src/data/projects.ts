@@ -209,9 +209,9 @@ export const projects: Project[] = [
   },
   {
     slug: "ai-anime-companion",
-    title: "AI Anime Girlfriend",
+    title: "AI Anime Companion",
     description:
-      "3D anime avatar with real-time voice calling, lip-sync, and emotional expression changes driven by conversation sentiment. Supports OpenAI, Claude, and Gemini.",
+      "Interactive 3D anime avatar with real-time voice calling, lip-sync, and emotional expression changes driven by conversation sentiment. Multi-model AI support.",
     techStack: [
       "TypeScript",
       "React",
@@ -221,7 +221,7 @@ export const projects: Project[] = [
       "OpenAI",
       "Tailwind CSS",
     ],
-    categories: ["ai-native", "mobile", "passion-project"],
+    categories: ["ai-native", "web-app", "passion-project"],
     thumbnail: "/images/projects/ai-anime-companion.png",
     demoVideo: "/videos/projects/ai-girlfriend.mp4",
     githubUrl: "https://github.com/AnamGTR99/ai_anime_girl",
@@ -229,7 +229,7 @@ export const projects: Project[] = [
     year: 2025,
     buildTime: "1–2 days",
     role: "Solo",
-    purpose: "Passion Project",
+    purpose: "Technical Exploration",
   },
   {
     slug: "puff",
