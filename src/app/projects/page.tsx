@@ -52,7 +52,7 @@ export default function ProjectsPage() {
             paddingBottom: "var(--spacing-element)",
             paddingTop: "8px",
             background:
-              "linear-gradient(to bottom, rgba(10,10,10,0.95) 60%, transparent 100%)",
+              "linear-gradient(to bottom, var(--color-background) 60%, transparent 100%)",
           }}
         >
           <div className="flex flex-wrap" style={{ gap: "8px" }}>

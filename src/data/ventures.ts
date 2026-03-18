@@ -66,6 +66,7 @@ The technical skills from software engineering directly translate — building t
       { src: "/images/brands/aformunseen.png", name: "A FORM UNSEEN" },
       { src: "/images/brands/omnee.png", name: "OMNEE WORLD" },
       { src: "/images/brands/pcmkr.png", name: "PEACEMAKER" },
+      { src: "/images/brands/asics_logo_clean.png", name: "ASICS" },
     ],
     links: [
       { label: "Website", url: "https://hugozbor.com" },

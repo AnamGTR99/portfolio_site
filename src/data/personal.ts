@@ -2,7 +2,7 @@ export const personal = {
   name: "Anam",
   fullName: "Sheik Anam Milfer",
   role: "AI Software Engineer at InLogic",
-  tagline: "Software, hospitality, and the spaces between.",
+  tagline: "Artificial Intelligence Engineer at InLogic",
   bio: `Software engineer by trade, hotelier by ambition, talent manager by instinct. I build across domains because the interesting problems live at the intersections.
 
 In tech, I build full-stack applications — from AI-powered document automation to real-time collaborative tools. In hospitality, I run The Anam Hotel Colombo, a boutique hotel where every detail is intentional. In talent management, I help digital creators turn content into careers through HUGO ZBOR.

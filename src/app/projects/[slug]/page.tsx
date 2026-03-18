@@ -163,9 +163,17 @@ export default function ProjectDetailPage() {
             overflow: "hidden",
             marginBottom: "var(--spacing-group)",
             border: "1px solid rgba(255,255,255,0.08)",
-            aspectRatio: "16 / 9",
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)",
+            aspectRatio: project.slug === "pokemon-ai" ? "9 / 16" : "16 / 9",
+            ...(project.slug === "pokemon-ai" && {
+              maxHeight: "600px",
+              margin: "0 auto var(--spacing-group)",
+              width: "auto",
+              background: "transparent",
+            }),
+            ...( project.slug !== "pokemon-ai" && {
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)",
+            }),
           }}
         >
           {project.demoVideo ? (

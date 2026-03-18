@@ -177,6 +177,65 @@ export default function ContactPage() {
             >
               Based in {personal.location}
             </span>
+
+            {/* Journey timeline */}
+            <div
+              className="flex flex-wrap"
+              style={{
+                marginTop: "16px",
+                gap: "0",
+                alignItems: "center",
+              }}
+            >
+              {[
+                { city: "Hong Kong", years: "2003–2016" },
+                { city: "Kuala Lumpur", years: "2016–2020" },
+                { city: "Hong Kong", years: "2020–2022" },
+                { city: "Melbourne", years: "2022–Present" },
+              ].map((stop, i) => (
+                <div
+                  key={i}
+                  className="flex items-center"
+                >
+                  <div style={{ textAlign: "center", padding: "0 4px" }}>
+                    <span
+                      style={{
+                        display: "block",
+                        fontSize: "12px",
+                        fontWeight: 400,
+                        color:
+                          i === 3
+                            ? "rgba(245,245,245,0.6)"
+                            : "rgba(245,245,245,0.3)",
+                        letterSpacing: "-0.01em",
+                      }}
+                    >
+                      {stop.city}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: 300,
+                        color: "rgba(245,245,245,0.2)",
+                      }}
+                    >
+                      {stop.years}
+                    </span>
+                  </div>
+                  {i < 3 && (
+                    <span
+                      style={{
+                        margin: "0 6px",
+                        fontSize: "10px",
+                        color: "rgba(245,245,245,0.15)",
+                      }}
+                    >
+                      →
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
           </motion.div>
         </motion.div>
       </div>

@@ -77,18 +77,16 @@ export default function AboutPage() {
 
           {/* Intro card */}
           <div style={{ flex: 1 }}>
-            <div style={{ marginBottom: "8px" }}>
-              <span
+            <div style={{ marginBottom: "20px" }}>
+              <img
+                src="/images/inlogic-logo.png"
+                alt="InLogic"
                 style={{
-                  fontSize: "10px",
-                  fontWeight: 500,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "rgba(245,245,245,0.35)",
+                  height: "56px",
+                  filter: "invert(1)",
+                  opacity: 0.75,
                 }}
-              >
-                {personal.role}
-              </span>
+              />
             </div>
             <h2
               style={{
@@ -221,7 +219,7 @@ export default function AboutPage() {
               {
                 title: "Software Engineering",
                 description:
-                  "Full-stack development with a focus on AI-powered applications, real-time systems, and products that solve real problems.",
+                  "AI Engineer at InLogic — building intelligent automation, AI-powered applications, and full-stack products that solve real problems.",
               },
               {
                 title: "Hospitality",

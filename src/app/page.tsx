@@ -176,7 +176,7 @@ export default function Home() {
               letterSpacing: "-0.02em",
             }}
           >
-            Let&apos;s build something together.
+            Let&apos;s chat.
           </h2>
           <p
             style={{
@@ -186,8 +186,8 @@ export default function Home() {
               maxWidth: "420px",
             }}
           >
-            Open to opportunities in software, hospitality, and everything in
-            between.
+            Open to coffees, collaborations, and the occasional unsolicited
+            startup pitch.
           </p>
           <Link
             href="/contact"

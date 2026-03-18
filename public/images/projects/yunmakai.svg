@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#0A0A0A"/>
+  <text x="400" y="215" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="300" letter-spacing="0.2em" fill="rgba(245,245,245,0.35)">IN PRODUCTION</text>
+  <text x="400" y="255" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="300" fill="rgba(245,245,245,0.2)">Coming soon</text>
+</svg>

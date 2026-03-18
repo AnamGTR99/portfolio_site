@@ -33,7 +33,7 @@ export default function VenturesPage() {
             maxWidth: "560px",
           }}
         >
-          Businesses and roles beyond software — hospitality, talent management,
+          What I build outside of InLogic — hospitality, talent management,
           and the spaces where industries intersect.
         </p>
 
