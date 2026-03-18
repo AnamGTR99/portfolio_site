@@ -83,35 +83,6 @@ export const projects: Project[] = [
     purpose: "Hackathon",
   },
   {
-    slug: "ai-lease-processing",
-    title: "AI-Powered Lease Processing",
-    description:
-      "Full-stack document automation that extracts 14 key fields from lease agreements and generates tenant welcome packs. Achieved 100% accuracy across 70 fields.",
-    longDescription:
-      "An AI-powered web app that automates extraction of key data fields from signed lease documents (PDF/DOCX) and generates customized Tenant Welcome Pack documents. Built for a property management firm handling 200+ Melbourne rental properties. Achieved 100% accuracy — 70/70 fields correct across 5 sample leases, 39/39 verification checks passed.",
-    techStack: [
-      "TypeScript",
-      "React",
-      "Python",
-      "FastAPI",
-      "Google Gemini",
-      "Supabase",
-      "Tailwind CSS",
-      "Framer Motion",
-    ],
-    categories: ["ai-native", "web-app"],
-    thumbnail: "/images/projects/lease_image.png",
-    demoVideo: "/videos/projects/lease_vid.mp4",
-    liveUrl: "https://ai-powered-lease-processing-tenant.vercel.app/",
-    githubUrl:
-      "https://github.com/AnamGTR99/AI-Powered-Lease-Processing-Tenant-Welcome-Pack-Generator",
-    featured: true,
-    year: 2025,
-    buildTime: "2 days",
-    role: "Solo Full-stack",
-    purpose: "Technical Assessment",
-  },
-  {
     slug: "airtable-clone",
     title: "Airtable Clone",
     description:
