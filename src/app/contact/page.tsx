@@ -320,7 +320,9 @@ export default function ContactPage() {
                     ? "AnamGTR99"
                     : name === "linkedin"
                       ? "Sheik Anam Milfer"
-                      : "@sheivault"}{" "}
+                      : name === "devpost"
+                        ? "@AnamGTR99"
+                        : "@sheivault"}{" "}
                   ↗
                 </span>
               </a>
