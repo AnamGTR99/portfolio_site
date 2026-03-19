@@ -15,6 +15,7 @@ The common thread is craft: understanding systems, caring about details, and bui
     linkedin:
       "https://www.linkedin.com/in/sheik-anam-milfer-9aa15b213/",
     instagram: "https://instagram.com/sheivault",
+    devpost: "https://devpost.com/AnamGTR99",
   },
   funFacts: [
     { emoji: "🇭🇰", text: "Born and raised in Hong Kong" },

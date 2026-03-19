@@ -103,7 +103,7 @@ export const projects: Project[] = [
     categories: ["ai-native", "web-app"],
     thumbnail: "/images/projects/SpeechMax.jpg",
     youtubeId: "BV84L0RxuVo",
-    liveUrl: "https://devpost.com/software/speechmax",
+    liveUrl: "https://speechmax-theta.vercel.app/",
     featured: true,
     year: 2025,
     award: "Submission — UniHack Australia 2026",

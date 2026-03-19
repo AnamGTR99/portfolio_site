@@ -65,7 +65,7 @@ export default function AboutPage() {
             }}
           >
             <img
-              src="/images/anam-about.jpg"
+              src="/images/anam-about-2.JPG"
               alt="Anam"
               style={{
                 width: "100%",
