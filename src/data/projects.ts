@@ -78,7 +78,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/AnamGTR99/medpal_ai",
     featured: true,
     year: 2025,
-    award: "Healthcare Track Winner — MelbourneHack 2025",
+    award: "1st Place — MelbourneHack 2025",
     buildTime: "48 hours",
     role: "Team Lead & Full-stack",
     purpose: "Hackathon",
