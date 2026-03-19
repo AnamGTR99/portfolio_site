@@ -176,7 +176,19 @@ export default function ProjectDetailPage() {
             }),
           }}
         >
-          {project.demoVideo ? (
+          {project.youtubeId ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${project.youtubeId}`}
+              title={project.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{
+                width: "100%",
+                height: "100%",
+                border: "none",
+              }}
+            />
+          ) : project.demoVideo ? (
             <video
               src={project.demoVideo}
               autoPlay

@@ -15,6 +15,7 @@ export interface Project {
   thumbnail: string;
   images?: string[];
   demoVideo?: string;
+  youtubeId?: string;
   liveUrl?: string;
   githubUrl?: string;
   featured: boolean;
@@ -44,7 +45,7 @@ export const projects: Project[] = [
       "Tailwind CSS",
       "shadcn/ui",
     ],
-    categories: ["ai-native"],
+    categories: ["ai-native", "web-app"],
     thumbnail: "/images/projects/dive.jpg",
     demoVideo: "/videos/projects/dive.mp4",
     liveUrl: "https://www.youtube.com/watch?v=w22c15X_1BA",
@@ -80,6 +81,34 @@ export const projects: Project[] = [
     award: "Healthcare Track Winner — MelbourneHack 2025",
     buildTime: "48 hours",
     role: "Team Lead & Full-stack",
+    purpose: "Hackathon",
+  },
+  {
+    slug: "speechmax",
+    title: "SpeechMax",
+    description:
+      "AI-powered speech coaching app that analyzes public speaking across clarity, confidence, pacing, expression, and composure using browser-based computer vision and audio analysis.",
+    longDescription:
+      "SpeechMax analyzes five speaking dimensions through real-time browser-based ML processing. Users complete a 30-second assessment generating an animated radar chart, then engage with five gamified mini-games targeting their weaknesses: Filler Ninja, Eye Lock, Pace Racer, Pitch Surfer, and Stage Presence. An AI coach named Mike provides personalized feedback via in-app chat. Built in 48 hours at UNIHACK 2026.",
+    techStack: [
+      "TypeScript",
+      "React",
+      "Vite",
+      "MediaPipe",
+      "Google Gemini",
+      "Supabase",
+      "Framer Motion",
+      "Tailwind CSS",
+    ],
+    categories: ["ai-native", "web-app"],
+    thumbnail: "/images/projects/SpeechMax.jpg",
+    youtubeId: "BV84L0RxuVo",
+    liveUrl: "https://devpost.com/software/speechmax",
+    featured: true,
+    year: 2025,
+    award: "Submission — UniHack Australia 2026",
+    buildTime: "48 hours",
+    role: "Team Lead",
     purpose: "Hackathon",
   },
   {
