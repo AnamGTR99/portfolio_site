@@ -9,7 +9,7 @@ export interface Venture {
   heroImage?: string;
   heroVideo?: string;
   images?: string[];
-  brandLogos?: { src: string; name: string }[];
+  brandLogos?: { src: string; name: string; scale?: number }[];
   links?: { label: string; url: string }[];
   metrics?: { label: string; value: string }[];
   year: number;
@@ -58,6 +58,9 @@ The technical skills from software engineering directly translate — building t
     heroVideo: "/images/ventures/hugozbor-banner.mp4",
     brandLogos: [
       { src: "/images/brands/Converse-Logo.png", name: "CONVERSE" },
+      { src: "/images/brands/asics_logo_clean.png", name: "ASICS" },
+      { src: "/images/brands/named_collective.png", name: "NAMED COLLECTIVE", scale: 1.7 },
+      { src: "/images/brands/8illy.png", name: "8ILLY" },
       { src: "/images/brands/BENECULTURE.webp", name: "BENECULTURE" },
       { src: "/images/brands/CONROY-US.webp", name: "CONROY US" },
       { src: "/images/brands/BLACK-_CLEAR_.png", name: "99CLOVER" },
@@ -66,7 +69,6 @@ The technical skills from software engineering directly translate — building t
       { src: "/images/brands/aformunseen.png", name: "A FORM UNSEEN" },
       { src: "/images/brands/omnee.png", name: "OMNEE WORLD" },
       { src: "/images/brands/pcmkr.png", name: "PEACEMAKER" },
-      { src: "/images/brands/asics_logo_clean.png", name: "ASICS" },
     ],
     links: [
       { label: "Website", url: "https://hugozbor.com" },

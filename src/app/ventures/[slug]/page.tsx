@@ -377,8 +377,8 @@ export default function VentureDetailPage() {
                         src={logo.src}
                         alt={logo.name}
                         style={{
-                          maxWidth: "80px",
-                          maxHeight: "40px",
+                          maxWidth: `${80 * (logo.scale ?? 1)}px`,
+                          maxHeight: `${40 * (logo.scale ?? 1)}px`,
                           objectFit: "contain",
                           filter: "grayscale(1) brightness(0) invert(1)",
                           opacity: 0.7,
@@ -455,7 +455,7 @@ export default function VentureDetailPage() {
                     }
                   }}
                 >
-                  {link.label} ↗
+                  {link.label} <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" style={{display:"inline",verticalAlign:"middle",marginLeft:"2px"}}><path d="M3 9L9 3M9 3H4.5M9 3V7.5"/></svg>
                 </a>
               ))}
             </div>

@@ -251,7 +251,7 @@ export default function ProjectCard({ project, large = false, onClick }: Project
                 (e.currentTarget.style.color = "rgba(245,245,245,0.4)")
               }
             >
-              GitHub ↗
+              GitHub <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" style={{display:"inline",verticalAlign:"middle",marginLeft:"2px"}}><path d="M3 9L9 3M9 3H4.5M9 3V7.5"/></svg>
             </span>
           )}
           {liveUrl && (
@@ -276,7 +276,7 @@ export default function ProjectCard({ project, large = false, onClick }: Project
                 (e.currentTarget.style.color = "rgba(245,245,245,0.4)")
               }
             >
-              Live Demo ↗
+              Live Demo <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" style={{display:"inline",verticalAlign:"middle",marginLeft:"2px"}}><path d="M3 9L9 3M9 3H4.5M9 3V7.5"/></svg>
             </span>
           )}
         </div>

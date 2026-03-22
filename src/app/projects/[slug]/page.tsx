@@ -379,7 +379,7 @@ export default function ProjectDetailPage() {
                     transition: "all 0.2s",
                   }}
                 >
-                  GitHub ↗
+                  GitHub <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" style={{display:"inline",verticalAlign:"middle",marginLeft:"2px"}}><path d="M3 9L9 3M9 3H4.5M9 3V7.5"/></svg>
                 </a>
               )}
               {project.liveUrl && (
@@ -404,7 +404,7 @@ export default function ProjectDetailPage() {
                     (e.currentTarget.style.background = "rgba(245,245,245,0.85)")
                   }
                 >
-                  Live Demo ↗
+                  Live Demo <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" style={{display:"inline",verticalAlign:"middle",marginLeft:"2px"}}><path d="M3 9L9 3M9 3H4.5M9 3V7.5"/></svg>
                 </a>
               )}
             </div>
