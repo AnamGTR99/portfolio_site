@@ -106,7 +106,7 @@ export const projects: Project[] = [
     liveUrl: "https://speechmax-theta.vercel.app/",
     featured: true,
     year: 2025,
-    award: "Submission — UniHack Australia 2026",
+    award: "Top 5 — UNIHACK ANZ 2026 (183 Teams)",
     buildTime: "48 hours",
     role: "Team Lead",
     purpose: "Hackathon",
