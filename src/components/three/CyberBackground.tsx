@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 /* Shared normalized pointer — canvas sits behind content with
@@ -20,8 +20,13 @@ function usePointerTracking() {
 }
 
 /* ─── Neon wireframe city ─── */
-function City({ count }: { count: number }) {
+function City({ count, narrow }: { count: number; narrow: boolean }) {
   const group = useRef<THREE.Group>(null);
+
+  // Phones see a much narrower frustum — pull the tower banks inward so
+  // the city stays in frame instead of flanking empty space.
+  const canyonHalfWidth = narrow ? 1.6 : 3.2;
+  const bankDepth = narrow ? 7 : 16;
 
   const buildings = useMemo(() => {
     const rng = mulberry32(20261999);
@@ -37,7 +42,7 @@ function City({ count }: { count: number }) {
       const d = 0.6 + rng() * 1.4;
       // two receding banks of towers, a canyon down the middle
       const side = rng() > 0.5 ? 1 : -1;
-      const x = side * (3.2 + rng() * 16);
+      const x = side * (canyonHalfWidth + rng() * bankDepth);
       const z = -3 - rng() * 30;
       const hot = rng() < 0.14;
       list.push({
@@ -48,7 +53,7 @@ function City({ count }: { count: number }) {
       });
     }
     return list;
-  }, [count]);
+  }, [count, canyonHalfWidth, bankDepth]);
 
   useEffect(() => {
     return () => buildings.forEach((b) => b.geo.dispose());
@@ -261,6 +266,55 @@ function mulberry32(seed: number) {
   };
 }
 
+function supportsWebGL(): boolean {
+  try {
+    const c = document.createElement("canvas");
+    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * CSS-only fallback when WebGL is unavailable — a static perspective grid
+ * with neon glows, so the substrate never reads as dead black.
+ */
+function CssGridFallback() {
+  return (
+    <>
+      <div
+        style={{
+          position: "absolute",
+          left: "-30%",
+          right: "-30%",
+          top: "52%",
+          bottom: 0,
+          transform: "perspective(420px) rotateX(62deg)",
+          transformOrigin: "50% 0%",
+          backgroundImage:
+            "repeating-linear-gradient(0deg, rgba(0,240,255,0.16) 0px, rgba(0,240,255,0.16) 1px, transparent 1px, transparent 44px)," +
+            "repeating-linear-gradient(90deg, rgba(0,240,255,0.16) 0px, rgba(0,240,255,0.16) 1px, transparent 1px, transparent 44px)",
+          maskImage:
+            "linear-gradient(180deg, transparent 0%, black 30%, black 100%)",
+          WebkitMaskImage:
+            "linear-gradient(180deg, transparent 0%, black 30%, black 100%)",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: "40%",
+          height: "24%",
+          background:
+            "radial-gradient(ellipse 70% 100% at 50% 100%, rgba(0,240,255,0.1) 0%, transparent 70%)",
+        }}
+      />
+    </>
+  );
+}
+
 export default function CyberBackground() {
   usePointerTracking();
 
@@ -270,6 +324,10 @@ export default function CyberBackground() {
   const reduced =
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const webglOK = useMemo(
+    () => typeof window !== "undefined" && supportsWebGL(),
+    [],
+  );
 
   return (
     <div
@@ -281,19 +339,30 @@ export default function CyberBackground() {
         pointerEvents: "none",
       }}
     >
-      <Canvas
-        dpr={[1, 1.6]}
-        frameloop={reduced ? "demand" : "always"}
-        camera={{ position: [0, 0.4, 9], fov: 60, near: 0.1, far: 80 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-      >
-        <fog attach="fog" args={["#04040a", 10, 42]} />
-        <CameraRig />
-        <City count={isMobile ? 34 : 72} />
-        <GridFloor />
-        <Shards count={isMobile ? 6 : 14} />
-        <Particles count={isMobile ? 250 : 700} />
-      </Canvas>
+      {webglOK ? (
+        <Canvas
+          dpr={[1, 1.6]}
+          frameloop={reduced ? "demand" : "always"}
+          camera={{ position: [0, 0.4, 9], fov: 60, near: 0.1, far: 80 }}
+          gl={{
+            antialias: !isMobile,
+            alpha: true,
+            // "high-performance" makes some constrained environments refuse
+            // to create a context at all — only request it on desktop.
+            powerPreference: isMobile ? "default" : "high-performance",
+            failIfMajorPerformanceCaveat: false,
+          }}
+        >
+          <fog attach="fog" args={["#04040a", 10, 42]} />
+          <CameraRig />
+          <City count={isMobile ? 34 : 72} narrow={isMobile} />
+          <GridFloor />
+          <Shards count={isMobile ? 6 : 14} />
+          <Particles count={isMobile ? 250 : 700} />
+        </Canvas>
+      ) : (
+        <CssGridFallback />
+      )}
       {/* Horizon glow */}
       <div
         style={{

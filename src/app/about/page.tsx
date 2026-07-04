@@ -62,7 +62,7 @@ export default function AboutPage() {
                 <div style={{ aspectRatio: "3 / 4", overflow: "hidden" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/anam-about-2.JPG"
+                    src="/images/anam-about-3.jpg"
                     alt="Anam"
                     style={{
                       width: "100%",
