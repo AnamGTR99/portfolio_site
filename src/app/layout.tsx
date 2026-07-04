@@ -1,16 +1,30 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Geist_Mono, Chakra_Petch } from "next/font/google";
 import "./globals.css";
-import AuroraBackground from "@/components/background/AuroraBackground";
+import CyberBackgroundLoader from "@/components/three/CyberBackgroundLoader";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import IntroProvider from "@/components/intro/IntroProvider";
+import SmoothScroll from "@/components/motion/SmoothScroll";
+import CustomCursor from "@/components/motion/CustomCursor";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geist = Geist({
   variable: "--font-geist",
   subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
+const chakra = Chakra_Petch({
+  variable: "--font-chakra",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -31,7 +45,7 @@ export const metadata: Metadata = {
         url: "https://anam.info/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Anam — AI Engineer at InLogic",
+        alt: "Anam — AI Engineer at Eleno",
       },
     ],
   },
@@ -51,14 +65,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geist.variable} ${geist.className} antialiased`}>
+      <body
+        className={`${geist.variable} ${geistMono.variable} ${chakra.variable} ${geist.className} antialiased`}
+      >
+        <SmoothScroll />
+        <CustomCursor />
+        <CyberBackgroundLoader />
         <IntroProvider>
-          <AuroraBackground>
+          <div style={{ position: "relative", zIndex: 10 }}>
             <Navigation />
             {children}
             <Footer />
-          </AuroraBackground>
+          </div>
         </IntroProvider>
+        <div className="grain-overlay" aria-hidden />
+        <div className="vignette-overlay" aria-hidden />
+        <div className="scanlines-overlay" aria-hidden />
         <Analytics />
         <SpeedInsights />
       </body>

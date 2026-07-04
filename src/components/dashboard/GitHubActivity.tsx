@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import type { GitHubActivityData } from "@/lib/github";
-import LiquidGlassCard from "@/components/glass/LiquidGlassCard";
+import CyberPanel from "@/components/ui/CyberPanel";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -52,7 +52,7 @@ function StatCounter({
           fontWeight: 500,
           letterSpacing: "0.1em",
           textTransform: "uppercase",
-          color: "rgba(245,245,245,0.3)",
+          color: "rgba(0,240,255,0.5)",
           marginBottom: "6px",
         }}
       >
@@ -62,7 +62,7 @@ function StatCounter({
         style={{
           fontSize: "clamp(18px, 2.5vw, 24px)",
           fontWeight: 600,
-          color: "rgba(245,245,245,0.85)",
+          color: "#e6f8ff",
           letterSpacing: "-0.02em",
         }}
       >
@@ -72,7 +72,7 @@ function StatCounter({
             style={{
               fontSize: "14px",
               fontWeight: 400,
-              color: "rgba(245,245,245,0.4)",
+              color: "rgba(230,248,255,0.4)",
               marginLeft: "4px",
             }}
           >
@@ -85,19 +85,19 @@ function StatCounter({
 }
 
 const LEVEL_COLORS = [
-  "rgba(255,255,255,0.04)",
-  "#0e4429",
-  "#006d32",
-  "#26a641",
-  "#39d353",
+  "rgba(0,240,255,0.06)",
+  "rgba(0,240,255,0.24)",
+  "rgba(0,240,255,0.48)",
+  "rgba(0,240,255,0.74)",
+  "#00f0ff",
 ];
 
 const TODAY_LEVEL_COLORS = [
-  "rgba(255,30,30,0.4)",
-  "rgba(255,30,30,0.55)",
-  "rgba(255,30,30,0.7)",
-  "rgba(255,30,30,0.85)",
-  "rgba(255,30,30,1)",
+  "rgba(255,42,109,0.4)",
+  "rgba(255,42,109,0.55)",
+  "rgba(255,42,109,0.7)",
+  "rgba(255,42,109,0.85)",
+  "rgba(255,42,109,1)",
 ];
 
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -178,7 +178,7 @@ function ContributionHeatmap({
             key={m.label + m.x}
             x={m.x}
             y={6}
-            fill="rgba(245,245,245,0.2)"
+            fill="rgba(0,240,255,0.4)"
             fontSize="3.5"
             fontFamily="inherit"
           >
@@ -191,7 +191,7 @@ function ContributionHeatmap({
             key={label}
             x={0}
             y={monthLabelHeight + row * (cellSize + cellGap) + cellSize - 2}
-            fill="rgba(245,245,245,0.2)"
+            fill="rgba(0,240,255,0.4)"
             fontSize="3.5"
             fontFamily="inherit"
           >
@@ -265,12 +265,12 @@ function ContributionHeatmap({
             background: "rgba(0,0,0,0.85)",
             backdropFilter: "blur(8px)",
             WebkitBackdropFilter: "blur(8px)",
-            border: "1px solid rgba(255,255,255,0.1)",
+            border: "1px solid rgba(0,240,255,0.3)",
             borderRadius: "6px",
             padding: "5px 10px",
             fontSize: "11px",
             fontWeight: 400,
-            color: "rgba(245,245,245,0.85)",
+            color: "#e6f8ff",
             whiteSpace: "nowrap",
             pointerEvents: "none",
             zIndex: 10,
@@ -324,19 +324,30 @@ export default function GitHubActivity() {
     >
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
         {/* Section label */}
-        <h2
-          className="glass-text"
-          style={{
-            fontSize: "clamp(28px, 5vw, 40px)",
-            fontWeight: 700,
-            letterSpacing: "-0.03em",
-            marginBottom: "var(--spacing-group)",
-          }}
-        >
-          Git Activity
-        </h2>
+        <div style={{ marginBottom: "40px" }}>
+          <div
+            className="flex items-center"
+            style={{ gap: "14px", marginBottom: "12px" }}
+          >
+            <span className="mono-label" style={{ color: "#ff2a6d" }}>
+              02
+            </span>
+            <span className="mono-label-dim">{"//"}</span>
+            <div className="hairline" style={{ flex: 1 }} />
+          </div>
+          <h2
+            className="display"
+            style={{
+              fontSize: "clamp(30px, 5.5vw, 54px)",
+              color: "#e6f8ff",
+              textShadow: "0 0 24px rgba(0,240,255,0.18)",
+            }}
+          >
+            GIT_UPLINK
+          </h2>
+        </div>
 
-        <LiquidGlassCard className="rounded-2xl">
+        <CyberPanel scan>
           <div style={{ padding: "18px 20px" }}>
             {!isValidData ? (
               /* Skeleton */
@@ -357,7 +368,7 @@ export default function GitHubActivity() {
                         style={{
                           width: "60px",
                           height: "8px",
-                          background: "rgba(255,255,255,0.06)",
+                          background: "rgba(0,240,255,0.12)",
                           borderRadius: "4px",
                           margin: "0 auto 10px",
                         }}
@@ -402,7 +413,7 @@ export default function GitHubActivity() {
                         fontWeight: 500,
                         letterSpacing: "0.1em",
                         textTransform: "uppercase",
-                        color: "rgba(245,245,245,0.3)",
+                        color: "rgba(0,240,255,0.5)",
                         marginBottom: "6px",
                       }}
                     >
@@ -412,7 +423,7 @@ export default function GitHubActivity() {
                       style={{
                         fontSize: "clamp(13px, 2vw, 15px)",
                         fontWeight: 500,
-                        color: "rgba(245,245,245,0.6)",
+                        color: "rgba(230,248,255,0.6)",
                         letterSpacing: "0.01em",
                       }}
                     >
@@ -431,7 +442,7 @@ export default function GitHubActivity() {
                     inView={inView}
                   />
                   <StatCounter
-                    label="2026 Contributions"
+                    label={`${data.contributionYear ?? new Date().getFullYear()} Contributions`}
                     value={data.totalContributions}
                     inView={inView}
                   />
@@ -441,7 +452,7 @@ export default function GitHubActivity() {
                 <div
                   style={{
                     height: "1px",
-                    background: "rgba(255,255,255,0.06)",
+                    background: "rgba(0,240,255,0.12)",
                   }}
                 />
 
@@ -450,7 +461,7 @@ export default function GitHubActivity() {
               </div>
             )}
           </div>
-        </LiquidGlassCard>
+        </CyberPanel>
       </div>
     </section>
   );

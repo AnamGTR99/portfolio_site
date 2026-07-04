@@ -3,72 +3,124 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ventures } from "@/data/ventures";
-import LiquidGlassCard from "@/components/glass/LiquidGlassCard";
+import CyberPanel from "@/components/ui/CyberPanel";
+import DecoderText from "@/components/motion/DecoderText";
+
+const EASE = [0.76, 0, 0.24, 1] as const;
 
 export default function VenturesPage() {
   return (
-    <div
-      style={{ paddingTop: "100px", paddingBottom: "var(--spacing-section)" }}
-    >
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 24px" }}>
-        {/* Header */}
-        <h1
-          className="glass-text"
-          style={{
-            fontSize: "clamp(32px, 6vw, 48px)",
-            fontWeight: 700,
-            letterSpacing: "-0.03em",
-            marginBottom: "12px",
-          }}
-        >
-          Ventures
-        </h1>
+    <div style={{ paddingTop: "110px", paddingBottom: "140px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
+        {/* ═══ Header ═══ */}
+        <div style={{ marginBottom: "14px" }}>
+          <div
+            className="flex items-center"
+            style={{ gap: "14px", marginBottom: "12px" }}
+          >
+            <span className="mono-label" style={{ color: "#ff2a6d" }}>
+              SYS.OPERATIONS
+            </span>
+            <span className="mono-label-dim">{"//"}</span>
+            <div className="hairline" style={{ flex: 1 }} />
+            <span className="mono-label-dim">{ventures.length} ACTIVE</span>
+          </div>
+          <DecoderText
+            as="h1"
+            className="display"
+            style={{
+              fontSize: "clamp(44px, 9vw, 100px)",
+              color: "#e6f8ff",
+              textShadow: "0 0 32px rgba(0,240,255,0.2)",
+            }}
+          >
+            VENTURES
+          </DecoderText>
+        </div>
         <p
           style={{
-            fontSize: "clamp(15px, 2vw, 17px)",
+            fontSize: "15px",
             fontWeight: 300,
-            color: "rgba(245,245,245,0.45)",
-            lineHeight: 1.6,
-            marginBottom: "var(--spacing-group)",
-            maxWidth: "560px",
+            color: "rgba(230,248,255,0.5)",
+            lineHeight: 1.7,
+            marginBottom: "44px",
+            maxWidth: "520px",
           }}
         >
-          What I build outside of InLogic — hospitality, talent management,
-          and the spaces where industries intersect.
+          What I build outside of Eleno — hospitality, talent, and the spaces
+          where industries intersect.
         </p>
 
-        {/* Venture Cards — Side by Side */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2"
-          style={{ gap: "20px" }}
-        >
-          {ventures.map((venture, i) => (
-            <motion.div
-              key={venture.slug}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-            >
-              <Link
-                href={`/ventures/${venture.slug}`}
-                style={{ display: "block" }}
+        {/* ═══ Files ═══ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "18px" }}>
+          {ventures.map((venture, i) => {
+            const construction = venture.status === "construction";
+            return (
+              <motion.div
+                key={venture.slug}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.12, ease: EASE }}
               >
-                <LiquidGlassCard className="rounded-2xl group">
-                  <div
-                    style={{
-                      position: "relative",
-                      overflow: "hidden",
-                      borderRadius: "16px",
-                      minHeight: "380px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-end",
-                    }}
+                <Link
+                  href={`/ventures/${venture.slug}`}
+                  data-cursor={construction ? "classified" : "open file"}
+                  style={{ display: "block", height: "100%" }}
+                >
+                  <CyberPanel
+                    accent={construction ? "amber" : "cyan"}
+                    scan={!construction}
+                    style={{ height: "100%" }}
                   >
-                    {/* Background image */}
-                    {venture.thumbnail ? (
-                      venture.thumbnail.match(/\.(png|webp|svg)$/) ? (
-                        /* Logo-style image — centered, contained */
+                    <div
+                      style={{
+                        position: "relative",
+                        minHeight: "400px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-end",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {/* Visual field */}
+                      {construction ? (
+                        <>
+                          {/* Hazard stripes */}
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              background:
+                                "repeating-linear-gradient(-45deg, rgba(255,184,0,0.05) 0px, rgba(255,184,0,0.05) 12px, transparent 12px, transparent 34px)",
+                            }}
+                          />
+                          {/* CLASSIFIED stamp */}
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              paddingBottom: "80px",
+                            }}
+                          >
+                            <span
+                              className="display"
+                              style={{
+                                fontSize: "clamp(20px, 3vw, 30px)",
+                                color: "rgba(255,184,0,0.35)",
+                                border: "2px solid rgba(255,184,0,0.3)",
+                                padding: "10px 26px",
+                                transform: "rotate(-8deg)",
+                                letterSpacing: "0.25em",
+                              }}
+                            >
+                              CLASSIFIED
+                            </span>
+                          </div>
+                        </>
+                      ) : venture.thumbnail ? (
                         <div
                           style={{
                             position: "absolute",
@@ -76,160 +128,124 @@ export default function VenturesPage() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            paddingBottom: "60px",
+                            paddingBottom: "80px",
+                            background:
+                              "radial-gradient(circle at 50% 40%, rgba(0,240,255,0.07), transparent 65%)",
                           }}
                         >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={venture.thumbnail}
                             alt={venture.title}
                             style={{
-                              maxWidth: "50%",
-                              maxHeight: "50%",
+                              maxWidth: "48%",
+                              maxHeight: "46%",
                               objectFit: "contain",
-                              opacity: 0.55,
-                              transition:
-                                "opacity 0.4s ease, transform 0.6s ease",
+                              opacity: 0.65,
+                              filter:
+                                "drop-shadow(0 0 18px rgba(0,240,255,0.4))",
                             }}
-                            className="group-hover:opacity-70 group-hover:scale-[1.05]"
                           />
                         </div>
-                      ) : (
-                        <img
-                          src={venture.thumbnail}
-                          alt={venture.title}
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            opacity: 0.35,
-                            transition:
-                              "opacity 0.4s ease, transform 0.6s ease",
-                          }}
-                          className="group-hover:opacity-50 group-hover:scale-[1.03]"
-                        />
-                      )
-                    ) : (
-                      <div
+                      ) : null}
+
+                      {/* Status tag */}
+                      <span
+                        className="mono-label"
                         style={{
                           position: "absolute",
-                          inset: 0,
-                          background:
-                            "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)",
+                          top: "14px",
+                          left: "16px",
+                          fontSize: "9px",
+                          color: construction ? "#ffb800" : "#adff2f",
+                          background: "rgba(4,4,10,0.7)",
+                          border: construction
+                            ? "1px solid rgba(255,184,0,0.4)"
+                            : "1px solid rgba(173,255,47,0.35)",
+                          padding: "5px 10px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "7px",
+                          zIndex: 2,
                         }}
-                      />
-                    )}
-
-                    {/* Bottom gradient fade */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: "70%",
-                        background:
-                          "linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.6) 40%, transparent 100%)",
-                        pointerEvents: "none",
-                      }}
-                    />
-
-                    {/* Status badge — top left */}
-                    <span
-                      style={{
-                        position: "absolute",
-                        top: "16px",
-                        left: "18px",
-                        fontSize: "10px",
-                        fontWeight: 500,
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        color:
-                          venture.status === "ongoing"
-                            ? "rgba(100,220,100,0.85)"
-                            : "rgba(245,245,245,0.5)",
-                        background: "rgba(0,0,0,0.4)",
-                        backdropFilter: "blur(12px)",
-                        WebkitBackdropFilter: "blur(12px)",
-                        padding: "4px 10px",
-                        borderRadius: "6px",
-                        border:
-                          venture.status === "ongoing"
-                            ? "1px solid rgba(100,220,100,0.15)"
-                            : "1px solid rgba(255,255,255,0.08)",
-                        zIndex: 2,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                      }}
-                    >
-                      {venture.status === "ongoing" && (
+                      >
                         <span
                           className="live-dot"
                           style={{
-                            width: "6px",
-                            height: "6px",
+                            width: "5px",
+                            height: "5px",
                             borderRadius: "50%",
-                            background: "rgba(100,220,100,0.85)",
+                            background: construction ? "#ffb800" : "#adff2f",
+                            boxShadow: construction
+                              ? "0 0 8px rgba(255,184,0,0.7)"
+                              : "0 0 8px rgba(173,255,47,0.7)",
+                            display: "inline-block",
                           }}
                         />
-                      )}
-                      {venture.status === "ongoing" ? "ONGOING" : "COMPLETED"}
-                    </span>
-
-                    {/* Content overlay at bottom */}
-                    <div
-                      style={{
-                        position: "relative",
-                        zIndex: 1,
-                        padding: "24px",
-                      }}
-                    >
-                      {/* Role */}
-                      <span
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: 500,
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          color: "rgba(245,245,245,0.4)",
-                          display: "block",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        {venture.role}
+                        {construction ? "IN CONSTRUCTION" : "OPERATIONAL"}
                       </span>
 
-                      {/* Title */}
-                      <h2
-                        style={{
-                          fontSize: "clamp(22px, 3vw, 28px)",
-                          fontWeight: 600,
-                          color: "#f5f5f5",
-                          letterSpacing: "-0.02em",
-                          marginBottom: "6px",
-                        }}
-                      >
-                        {venture.title}
-                      </h2>
-
-                      {/* Year */}
                       <span
+                        className="mono-label-dim"
                         style={{
-                          fontSize: "13px",
-                          fontWeight: 300,
-                          color: "rgba(245,245,245,0.35)",
+                          position: "absolute",
+                          top: "14px",
+                          right: "16px",
+                          fontSize: "9px",
+                          zIndex: 2,
                         }}
                       >
-                        Est. {venture.year}
+                        FILE_0{i + 1}
                       </span>
+
+                      {/* Bottom data block */}
+                      <div
+                        style={{
+                          position: "relative",
+                          zIndex: 1,
+                          padding: "22px 24px",
+                          background:
+                            "linear-gradient(to top, rgba(4,4,10,0.95) 0%, rgba(4,4,10,0.6) 70%, transparent 100%)",
+                        }}
+                      >
+                        <span
+                          className="mono-label-dim"
+                          style={{
+                            fontSize: "9px",
+                            display: "block",
+                            marginBottom: "8px",
+                          }}
+                        >
+                          ROLE: {venture.role.toUpperCase()}
+                        </span>
+                        <h2
+                          className="display"
+                          style={{
+                            fontSize: "clamp(22px, 3vw, 32px)",
+                            color: construction
+                              ? "rgba(255,184,0,0.9)"
+                              : "#e6f8ff",
+                            textShadow: construction
+                              ? "0 0 16px rgba(255,184,0,0.3)"
+                              : "0 0 16px rgba(0,240,255,0.2)",
+                            marginBottom: "6px",
+                          }}
+                        >
+                          {venture.title}
+                        </h2>
+                        <span
+                          className="mono-label-dim"
+                          style={{ fontSize: "9px" }}
+                        >
+                          EST. {venture.year}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </LiquidGlassCard>
-              </Link>
-            </motion.div>
-          ))}
+                  </CyberPanel>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </div>

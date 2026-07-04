@@ -3,8 +3,11 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { projects, getProjectBySlug } from "@/data/projects";
-import { categoryLabels } from "@/components/cards/ProjectCard";
+import { projects, getProjectBySlug, categoryLabels } from "@/data/projects";
+import CyberPanel from "@/components/ui/CyberPanel";
+
+const EASE = [0.76, 0, 0.24, 1] as const;
+const PORTRAIT_SLUGS = ["pokemon-ai", "puff", "ai-anime-companion"];
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -15,33 +18,41 @@ export default function ProjectDetailPage() {
     return (
       <div
         style={{
-          paddingTop: "140px",
+          paddingTop: "160px",
           textAlign: "center",
-          color: "rgba(245,245,245,0.5)",
+          color: "rgba(230,248,255,0.5)",
         }}
       >
-        <p>Project not found.</p>
+        <p className="mono-label" style={{ fontSize: "12px" }}>
+          ERR_404: FILE NOT FOUND
+        </p>
         <Link
           href="/projects"
-          style={{ color: "rgba(245,245,245,0.7)", marginTop: "16px", display: "inline-block" }}
+          className="mono-label"
+          style={{
+            color: "#00f0ff",
+            marginTop: "16px",
+            display: "inline-block",
+          }}
         >
-          ← Back to Projects
+          ◂ RETURN TO /PROJECTS
         </Link>
       </div>
     );
   }
 
-  // Previous / Next
   const currentIndex = projects.findIndex((p) => p.slug === slug);
   const prev = currentIndex > 0 ? projects[currentIndex - 1] : null;
-  const next = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+  const next =
+    currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
   const primaryCategory = project.categories[0];
+  const isPortrait = PORTRAIT_SLUGS.includes(project.slug);
 
   return (
-    <div style={{ paddingTop: "100px", paddingBottom: "var(--spacing-section)" }}>
-      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px" }}>
-        {/* ─── Back Link ─── */}
+    <div style={{ paddingTop: "110px", paddingBottom: "140px" }}>
+      <div style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px" }}>
+        {/* Back link */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -49,131 +60,126 @@ export default function ProjectDetailPage() {
         >
           <Link
             href="/projects"
+            data-cursor="return"
+            className="mono-label"
             style={{
-              fontSize: "13px",
-              fontWeight: 400,
-              color: "rgba(245,245,245,0.4)",
-              transition: "color 0.2s",
+              color: "rgba(0,240,255,0.55)",
               display: "inline-block",
-              marginBottom: "var(--spacing-component)",
+              marginBottom: "30px",
+              transition: "color 0.2s",
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "rgba(245,245,245,0.8)")
-            }
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#00f0ff")}
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "rgba(245,245,245,0.4)")
+              (e.currentTarget.style.color = "rgba(0,240,255,0.55)")
             }
           >
-            ← Back to Projects
+            ◂ /PROJECTS
           </Link>
         </motion.div>
 
-        {/* ─── Header ─── */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          {/* Badges row */}
           <div
             className="flex flex-wrap items-center"
             style={{ gap: "10px", marginBottom: "16px" }}
           >
             <span
+              className="mono-label"
               style={{
-                fontSize: "10px",
-                fontWeight: 500,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(245,245,245,0.5)",
-                background: "rgba(255,255,255,0.06)",
-                padding: "4px 12px",
-                borderRadius: "6px",
-                border: "1px solid rgba(255,255,255,0.08)",
+                fontSize: "9px",
+                padding: "5px 10px",
+                border: "1px solid rgba(0,240,255,0.3)",
+                color: "rgba(0,240,255,0.75)",
               }}
             >
-              {categoryLabels[primaryCategory] || primaryCategory}
+              {(categoryLabels[primaryCategory] || primaryCategory).toUpperCase()}
             </span>
 
             {(project.award || project.badge) && (
               <span
+                className="mono-label"
                 style={{
-                  fontSize: "10px",
-                  fontWeight: 500,
-                  letterSpacing: "0.06em",
-                  color: "rgba(255,215,0,0.85)",
-                  background: "rgba(255,215,0,0.06)",
-                  padding: "4px 12px",
-                  borderRadius: "6px",
-                  border: "1px solid rgba(255,215,0,0.15)",
+                  fontSize: "9px",
+                  padding: "5px 10px",
+                  border: "1px solid rgba(255,184,0,0.4)",
+                  color: "#ffb800",
+                  textShadow: "0 0 8px rgba(255,184,0,0.4)",
                 }}
               >
-                {project.award || project.badge}
+                ✦ {(project.award || project.badge)?.toUpperCase()}
               </span>
             )}
 
             <span
-              style={{
-                fontSize: "12px",
-                fontWeight: 300,
-                color: "rgba(245,245,245,0.3)",
-                marginLeft: "auto",
-              }}
+              className="mono-label-dim"
+              style={{ fontSize: "10px", marginLeft: "auto" }}
             >
-              {project.year}
+              FILE_{String(currentIndex + 1).padStart(2, "0")} — {project.year}
             </span>
           </div>
 
-          {/* Title */}
           <h1
-            className="glass-text"
+            className="display"
             style={{
-              fontSize: "clamp(32px, 6vw, 48px)",
-              fontWeight: 700,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
-              marginBottom: "12px",
+              fontSize: "clamp(34px, 6.5vw, 64px)",
+              color: "#e6f8ff",
+              textShadow: "0 0 28px rgba(0,240,255,0.2)",
+              lineHeight: 1,
+              marginBottom: "14px",
             }}
           >
-            {project.title}
+            {project.title.toUpperCase()}
           </h1>
 
-          {/* Tagline */}
           <p
             style={{
-              fontSize: "clamp(15px, 2vw, 18px)",
+              fontSize: "clamp(14px, 2vw, 17px)",
               fontWeight: 300,
-              color: "rgba(245,245,245,0.5)",
-              lineHeight: 1.6,
-              marginBottom: "var(--spacing-component)",
+              color: "rgba(230,248,255,0.5)",
+              lineHeight: 1.7,
+              marginBottom: "36px",
+              maxWidth: "680px",
             }}
           >
             {project.description}
           </p>
         </motion.div>
 
-        {/* ─── Hero Media ─── */}
+        {/* Hero media */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          className="chamfer"
+          initial={{
+            opacity: 0,
+            clipPath: "inset(10% 6% 10% 6%)",
+            scale: 1.03,
+          }}
+          animate={{
+            opacity: 1,
+            clipPath: "inset(0% 0% 0% 0%)",
+            scale: 1,
+          }}
+          transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
           style={{
             position: "relative",
-            borderRadius: "16px",
             overflow: "hidden",
-            marginBottom: "var(--spacing-group)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            aspectRatio: ["pokemon-ai", "puff", "ai-anime-companion"].includes(project.slug) ? "9 / 16" : "16 / 9",
-            ...(["pokemon-ai", "puff", "ai-anime-companion"].includes(project.slug) && {
-              maxHeight: "600px",
-              margin: "0 auto var(--spacing-group)",
-              width: "auto",
-              background: "transparent",
-            }),
-            ...(!["pokemon-ai", "puff", "ai-anime-companion"].includes(project.slug) && {
-              background:
-                "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)",
-            }),
+            border: "1px solid rgba(0,240,255,0.2)",
+            aspectRatio: isPortrait ? "9 / 16" : "16 / 9",
+            ...(isPortrait
+              ? {
+                  maxHeight: "600px",
+                  margin: "0 auto 44px",
+                  width: "auto",
+                  background: "transparent",
+                }
+              : {
+                  marginBottom: "44px",
+                  background:
+                    "radial-gradient(circle at 50% 40%, rgba(0,240,255,0.06), transparent 70%)",
+                }),
           }}
         >
           {project.youtubeId ? (
@@ -182,11 +188,7 @@ export default function ProjectDetailPage() {
               title={project.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-              }}
+              style={{ width: "100%", height: "100%", border: "none" }}
             />
           ) : project.demoVideo ? (
             <video
@@ -198,11 +200,12 @@ export default function ProjectDetailPage() {
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: ["pokemon-ai", "puff", "ai-anime-companion"].includes(project.slug) ? "contain" : "cover",
-                opacity: 0.8,
+                objectFit: isPortrait ? "contain" : "cover",
+                opacity: 0.9,
               }}
             />
           ) : project.thumbnail ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={project.thumbnail}
               alt={project.title}
@@ -210,39 +213,27 @@ export default function ProjectDetailPage() {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                opacity: 0.8,
+                opacity: 0.9,
               }}
             />
           ) : null}
         </motion.div>
 
-
-        {/* ─── Overview ─── */}
+        {/* Overview */}
         {project.longDescription && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            style={{ marginBottom: "var(--spacing-group)" }}
+            style={{ marginBottom: "44px" }}
           >
-            <h2
-              style={{
-                fontSize: "11px",
-                fontWeight: 500,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(245,245,245,0.35)",
-                marginBottom: "16px",
-              }}
-            >
-              Overview
-            </h2>
+            <SectionLabel>BRIEFING</SectionLabel>
             <p
               style={{
                 fontSize: "15px",
                 fontWeight: 300,
-                color: "rgba(245,245,245,0.6)",
-                lineHeight: 1.8,
+                color: "rgba(230,248,255,0.6)",
+                lineHeight: 1.85,
               }}
             >
               {project.longDescription}
@@ -250,195 +241,169 @@ export default function ProjectDetailPage() {
           </motion.div>
         )}
 
-        {/* ─── Tech Stack ─── */}
+        {/* Tech stack */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.35 }}
-          style={{ marginBottom: "var(--spacing-group)" }}
+          style={{ marginBottom: "44px" }}
         >
-          <h2
-            style={{
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "rgba(245,245,245,0.35)",
-              marginBottom: "16px",
-            }}
-          >
-            Tech Stack
-          </h2>
+          <SectionLabel>TECH STACK</SectionLabel>
           <div className="flex flex-wrap" style={{ gap: "8px" }}>
             {project.techStack.map((tech) => (
               <span
                 key={tech}
+                className="mono-label chamfer-sm"
                 style={{
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  letterSpacing: "0.02em",
-                  color: "rgba(245,245,245,0.6)",
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  padding: "6px 16px",
-                  borderRadius: "9999px",
+                  fontSize: "10px",
+                  color: "rgba(0,240,255,0.7)",
+                  background: "rgba(0,240,255,0.04)",
+                  border: "1px solid rgba(0,240,255,0.2)",
+                  padding: "8px 14px",
                 }}
               >
-                {tech}
+                {tech.toUpperCase()}
               </span>
             ))}
           </div>
         </motion.div>
 
-        {/* ─── Quick Facts ─── */}
+        {/* Quick facts */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          style={{ marginBottom: "var(--spacing-group)" }}
+          style={{ marginBottom: "44px" }}
         >
-          <h2
-            style={{
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "rgba(245,245,245,0.35)",
-              marginBottom: "16px",
-            }}
-          >
-            Quick Facts
-          </h2>
+          <SectionLabel>MISSION DATA</SectionLabel>
           <div
             className="grid grid-cols-2 sm:grid-cols-4"
-            style={{ gap: "1px", borderRadius: "12px", overflow: "hidden" }}
+            style={{ gap: "10px" }}
           >
             {[
-              { label: "Built in", value: project.buildTime },
-              { label: "Role", value: project.role },
-              { label: "Purpose", value: project.purpose },
-              { label: "Year", value: String(project.year) },
+              { label: "BUILT IN", value: project.buildTime },
+              { label: "ROLE", value: project.role },
+              { label: "PURPOSE", value: project.purpose },
+              { label: "YEAR", value: String(project.year) },
             ]
               .filter((f) => f.value)
               .map((fact) => (
-                <div
-                  key={fact.label}
-                  style={{
-                    background: "rgba(255,255,255,0.03)",
-                    padding: "20px",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "10px",
-                      fontWeight: 500,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "rgba(245,245,245,0.3)",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    {fact.label}
+                <CyberPanel key={fact.label} corners={false}>
+                  <div style={{ padding: "16px" }}>
+                    <div
+                      className="mono-label-dim"
+                      style={{ fontSize: "8.5px", marginBottom: "7px" }}
+                    >
+                      {fact.label}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 500,
+                        color: "#e6f8ff",
+                      }}
+                    >
+                      {fact.value}
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      color: "rgba(245,245,245,0.8)",
-                    }}
-                  >
-                    {fact.value}
-                  </div>
-                </div>
+                </CyberPanel>
               ))}
           </div>
         </motion.div>
 
-        {/* ─── Links ─── */}
+        {/* Links */}
         {(project.githubUrl || project.liveUrl) && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.45 }}
-            style={{ marginBottom: "var(--spacing-group)" }}
+            style={{ marginBottom: "44px" }}
           >
-            <div className="flex flex-wrap" style={{ gap: "12px" }}>
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass"
-                  style={{
-                    display: "inline-block",
-                    padding: "12px 28px",
-                    borderRadius: "9999px",
-                    fontSize: "13px",
-                    fontWeight: 500,
-                    color: "rgba(245,245,245,0.8)",
-                    transition: "all 0.2s",
-                  }}
-                >
-                  GitHub <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" style={{display:"inline",verticalAlign:"middle",marginLeft:"2px"}}><path d="M3 9L9 3M9 3H4.5M9 3V7.5"/></svg>
-                </a>
-              )}
+            <div className="flex flex-wrap" style={{ gap: "10px" }}>
               {project.liveUrl && (
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-cursor="launch"
+                  className="mono-label chamfer-sm"
                   style={{
                     display: "inline-block",
-                    padding: "12px 28px",
-                    borderRadius: "9999px",
-                    fontSize: "13px",
-                    fontWeight: 500,
-                    color: "#0A0A0A",
-                    background: "rgba(245,245,245,0.85)",
+                    padding: "12px 26px",
+                    fontSize: "10px",
+                    background: "#00f0ff",
+                    color: "#04040a",
+                    border: "1px solid #00f0ff",
+                    boxShadow: "0 0 18px rgba(0,240,255,0.4)",
                     transition: "all 0.2s",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.background = "rgba(245,245,245,1)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.background = "rgba(245,245,245,0.85)")
-                  }
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#ff2a6d";
+                    e.currentTarget.style.borderColor = "#ff2a6d";
+                    e.currentTarget.style.boxShadow =
+                      "0 0 18px rgba(255,42,109,0.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#00f0ff";
+                    e.currentTarget.style.borderColor = "#00f0ff";
+                    e.currentTarget.style.boxShadow =
+                      "0 0 18px rgba(0,240,255,0.4)";
+                  }}
                 >
-                  Live Demo <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" style={{display:"inline",verticalAlign:"middle",marginLeft:"2px"}}><path d="M3 9L9 3M9 3H4.5M9 3V7.5"/></svg>
+                  LIVE DEMO ↗
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="source"
+                  className="mono-label chamfer-sm"
+                  style={{
+                    display: "inline-block",
+                    padding: "12px 26px",
+                    fontSize: "10px",
+                    color: "rgba(0,240,255,0.7)",
+                    border: "1px solid rgba(0,240,255,0.25)",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "rgba(0,240,255,0.6)";
+                    e.currentTarget.style.color = "#00f0ff";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor =
+                      "rgba(0,240,255,0.25)";
+                    e.currentTarget.style.color = "rgba(0,240,255,0.7)";
+                  }}
+                >
+                  SOURCE ↗
                 </a>
               )}
             </div>
           </motion.div>
         )}
 
-        {/* ─── Previous / Next ─── */}
+        {/* Prev / Next */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
           className="flex items-center justify-between"
           style={{
-            paddingTop: "var(--spacing-component)",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
+            paddingTop: "28px",
+            borderTop: "1px solid rgba(0,240,255,0.12)",
+            gap: "16px",
           }}
         >
           {prev ? (
             <Link
               href={`/projects/${prev.slug}`}
-              style={{
-                fontSize: "13px",
-                fontWeight: 400,
-                color: "rgba(245,245,245,0.4)",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.8)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.4)")
-              }
+              className="mono-label"
+              style={{ color: "rgba(0,240,255,0.55)" }}
             >
-              ← {prev.title}
+              ◂ {prev.title.toUpperCase()}
             </Link>
           ) : (
             <span />
@@ -446,27 +411,36 @@ export default function ProjectDetailPage() {
           {next ? (
             <Link
               href={`/projects/${next.slug}`}
-              style={{
-                fontSize: "13px",
-                fontWeight: 400,
-                color: "rgba(245,245,245,0.4)",
-                transition: "color 0.2s",
-                textAlign: "right",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.8)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.4)")
-              }
+              className="mono-label"
+              style={{ color: "rgba(0,240,255,0.55)", textAlign: "right" }}
             >
-              {next.title} →
+              {next.title.toUpperCase()} ▸
             </Link>
           ) : (
             <span />
           )}
         </motion.div>
       </div>
+    </div>
+  );
+}
+
+function SectionLabel({ children }: { children: string }) {
+  return (
+    <div
+      className="flex items-center"
+      style={{ gap: "12px", marginBottom: "18px" }}
+    >
+      <span
+        className="mono-label"
+        style={{ color: "#ff2a6d", fontSize: "9px" }}
+      >
+        ▸
+      </span>
+      <span className="mono-label" style={{ fontSize: "10px" }}>
+        {children}
+      </span>
+      <div className="hairline" style={{ flex: 1 }} />
     </div>
   );
 }

@@ -1,94 +1,176 @@
 "use client";
 
+import { motion } from "framer-motion";
+import Magnetic from "@/components/motion/Magnetic";
+import LocalTime from "@/components/motion/LocalTime";
+import GlitchText from "@/components/motion/GlitchText";
+
 const socials = [
   {
-    label: "LinkedIn",
+    label: "LINKEDIN",
     href: "https://www.linkedin.com/in/sheik-anam-milfer-9aa15b213/",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-      </svg>
-    ),
   },
-  {
-    label: "Instagram",
-    href: "https://instagram.com/sheivault",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Devpost",
-    href: "https://devpost.com/AnamGTR99",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M6.002 1.61L0 12.004 6.002 22.39h11.996L24 12.004 17.998 1.61zm1.593 4.084h3.947c3.605 0 6.276 1.695 6.276 6.31 0 4.436-3.21 6.302-6.456 6.302H7.595zm2.517 2.449v7.714h1.241c2.646 0 3.862-1.55 3.862-3.861.009-2.569-1.096-3.853-3.767-3.853z" />
-      </svg>
-    ),
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/anamgtr99",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-      </svg>
-    ),
-  },
+  { label: "INSTAGRAM", href: "https://instagram.com/sheivault" },
+  { label: "DEVPOST", href: "https://devpost.com/AnamGTR99" },
+  { label: "GITHUB", href: "https://github.com/anamgtr99" },
 ];
 
 export default function Footer() {
+  const scrollToTop = () => {
+    const lenis = (
+      window as unknown as {
+        __lenis?: { scrollTo: (t: number, o?: object) => void };
+      }
+    ).__lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <footer
       style={{
-        padding: "var(--spacing-component) 24px",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        borderTop: "1px solid rgba(0,240,255,0.14)",
+        padding: "0 0 28px",
+        overflow: "hidden",
+        background:
+          "linear-gradient(180deg, transparent 0%, rgba(0,240,255,0.03) 100%)",
       }}
     >
+      {/* Status strip */}
       <div
-        className="flex flex-col sm:flex-row items-center justify-between"
         style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
-          gap: "16px",
+          borderBottom: "1px solid rgba(0,240,255,0.1)",
+          padding: "12px 24px",
         }}
       >
-        {/* Copyright */}
-        <span
+        <div
+          className="flex flex-wrap items-center justify-between"
+          style={{ maxWidth: "1280px", margin: "0 auto", gap: "12px" }}
+        >
+          <span className="mono-label flex items-center" style={{ gap: "8px" }}>
+            <span
+              className="live-dot"
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "#adff2f",
+                boxShadow: "0 0 8px rgba(173,255,47,0.7)",
+                display: "inline-block",
+              }}
+            />
+            STATUS: BUILDING AT ELENO — MELBOURNE
+          </span>
+          <span className="mono-label-dim">
+            SYS.TIME <LocalTime />
+          </span>
+        </div>
+      </div>
+
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px 0" }}>
+        {/* Monumental glitch name */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "0px 0px -5% 0px" }}
+          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          style={{ marginBottom: "clamp(28px, 5vw, 48px)" }}
+        >
+          <span
+            className="display"
+            aria-hidden
+            style={{
+              display: "block",
+              fontSize: "clamp(72px, 17vw, 230px)",
+              lineHeight: 0.85,
+              userSelect: "none",
+              color: "rgba(230,248,255,0.08)",
+              WebkitTextStroke: "1px rgba(0,240,255,0.35)",
+            }}
+          >
+            <GlitchText>ANAM</GlitchText>
+          </span>
+        </motion.div>
+
+        {/* Bottom row */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-between"
           style={{
-            fontSize: "12px",
-            fontWeight: 300,
-            color: "rgba(245,245,245,0.3)",
+            gap: "16px",
+            paddingTop: "20px",
+            borderTop: "1px solid rgba(0,240,255,0.1)",
           }}
         >
-          &copy; {new Date().getFullYear()} Anam. All rights reserved.
-        </span>
+          <span className="mono-label-dim" style={{ fontSize: "9px" }}>
+            © {new Date().getFullYear()} ANAM — ALL RIGHTS RESERVED
+          </span>
 
-        {/* Social icons */}
-        <div className="flex items-center" style={{ gap: "20px" }}>
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={s.label}
+          <div className="flex flex-wrap items-center justify-center" style={{ gap: "8px" }}>
+            {socials.map((s) => (
+              <Magnetic key={s.label} strength={0.3}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor={s.label.toLowerCase()}
+                  className="mono-label chamfer-sm"
+                  style={{
+                    display: "inline-block",
+                    padding: "8px 14px",
+                    fontSize: "9px",
+                    border: "1px solid rgba(0,240,255,0.18)",
+                    color: "rgba(0,240,255,0.6)",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#04040a";
+                    e.currentTarget.style.background = "#00f0ff";
+                    e.currentTarget.style.boxShadow =
+                      "0 0 16px rgba(0,240,255,0.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "rgba(0,240,255,0.6)";
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  {s.label} ↗
+                </a>
+              </Magnetic>
+            ))}
+          </div>
+
+          <Magnetic strength={0.3}>
+            <button
+              onClick={scrollToTop}
+              data-cursor="top"
+              className="mono-label chamfer-sm"
               style={{
-                color: "rgba(245,245,245,0.3)",
-                transition: "color 0.2s",
+                background: "rgba(255,42,109,0.06)",
+                border: "1px solid rgba(255,42,109,0.35)",
+                padding: "9px 18px",
+                cursor: "pointer",
+                color: "rgba(255,42,109,0.85)",
+                transition: "all 0.2s",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.8)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.3)")
-              }
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#ff2a6d";
+                e.currentTarget.style.color = "#04040a";
+                e.currentTarget.style.boxShadow =
+                  "0 0 16px rgba(255,42,109,0.5)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(255,42,109,0.06)";
+                e.currentTarget.style.color = "rgba(255,42,109,0.85)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
             >
-              {s.icon}
-            </a>
-          ))}
+              ▲ RETURN
+            </button>
+          </Magnetic>
         </div>
       </div>
     </footer>

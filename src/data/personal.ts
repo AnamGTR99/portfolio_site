@@ -1,11 +1,16 @@
 export const personal = {
   name: "Anam",
   fullName: "Sheik Anam Milfer",
-  role: "AI Software Engineer at InLogic",
-  tagline: "Artificial Intelligence Engineer at InLogic",
+  role: "AI Software Engineer at Eleno",
+  tagline: "Artificial Intelligence Engineer at Eleno",
+  company: {
+    name: "Eleno",
+    url: "https://www.eleno.com.au/",
+    logo: "/images/eleno-logo.png",
+  },
   bio: `Software engineer by trade, hotelier by ambition, talent manager by instinct. I build across domains because the interesting problems live at the intersections.
 
-In tech, I build full-stack applications — from AI-powered document automation to real-time collaborative tools. In hospitality, I run The Anam Hotel Colombo, a boutique hotel where every detail is intentional. In talent management, I help digital creators turn content into careers through HUGO ZBOR.
+In tech, I build full-stack applications — from AI-powered document automation to real-time collaborative tools. In hospitality, I run The Anam Hotel Colombo, a boutique hotel where every detail is intentional. In talent management, I help digital creators turn content into careers — work that's folding into something bigger: Mana Group.
 
 The common thread is craft: understanding systems, caring about details, and building things that work beautifully.`,
   email: "milferanam@gmail.com",

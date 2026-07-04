@@ -5,6 +5,14 @@ export type ProjectCategory =
   | "client-website"
   | "passion-project";
 
+export const categoryLabels: Record<string, string> = {
+  "ai-native": "AI-Native",
+  "web-app": "Web App",
+  mobile: "Mobile",
+  "client-website": "Client Website",
+  "passion-project": "Passion Project",
+};
+
 export interface Project {
   slug: string;
   title: string;

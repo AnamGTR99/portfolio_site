@@ -4,7 +4,11 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ventures, getVentureBySlug } from "@/data/ventures";
-import LiquidGlassCard from "@/components/glass/LiquidGlassCard";
+import CyberPanel from "@/components/ui/CyberPanel";
+import DecoderText from "@/components/motion/DecoderText";
+import GlitchText from "@/components/motion/GlitchText";
+
+const EASE = [0.76, 0, 0.24, 1] as const;
 
 export default function VentureDetailPage() {
   const params = useParams();
@@ -15,43 +19,139 @@ export default function VentureDetailPage() {
     return (
       <div
         style={{
-          paddingTop: "140px",
+          paddingTop: "160px",
           textAlign: "center",
-          color: "rgba(245,245,245,0.5)",
+          color: "rgba(230,248,255,0.5)",
         }}
       >
-        <p>Venture not found.</p>
+        <p className="mono-label" style={{ fontSize: "12px" }}>
+          ERR_404: FILE NOT FOUND
+        </p>
         <Link
           href="/ventures"
+          className="mono-label"
           style={{
-            color: "rgba(245,245,245,0.7)",
+            color: "#00f0ff",
             marginTop: "16px",
             display: "inline-block",
           }}
         >
-          ← Back to Ventures
+          ◂ RETURN TO /VENTURES
         </Link>
       </div>
     );
   }
 
-  // Previous / Next
+  // In-construction ventures: access-restricted terminal.
+  if (venture.status === "construction") {
+    return (
+      <div
+        className="flex flex-col items-center justify-center"
+        style={{
+          minHeight: "100vh",
+          padding: "120px 24px 80px",
+          textAlign: "center",
+          position: "relative",
+        }}
+      >
+        <motion.span
+          className="mono-label flex items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          style={{ gap: "8px", marginBottom: "26px", color: "#ffb800" }}
+        >
+          <span
+            className="live-dot"
+            style={{
+              width: "6px",
+              height: "6px",
+              borderRadius: "50%",
+              background: "#ffb800",
+              boxShadow: "0 0 8px rgba(255,184,0,0.8)",
+              display: "inline-block",
+            }}
+          />
+          ACCESS RESTRICTED — IN CONSTRUCTION / {venture.year}
+        </motion.span>
+
+        <motion.h1
+          className="display"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: EASE }}
+          style={{
+            fontSize: "clamp(48px, 11vw, 150px)",
+            lineHeight: 0.95,
+            color: "rgba(230,248,255,0.9)",
+            textShadow:
+              "0 0 20px rgba(255,184,0,0.35), 0 0 70px rgba(255,184,0,0.12)",
+            marginBottom: "28px",
+          }}
+        >
+          <GlitchText>{venture.title.toUpperCase()}</GlitchText>
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          style={{ marginBottom: "44px" }}
+        >
+          <DecoderText
+            className="mono-label"
+            style={{ fontSize: "12px", color: "rgba(255,184,0,0.75)" }}
+            delay={0.8}
+          >
+            {venture.description.toUpperCase()}
+          </DecoderText>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1 }}
+        >
+          <Link
+            href="/ventures"
+            data-cursor="return"
+            className="mono-label chamfer-sm"
+            style={{
+              display: "inline-block",
+              padding: "11px 24px",
+              border: "1px solid rgba(0,240,255,0.3)",
+              color: "rgba(0,240,255,0.7)",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#00f0ff";
+              e.currentTarget.style.color = "#04040a";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.color = "rgba(0,240,255,0.7)";
+            }}
+          >
+            ◂ RETURN TO /VENTURES
+          </Link>
+        </motion.div>
+      </div>
+    );
+  }
+
   const currentIndex = ventures.findIndex((v) => v.slug === slug);
   const prev = currentIndex > 0 ? ventures[currentIndex - 1] : null;
   const next =
     currentIndex < ventures.length - 1 ? ventures[currentIndex + 1] : null;
 
-  // Split fullContent into paragraphs
   const paragraphs = venture.fullContent
     .split("\n\n")
     .filter((p) => p.trim().length > 0);
 
   return (
-    <div
-      style={{ paddingTop: "100px", paddingBottom: "var(--spacing-section)" }}
-    >
-      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px" }}>
-        {/* ─── Back Link ─── */}
+    <div style={{ paddingTop: "110px", paddingBottom: "140px" }}>
+      <div style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px" }}>
+        {/* Back link */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -59,145 +159,118 @@ export default function VentureDetailPage() {
         >
           <Link
             href="/ventures"
+            data-cursor="return"
+            className="mono-label"
             style={{
-              fontSize: "13px",
-              fontWeight: 400,
-              color: "rgba(245,245,245,0.4)",
-              transition: "color 0.2s",
+              color: "rgba(0,240,255,0.55)",
               display: "inline-block",
-              marginBottom: "var(--spacing-component)",
+              marginBottom: "30px",
+              transition: "color 0.2s",
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "rgba(245,245,245,0.8)")
-            }
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#00f0ff")}
             onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "rgba(245,245,245,0.4)")
+              (e.currentTarget.style.color = "rgba(0,240,255,0.55)")
             }
           >
-            ← Back to Ventures
+            ◂ /VENTURES
           </Link>
         </motion.div>
 
-        {/* ─── Header ─── */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          {/* Badges row */}
           <div
             className="flex flex-wrap items-center"
             style={{ gap: "10px", marginBottom: "16px" }}
           >
             <span
+              className="mono-label"
               style={{
-                fontSize: "10px",
-                fontWeight: 500,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(245,245,245,0.5)",
-                background: "rgba(255,255,255,0.06)",
-                padding: "4px 12px",
-                borderRadius: "6px",
-                border: "1px solid rgba(255,255,255,0.08)",
+                fontSize: "9px",
+                padding: "5px 10px",
+                border: "1px solid rgba(0,240,255,0.3)",
+                color: "rgba(0,240,255,0.75)",
               }}
             >
-              {venture.role}
+              {venture.role.toUpperCase()}
             </span>
-
             <span
+              className="mono-label"
               style={{
-                fontSize: "10px",
-                fontWeight: 500,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color:
-                  venture.status === "ongoing"
-                    ? "rgba(100,220,100,0.85)"
-                    : "rgba(245,245,245,0.5)",
-                background:
-                  venture.status === "ongoing"
-                    ? "rgba(100,220,100,0.06)"
-                    : "rgba(255,255,255,0.06)",
-                padding: "4px 12px",
-                borderRadius: "6px",
-                border:
-                  venture.status === "ongoing"
-                    ? "1px solid rgba(100,220,100,0.15)"
-                    : "1px solid rgba(255,255,255,0.08)",
+                fontSize: "9px",
+                padding: "5px 10px",
+                border: "1px solid rgba(173,255,47,0.35)",
+                color: "#adff2f",
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
               }}
             >
-              {venture.status === "ongoing" && (
-                <span
-                  className="live-dot"
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "50%",
-                    background: "rgba(100,220,100,0.85)",
-                  }}
-                />
-              )}
-              {venture.status === "ongoing" ? "Ongoing" : "Completed"}
+              <span
+                className="live-dot"
+                style={{
+                  width: "5px",
+                  height: "5px",
+                  borderRadius: "50%",
+                  background: "#adff2f",
+                  boxShadow: "0 0 6px rgba(173,255,47,0.8)",
+                  display: "inline-block",
+                }}
+              />
+              {venture.status === "ongoing" ? "OPERATIONAL" : "COMPLETED"}
             </span>
-
             <span
-              style={{
-                fontSize: "12px",
-                fontWeight: 300,
-                color: "rgba(245,245,245,0.3)",
-                marginLeft: "auto",
-              }}
+              className="mono-label-dim"
+              style={{ fontSize: "10px", marginLeft: "auto" }}
             >
-              {venture.year}
+              EST. {venture.year}
             </span>
           </div>
 
-          {/* Title */}
           <h1
-            className="glass-text"
+            className="display"
             style={{
-              fontSize: "clamp(32px, 6vw, 48px)",
-              fontWeight: 700,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
-              marginBottom: "12px",
+              fontSize: "clamp(34px, 6.5vw, 64px)",
+              color: "#e6f8ff",
+              textShadow: "0 0 28px rgba(0,240,255,0.2)",
+              lineHeight: 1,
+              marginBottom: "14px",
             }}
           >
-            {venture.title}
+            {venture.title.toUpperCase()}
           </h1>
 
-          {/* Short description */}
           <p
             style={{
-              fontSize: "clamp(15px, 2vw, 18px)",
+              fontSize: "clamp(14px, 2vw, 17px)",
               fontWeight: 300,
-              color: "rgba(245,245,245,0.5)",
-              lineHeight: 1.6,
-              marginBottom: "var(--spacing-component)",
+              color: "rgba(230,248,255,0.5)",
+              lineHeight: 1.7,
+              marginBottom: "36px",
+              maxWidth: "640px",
             }}
           >
             {venture.description}
           </p>
         </motion.div>
 
-        {/* ─── Hero Media ─── */}
+        {/* Hero media */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          className="chamfer"
+          initial={{ opacity: 0, clipPath: "inset(10% 6% 10% 6%)", scale: 1.03 }}
+          animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
           style={{
             position: "relative",
-            borderRadius: "16px",
             overflow: "hidden",
-            marginBottom: "var(--spacing-group)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            marginBottom: "44px",
+            border: "1px solid rgba(0,240,255,0.2)",
             aspectRatio: "16 / 9",
             background:
-              "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%)",
+              "radial-gradient(circle at 50% 40%, rgba(0,240,255,0.06), transparent 70%)",
           }}
         >
           {venture.heroVideo ? (
@@ -211,10 +284,11 @@ export default function VentureDetailPage() {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                opacity: 0.8,
+                opacity: 0.85,
               }}
             />
-          ) : (venture.heroImage || venture.thumbnail) ? (
+          ) : venture.heroImage || venture.thumbnail ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={venture.heroImage || venture.thumbnail}
               alt={venture.title}
@@ -222,105 +296,67 @@ export default function VentureDetailPage() {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                opacity: 0.8,
+                opacity: 0.85,
               }}
             />
           ) : null}
         </motion.div>
 
-        {/* ─── Metrics ─── */}
+        {/* Metrics */}
         {venture.metrics && venture.metrics.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            style={{ marginBottom: "var(--spacing-group)" }}
+            style={{ marginBottom: "44px" }}
           >
-            <h2
-              style={{
-                fontSize: "11px",
-                fontWeight: 500,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(245,245,245,0.35)",
-                marginBottom: "16px",
-              }}
-            >
-              Key Details
-            </h2>
+            <SectionLabel>KEY DETAILS</SectionLabel>
             <div
               className="grid grid-cols-2 sm:grid-cols-4"
-              style={{ gap: "1px", borderRadius: "12px", overflow: "hidden" }}
+              style={{ gap: "10px" }}
             >
               {venture.metrics.map((m) => (
-                <div
-                  key={m.label}
-                  style={{
-                    background: "rgba(255,255,255,0.03)",
-                    padding: "20px",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "10px",
-                      fontWeight: 500,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "rgba(245,245,245,0.3)",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    {m.label}
+                <CyberPanel key={m.label} corners={false}>
+                  <div style={{ padding: "16px" }}>
+                    <div
+                      className="mono-label-dim"
+                      style={{ fontSize: "8.5px", marginBottom: "7px" }}
+                    >
+                      {m.label.toUpperCase()}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 500,
+                        color: "#e6f8ff",
+                      }}
+                    >
+                      {m.value}
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      color: "rgba(245,245,245,0.8)",
-                    }}
-                  >
-                    {m.value}
-                  </div>
-                </div>
+                </CyberPanel>
               ))}
             </div>
           </motion.div>
         )}
 
-        {/* ─── Case Study Content ─── */}
+        {/* Story */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.35 }}
-          style={{ marginBottom: "var(--spacing-group)" }}
+          style={{ marginBottom: "44px" }}
         >
-          <h2
-            style={{
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "rgba(245,245,245,0.35)",
-              marginBottom: "16px",
-            }}
-          >
-            The Story
-          </h2>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-            }}
-          >
+          <SectionLabel>THE STORY</SectionLabel>
+          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
             {paragraphs.map((para, i) => (
               <p
                 key={i}
                 style={{
                   fontSize: "15px",
                   fontWeight: 300,
-                  color: "rgba(245,245,245,0.6)",
-                  lineHeight: 1.8,
+                  color: "rgba(230,248,255,0.6)",
+                  lineHeight: 1.85,
                 }}
               >
                 {para}
@@ -329,32 +365,21 @@ export default function VentureDetailPage() {
           </div>
         </motion.div>
 
-        {/* ─── Brand Collaborations ─── */}
+        {/* Brand collaborations */}
         {venture.brandLogos && venture.brandLogos.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.38 }}
-            style={{ marginBottom: "var(--spacing-group)" }}
+            style={{ marginBottom: "44px" }}
           >
-            <h2
-              style={{
-                fontSize: "11px",
-                fontWeight: 500,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "rgba(245,245,245,0.35)",
-                marginBottom: "24px",
-              }}
-            >
-              Some Collaborations
-            </h2>
+            <SectionLabel>SOME COLLABORATIONS</SectionLabel>
             <div
               className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5"
-              style={{ gap: "12px" }}
+              style={{ gap: "10px" }}
             >
               {venture.brandLogos.map((logo) => (
-                <LiquidGlassCard key={logo.name} className="rounded-xl">
+                <CyberPanel key={logo.name} corners={false}>
                   <div
                     style={{
                       display: "flex",
@@ -367,18 +392,19 @@ export default function VentureDetailPage() {
                   >
                     <div
                       style={{
-                        height: "40px",
+                        height: "38px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
                     >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={logo.src}
                         alt={logo.name}
                         style={{
-                          maxWidth: `${80 * (logo.scale ?? 1)}px`,
-                          maxHeight: `${40 * (logo.scale ?? 1)}px`,
+                          maxWidth: `${78 * (logo.scale ?? 1)}px`,
+                          maxHeight: `${38 * (logo.scale ?? 1)}px`,
                           objectFit: "contain",
                           filter: "grayscale(1) brightness(0) invert(1)",
                           opacity: 0.7,
@@ -386,110 +412,89 @@ export default function VentureDetailPage() {
                       />
                     </div>
                     <span
-                      style={{
-                        fontSize: "10px",
-                        fontWeight: 400,
-                        letterSpacing: "0.04em",
-                        color: "rgba(245,245,245,0.35)",
-                        textAlign: "center",
-                        lineHeight: 1.3,
-                      }}
+                      className="mono-label-dim"
+                      style={{ fontSize: "8px", textAlign: "center" }}
                     >
                       {logo.name}
                     </span>
                   </div>
-                </LiquidGlassCard>
+                </CyberPanel>
               ))}
             </div>
           </motion.div>
         )}
 
-        {/* ─── Links ─── */}
+        {/* Links */}
         {venture.links && venture.links.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            style={{ marginBottom: "var(--spacing-group)" }}
+            style={{ marginBottom: "44px" }}
           >
-            <div className="flex flex-wrap" style={{ gap: "12px" }}>
+            <div className="flex flex-wrap" style={{ gap: "10px" }}>
               {venture.links.map((link, i) => (
                 <a
                   key={link.url}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={i === 0 ? "" : "glass"}
-                  style={
-                    i === 0
-                      ? {
-                          display: "inline-block",
-                          padding: "12px 28px",
-                          borderRadius: "9999px",
-                          fontSize: "13px",
-                          fontWeight: 500,
-                          color: "#0A0A0A",
-                          background: "rgba(245,245,245,0.85)",
-                          transition: "all 0.2s",
-                        }
-                      : {
-                          display: "inline-block",
-                          padding: "12px 28px",
-                          borderRadius: "9999px",
-                          fontSize: "13px",
-                          fontWeight: 500,
-                          color: "rgba(245,245,245,0.8)",
-                          transition: "all 0.2s",
-                        }
-                  }
+                  data-cursor="open link"
+                  className="mono-label chamfer-sm"
+                  style={{
+                    display: "inline-block",
+                    padding: "12px 24px",
+                    fontSize: "10px",
+                    background: i === 0 ? "#00f0ff" : "transparent",
+                    color: i === 0 ? "#04040a" : "rgba(0,240,255,0.7)",
+                    border:
+                      i === 0
+                        ? "1px solid #00f0ff"
+                        : "1px solid rgba(0,240,255,0.25)",
+                    boxShadow:
+                      i === 0 ? "0 0 18px rgba(0,240,255,0.4)" : "none",
+                    transition: "all 0.2s",
+                  }}
                   onMouseEnter={(e) => {
-                    if (i === 0) {
-                      e.currentTarget.style.background =
-                        "rgba(245,245,245,1)";
+                    if (i !== 0) {
+                      e.currentTarget.style.borderColor =
+                        "rgba(0,240,255,0.6)";
+                      e.currentTarget.style.color = "#00f0ff";
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (i === 0) {
-                      e.currentTarget.style.background =
-                        "rgba(245,245,245,0.85)";
+                    if (i !== 0) {
+                      e.currentTarget.style.borderColor =
+                        "rgba(0,240,255,0.25)";
+                      e.currentTarget.style.color = "rgba(0,240,255,0.7)";
                     }
                   }}
                 >
-                  {link.label} <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" style={{display:"inline",verticalAlign:"middle",marginLeft:"2px"}}><path d="M3 9L9 3M9 3H4.5M9 3V7.5"/></svg>
+                  {link.label.toUpperCase()} ↗
                 </a>
               ))}
             </div>
           </motion.div>
         )}
 
-        {/* ─── Previous / Next ─── */}
+        {/* Prev / Next */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.45 }}
           className="flex items-center justify-between"
           style={{
-            paddingTop: "var(--spacing-component)",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
+            paddingTop: "28px",
+            borderTop: "1px solid rgba(0,240,255,0.12)",
           }}
         >
           {prev ? (
             <Link
               href={`/ventures/${prev.slug}`}
-              style={{
-                fontSize: "13px",
-                fontWeight: 400,
-                color: "rgba(245,245,245,0.4)",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.8)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.4)")
-              }
+              className="mono-label"
+              style={{ color: "rgba(0,240,255,0.55)" }}
             >
-              ← {prev.title}
+              ◂ {prev.title.toUpperCase()}
             </Link>
           ) : (
             <span />
@@ -497,27 +502,33 @@ export default function VentureDetailPage() {
           {next ? (
             <Link
               href={`/ventures/${next.slug}`}
-              style={{
-                fontSize: "13px",
-                fontWeight: 400,
-                color: "rgba(245,245,245,0.4)",
-                transition: "color 0.2s",
-                textAlign: "right",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.8)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "rgba(245,245,245,0.4)")
-              }
+              className="mono-label"
+              style={{ color: "rgba(0,240,255,0.55)", textAlign: "right" }}
             >
-              {next.title} →
+              {next.title.toUpperCase()} ▸
             </Link>
           ) : (
             <span />
           )}
         </motion.div>
       </div>
+    </div>
+  );
+}
+
+function SectionLabel({ children }: { children: string }) {
+  return (
+    <div
+      className="flex items-center"
+      style={{ gap: "12px", marginBottom: "18px" }}
+    >
+      <span className="mono-label" style={{ color: "#ff2a6d", fontSize: "9px" }}>
+        ▸
+      </span>
+      <span className="mono-label" style={{ fontSize: "10px" }}>
+        {children}
+      </span>
+      <div className="hairline" style={{ flex: 1 }} />
     </div>
   );
 }

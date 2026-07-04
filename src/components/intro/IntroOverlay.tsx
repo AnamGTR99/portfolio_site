@@ -1,82 +1,119 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
+const BOOT_LINES = [
+  "> ANAM.SYS v3.0 — MEL/HKG/CMB",
+  "> NEURAL LINK ............ OK",
+  "> RENDERER: WEBGL ........ OK",
+  "> ACCESS GRANTED",
+];
+
+const LINE_INTERVAL = 170;
+const HOLD = 260;
+const EXIT = 350;
+
+/**
+ * Boot intro — rapid terminal boot sequence, flash, hard cut.
+ * Total ~1.4s. Click anywhere to skip.
+ */
 export default function IntroOverlay({
   onComplete,
 }: {
   onComplete: () => void;
 }) {
-  const [phase, setPhase] = useState<"dot" | "expand" | "done">("dot");
+  const [lines, setLines] = useState(0);
+  const [exiting, setExiting] = useState(false);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    // Dot holds, then expands into portal
-    const expandTimer = setTimeout(() => setPhase("expand"), 700);
-    const doneTimer = setTimeout(() => {
-      setPhase("done");
-      onComplete();
-    }, 1900);
-
+    if (exiting) return;
+    const lineTimer = setInterval(() => {
+      setLines((n) => Math.min(n + 1, BOOT_LINES.length));
+    }, LINE_INTERVAL);
+    const exitTimer = setTimeout(
+      () => setExiting(true),
+      BOOT_LINES.length * LINE_INTERVAL + HOLD,
+    );
     return () => {
-      clearTimeout(expandTimer);
-      clearTimeout(doneTimer);
+      clearInterval(lineTimer);
+      clearTimeout(exitTimer);
     };
-  }, [onComplete]);
+  }, [exiting]);
+
+  useEffect(() => {
+    if (!exiting) return;
+    const doneTimer = setTimeout(() => {
+      setDone(true);
+      onComplete();
+    }, EXIT);
+    return () => clearTimeout(doneTimer);
+  }, [exiting, onComplete]);
+
+  if (done) return null;
 
   return (
-    <AnimatePresence>
-      {phase !== "done" && (
+    <motion.div
+      className="fixed inset-0 z-[100] flex items-center justify-center"
+      style={{ background: "#04040a", cursor: "pointer" }}
+      animate={exiting ? { opacity: 0 } : { opacity: 1 }}
+      transition={{ duration: EXIT / 1000, ease: "easeOut" }}
+      onClick={() => setExiting(true)}
+    >
+      {/* Flash on exit */}
+      {exiting && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center"
-          style={{ background: "#0A0A0A" }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          {/* Central glow dot */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={
-              phase === "dot"
-                ? { scale: 1, opacity: 1 }
-                : { scale: 60, opacity: 0 }
-            }
-            transition={
-              phase === "dot"
-                ? { duration: 0.5, ease: "easeOut" }
-                : { duration: 1, ease: [0.16, 1, 0.3, 1] }
-            }
+          className="absolute inset-0"
+          initial={{ opacity: 0.5 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          style={{ background: "rgba(0,240,255,0.18)" }}
+        />
+      )}
+
+      <div style={{ minWidth: "min(420px, 84vw)" }}>
+        {BOOT_LINES.slice(0, lines).map((line, i) => (
+          <div
+            key={i}
+            className="mono-label"
             style={{
+              fontSize: "12px",
+              letterSpacing: "0.12em",
+              lineHeight: 2.1,
+              color:
+                i === BOOT_LINES.length - 1
+                  ? "#00f0ff"
+                  : "rgba(0,240,255,0.5)",
+              textShadow:
+                i === BOOT_LINES.length - 1
+                  ? "0 0 12px rgba(0,240,255,0.6)"
+                  : "none",
+            }}
+          >
+            {line}
+          </div>
+        ))}
+        {lines < BOOT_LINES.length && (
+          <span
+            className="blink"
+            style={{
+              display: "inline-block",
               width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "rgba(255, 255, 255, 0.9)",
-              boxShadow: `
-                0 0 20px 8px rgba(255, 255, 255, 0.3),
-                0 0 60px 20px rgba(255, 255, 255, 0.15),
-                0 0 120px 40px rgba(255, 255, 255, 0.05)
-              `,
+              height: "14px",
+              background: "#00f0ff",
+              verticalAlign: "middle",
             }}
           />
+        )}
+      </div>
 
-          {/* Ring that expands outward */}
-          {phase === "expand" && (
-            <motion.div
-              className="absolute"
-              initial={{ scale: 0, opacity: 0.8 }}
-              animate={{ scale: 40, opacity: 0 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                border: "1px solid rgba(255, 255, 255, 0.4)",
-                boxShadow: "0 0 30px 4px rgba(255, 255, 255, 0.1)",
-              }}
-            />
-          )}
-        </motion.div>
-      )}
-    </AnimatePresence>
+      <span
+        className="mono-label-dim"
+        style={{ position: "absolute", bottom: "24px", right: "24px" }}
+      >
+        [ CLICK TO SKIP ]
+      </span>
+    </motion.div>
   );
 }

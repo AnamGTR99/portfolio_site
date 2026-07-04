@@ -4,8 +4,8 @@ export interface Venture {
   role: string;
   description: string;
   fullContent: string;
-  status: "ongoing" | "completed";
-  thumbnail: string;
+  status: "ongoing" | "completed" | "construction";
+  thumbnail?: string;
   heroImage?: string;
   heroVideo?: string;
   images?: string[];
@@ -16,6 +16,15 @@ export interface Venture {
 }
 
 export const ventures: Venture[] = [
+  {
+    slug: "mana-group",
+    title: "Mana Group",
+    role: "Founder",
+    description: "Something is being built.",
+    fullContent: `Mana Group is in construction.`,
+    status: "construction",
+    year: 2026,
+  },
   {
     slug: "anam-hotel",
     title: "The Anam Hotel Colombo",
@@ -41,47 +50,6 @@ Running a hotel teaches you things software never will: reading people, managing
       { label: "Status", value: "Operational" },
     ],
     year: 2024,
-  },
-  {
-    slug: "hugozbor",
-    title: "HUGO ZBOR",
-    role: "Talent Manager",
-    description:
-      "Managing a multi-disciplinary creative — building his brand, negotiating partnerships, and scaling his career.",
-    fullContent: `HUGO ZBOR is a multi-disciplinary creative whose work spans content, music, and visual art. As his talent manager, the role covers everything from content strategy and brand partnerships to contract negotiation and audience growth.
-
-In the creator economy, talent management is part agent, part strategist, part therapist. It requires understanding platform algorithms, brand deal structures, audience psychology, and the human side of creative work.
-
-The technical skills from software engineering directly translate — building tools for analytics, automating outreach, and creating the digital infrastructure that lets talent focus on what they do best.`,
-    status: "ongoing",
-    thumbnail: "/images/ventures/hugozbor-logo.png",
-    heroVideo: "/images/ventures/hugozbor-banner.mp4",
-    brandLogos: [
-      { src: "/images/brands/Converse-Logo.png", name: "CONVERSE" },
-      { src: "/images/brands/asics_logo_clean.png", name: "ASICS" },
-      { src: "/images/brands/named_collective.png", name: "NAMED COLLECTIVE", scale: 1.7 },
-      { src: "/images/brands/8illy.png", name: "8ILLY" },
-      { src: "/images/brands/BENECULTURE.webp", name: "BENECULTURE" },
-      { src: "/images/brands/CONROY-US.webp", name: "CONROY US" },
-      { src: "/images/brands/BLACK-_CLEAR_.png", name: "99CLOVER" },
-      { src: "/images/brands/LOVENANGELS.png", name: "LOVENANGELS" },
-      { src: "/images/brands/ULTRALIGHT-TEXT-LOGO.png", name: "ULTRALIGHT LONDON" },
-      { src: "/images/brands/aformunseen.png", name: "A FORM UNSEEN" },
-      { src: "/images/brands/omnee.png", name: "OMNEE WORLD" },
-      { src: "/images/brands/pcmkr.png", name: "PEACEMAKER" },
-    ],
-    links: [
-      { label: "Website", url: "https://hugozbor.com" },
-      { label: "Instagram", url: "https://instagram.com/hugozbor" },
-      { label: "Manager", url: "https://instagram.com/sheivault" },
-    ],
-    metrics: [
-      { label: "Focus", value: "Multi-Disciplinary Creative" },
-      { label: "Scope", value: "Brand Deals & Growth" },
-      { label: "Collaborations", value: "45+" },
-      { label: "Status", value: "Active" },
-    ],
-    year: 2025,
   },
 ];
 
