@@ -340,37 +340,12 @@ export default function VentureDetailPage() {
           </motion.div>
         )}
 
-        {/* Story */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          style={{ marginBottom: "44px" }}
-        >
-          <SectionLabel>THE STORY</SectionLabel>
-          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-            {paragraphs.map((para, i) => (
-              <p
-                key={i}
-                style={{
-                  fontSize: "15px",
-                  fontWeight: 300,
-                  color: "rgba(230,248,255,0.6)",
-                  lineHeight: 1.85,
-                }}
-              >
-                {para}
-              </p>
-            ))}
-          </div>
-        </motion.div>
-
         {/* Roster — IKB cards, echoing the Mana roster announcement graphics */}
         {venture.roster && venture.roster.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.37 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
             style={{ marginBottom: "44px" }}
           >
             <SectionLabel>THE ROSTER</SectionLabel>
@@ -505,6 +480,31 @@ export default function VentureDetailPage() {
             </div>
           </motion.div>
         )}
+
+        {/* Story */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.37 }}
+          style={{ marginBottom: "44px" }}
+        >
+          <SectionLabel>THE STORY</SectionLabel>
+          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+            {paragraphs.map((para, i) => (
+              <p
+                key={i}
+                style={{
+                  fontSize: "15px",
+                  fontWeight: 300,
+                  color: "rgba(230,248,255,0.6)",
+                  lineHeight: 1.85,
+                }}
+              >
+                {para}
+              </p>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Brand collaborations */}
         {venture.brandLogos && venture.brandLogos.length > 0 && (
