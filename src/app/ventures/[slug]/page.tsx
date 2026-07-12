@@ -365,6 +365,147 @@ export default function VentureDetailPage() {
           </div>
         </motion.div>
 
+        {/* Roster — IKB cards, echoing the Mana roster announcement graphics */}
+        {venture.roster && venture.roster.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.37 }}
+            style={{ marginBottom: "44px" }}
+          >
+            <SectionLabel>THE ROSTER</SectionLabel>
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2"
+              style={{ gap: "14px" }}
+            >
+              {venture.roster.map((creator) => (
+                <motion.a
+                  key={creator.handle}
+                  href={creator.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="view profile"
+                  whileHover={{ y: -4 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                  className="chamfer"
+                  style={{
+                    display: "block",
+                    background: "#002FA7",
+                    padding: "20px 20px 22px",
+                    boxShadow: "0 0 32px rgba(0,47,167,0.35)",
+                  }}
+                >
+                  {/* Top row: knot mark + roster index */}
+                  <div
+                    className="flex items-center justify-between"
+                    style={{ marginBottom: "16px" }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/ventures/mana/mana-mark.png"
+                      alt="Mana"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                    <span
+                      className="mono-label"
+                      style={{
+                        fontSize: "9px",
+                        color: "#9DB4E8",
+                        letterSpacing: "0.14em",
+                      }}
+                    >
+                      TALENT · ROSTER · {creator.index}
+                    </span>
+                  </div>
+
+                  {/* Photo window */}
+                  <div
+                    style={{
+                      border: "2px solid #F5F2EA",
+                      aspectRatio: "4 / 5",
+                      overflow: "hidden",
+                      marginBottom: "18px",
+                    }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={creator.photo}
+                      alt={creator.name}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+
+                  {/* Name block */}
+                  <span
+                    className="mono-label"
+                    style={{
+                      fontSize: "9px",
+                      color: "#F5F2EA",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "7px",
+                      marginBottom: "10px",
+                      letterSpacing: "0.14em",
+                    }}
+                  >
+                    <span
+                      className="live-dot"
+                      style={{
+                        width: "5px",
+                        height: "5px",
+                        borderRadius: "50%",
+                        background: "#9DB4E8",
+                        display: "inline-block",
+                      }}
+                    />
+                    NOW REPRESENTING
+                  </span>
+                  <h3
+                    className="display"
+                    style={{
+                      fontSize: "clamp(24px, 3.4vw, 34px)",
+                      color: "#F5F2EA",
+                      lineHeight: 1,
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {creator.name.toUpperCase()}
+                  </h3>
+                  <div
+                    className="flex flex-wrap items-center justify-between"
+                    style={{ gap: "8px" }}
+                  >
+                    <span
+                      className="mono-label"
+                      style={{
+                        fontSize: "10px",
+                        color: "#9DB4E8",
+                        letterSpacing: "0.12em",
+                      }}
+                    >
+                      {creator.handle.toUpperCase()}
+                    </span>
+                    <span
+                      className="mono-label"
+                      style={{
+                        fontSize: "8.5px",
+                        color: "#9DB4E8",
+                        letterSpacing: "0.14em",
+                      }}
+                    >
+                      {creator.tags}
+                    </span>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         {/* Brand collaborations */}
         {venture.brandLogos && venture.brandLogos.length > 0 && (
           <motion.div

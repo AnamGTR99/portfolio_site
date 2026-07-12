@@ -159,6 +159,7 @@ function MissionCard({ project, index }: { project: Project; index: number }) {
             aspectRatio: "16 / 10",
             overflow: "hidden",
             borderBottom: `1px solid ${accentHex}33`,
+            background: `radial-gradient(circle at 50% 45%, ${accentHex}0f, transparent 72%)`,
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -168,9 +169,7 @@ function MissionCard({ project, index }: { project: Project; index: number }) {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: project.thumbnail.endsWith(".svg")
-                ? "contain"
-                : "cover",
+              objectFit: "contain",
               padding: project.thumbnail.endsWith(".svg") ? "28px" : 0,
               opacity: hovered ? 0.9 : 0.6,
               filter: hovered

@@ -489,6 +489,8 @@ function FeaturedProjectCard({
             height: "190px",
             overflow: "hidden",
             borderBottom: "1px solid rgba(0,240,255,0.14)",
+            background:
+              "radial-gradient(circle at 50% 45%, rgba(0,240,255,0.05), transparent 72%)",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -498,7 +500,7 @@ function FeaturedProjectCard({
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              objectFit: "contain",
               opacity: 0.65,
               filter: "saturate(1.15) contrast(1.05)",
             }}

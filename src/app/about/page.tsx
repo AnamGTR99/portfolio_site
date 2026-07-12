@@ -233,7 +233,7 @@ export default function AboutPage() {
                 title: "TALENT MGMT",
                 accent: "amber" as const,
                 description:
-                  "Brand partnerships, content strategy, and scaling creative careers — work now folding into Mana Group.",
+                  "Brand partnerships, content strategy, and scaling creative careers — now under Mana.",
               },
             ].map((item) => (
               <CyberPanel key={item.title} accent={item.accent}>
