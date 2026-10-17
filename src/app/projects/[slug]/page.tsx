@@ -224,35 +224,8 @@ export default function ProjectDetailPage() {
           ) : null}
         </motion.div>
 
-        {/* Gallery */}
-        {project.images && project.images.length > 0 && (
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2"
-            style={{ gap: "12px", marginTop: "-28px", marginBottom: "44px" }}
-          >
-            {project.images.map((src) => (
-              <div
-                key={src}
-                className="chamfer"
-                style={{
-                  border: "1px solid rgba(0,240,255,0.2)",
-                  overflow: "hidden",
-                  maxHeight: "520px",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={src}
-                  alt={`${project.title} screenshot`}
-                  style={{ width: "100%", display: "block" }}
-                />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Overview */}
-        {project.longDescription && (
+        {/* Briefing */}
+        {project.briefing && project.briefing.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -260,16 +233,45 @@ export default function ProjectDetailPage() {
             style={{ marginBottom: "44px" }}
           >
             <SectionLabel>BRIEFING</SectionLabel>
-            <p
+            <ul
               style={{
-                fontSize: "15px",
-                fontWeight: 300,
-                color: "rgba(230,248,255,0.6)",
-                lineHeight: 1.85,
+                listStyle: "none",
+                padding: 0,
+                margin: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
               }}
             >
-              {project.longDescription}
-            </p>
+              {project.briefing.map((item, i) => (
+                <li
+                  key={i}
+                  style={{
+                    display: "flex",
+                    gap: "12px",
+                    fontSize: "15px",
+                    fontWeight: 300,
+                    color: "rgba(230,248,255,0.6)",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  <span style={{ color: "#ff2a6d", fontSize: "9px", paddingTop: "7px" }}>
+                    ▸
+                  </span>
+                  <span>
+                    {item.split(/\*\*(.+?)\*\*/g).map((part, j) =>
+                      j % 2 === 1 ? (
+                        <strong key={j} style={{ color: "#e6f8ff", fontWeight: 600 }}>
+                          {part}
+                        </strong>
+                      ) : (
+                        part
+                      ),
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         )}
 

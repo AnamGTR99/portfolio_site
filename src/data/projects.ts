@@ -21,7 +21,7 @@ export interface Project {
   slug: string;
   title: string;
   description: string;
-  longDescription?: string;
+  briefing?: string[];
   techStack: string[];
   categories: ProjectCategory[];
   thumbnail: string;
@@ -47,8 +47,15 @@ export const projects: Project[] = [
     title: "Stamped",
     description:
       "Chrome extension that sits beside any YouTube video, summarises it from the transcript, answers questions about it, and turns every timestamp into a link that jumps the player.",
-    longDescription:
-      "Stamped opens as a panel in YouTube's right column. It reads the video's transcript inside the browser, streams back a tight summary — an \"In short\" line, three bullets and up to five key moments — and pins those moments as dots on the player's progress bar. You can chat with the video, and every [m:ss] in an answer is a button that jumps straight there. The backend is a small Node service on a VPS with SQLite caching and a one-at-a-time Claude queue; transcripts are read client-side because YouTube blocks datacenter IPs. Accounts, payments and a Chrome Web Store listing are built in for launch.",
+    briefing: [
+      "**Chrome extension** that opens as a panel beside any YouTube video",
+      "Reads the **transcript in the browser** — YouTube blocks datacenter IPs, so the server never fetches it",
+      "Streams a tight **summary**: one \"In short\" line, 3 bullets and up to 5 **key moments**",
+      "Key moments show as **dots on the progress bar**; every **[m:ss] timestamp** jumps the player",
+      "**Chat with the video** — answers cite timestamps you can click",
+      "**Node + SQLite** backend on a VPS with caching and a **one-at-a-time Claude queue**",
+      "**Accounts, payments and a Chrome Web Store** listing built in for launch",
+    ],
     techStack: [
       "JavaScript",
       "Chrome Extension (MV3)",
@@ -72,8 +79,15 @@ export const projects: Project[] = [
     title: "Enquiry Automation System",
     description:
       "Automated buyer-enquiry engine for a real-estate agency — detects every new enquiry, sends a personalised AI reply within minutes, follows up on a schedule, and logs it all back to the CRM.",
-    longDescription:
-      "Built at Eleno for a real-estate agency (client under NDA). The system watches agents' inboxes through Microsoft 365 webhooks and polls the agency's CRM, classifies and routes each enquiry, drafts a personalised reply with GPT-4o and sends it from the agent's own mailbox. It runs a business-day-aware follow-up cadence (weekends and public holidays skipped), parses buyers' questionnaire replies into structured CRM fields, handles SMS and voice routing with opt-outs, sends post-inspection forms and auction reminders, and writes every touchpoint back to the CRM. Ten scheduled jobs, PII retention, rate limiting and tests — Dockerised FastAPI, deployed to a cloud VPS and taken from sandbox to live.",
+    briefing: [
+      "Built at **Eleno** for a **real-estate agency** (client under **NDA**)",
+      "Watches agents' inboxes via **Microsoft 365 webhooks** and polls the agency's **CRM**",
+      "**GPT-4o** drafts a personalised reply, sent from the **agent's own mailbox** within minutes",
+      "**Business-day-aware follow-ups** — weekends and public holidays skipped",
+      "Parses buyers' **questionnaire replies** into structured CRM fields",
+      "**SMS and voice routing** via Twilio with opt-outs, plus **post-inspection forms** and **auction reminders**",
+      "**10 scheduled jobs**, PII retention, rate limiting and tests — **Dockerised FastAPI**, taken from **sandbox to live**",
+    ],
     techStack: [
       "Python",
       "FastAPI",
@@ -101,8 +115,15 @@ export const projects: Project[] = [
     title: "Investor Relations Platform",
     description:
       "Custom investor-relations platform for a fund manager — investors, funds, deals and capital positions in one system, with live two-way sync between the CRM and email marketing.",
-    longDescription:
-      "Built at Eleno with a two-person team for a fund manager (client under NDA). It replaced spreadsheets and disconnected tools with one platform: investor profiles with holdings, interaction timelines and organisation hierarchies; funds and deals with tranches; a capital-position drill-down from fund to deal to investor; registry imports with reconciliation; and reporting. The 16-table schema uses an append-only capital-events ledger for compliance and a separate inter-fund flows table so funds under management are never double-counted. Alongside it, a live sync service links the CRM boards and the email platform both ways — flag changes, unsubscribes and per-recipient campaign engagement land on each contact's timeline within seconds.",
+    briefing: [
+      "Built at **Eleno** with a **two-person team** for a **fund manager** (client under **NDA**)",
+      "Replaced spreadsheets with **one platform**: investors, organisations, funds, deals and tranches",
+      "**Capital-position drill-down** from fund → deal → investor",
+      "**16-table schema** with an **append-only capital ledger** for compliance",
+      "Separate **inter-fund flows** table so funds under management are **never double-counted**",
+      "**Registry imports** with reconciliation, plus a **reporting** hub",
+      "Live **two-way sync** between the **CRM** and **email marketing** — flags, unsubscribes and campaign engagement land on each contact's timeline in seconds",
+    ],
     techStack: [
       "TypeScript",
       "Next.js",
@@ -129,8 +150,15 @@ export const projects: Project[] = [
     title: "MANA OS",
     description:
       "The operating system behind Mana, my creator talent agency — one app for every deal, deadline, invoice and client email across the roster, synced from the commission sheets and inboxes.",
-    longDescription:
-      "MANA OS runs the agency day to day. Today ranks what's owed: client emails waiting more than 24 hours, deadlines in the next 48, money to chase and quotes to confirm. Deals is a river from talking to quoted, signed, in production, delivered-unpaid and paid, colour-coded per creator. Score tracks closed value, commission and weekly targets against the goals staircase, and Money follows every invoice. Deal data syncs from each creator's commission sheet through Apps Script four times a day and an inbox notifier checks every 10 minutes, so the app is always current and never sends anything on its own. It carries the full deal flow for creators like Hugo Zbor; a private creator portal piloting with Hugo is next. Client names and figures are blurred in the screenshots.",
+    briefing: [
+      "The **operating system** for **Mana**, my creator talent agency",
+      "**Today** ranks what's owed: emails waiting 24h+, deadlines in the next 48h, **money to chase** and quotes to confirm",
+      "**Deals river** from talking → quoted → signed → making → delivered → paid, colour-coded per creator",
+      "**Score** tracks closed value, commission and **weekly targets** against the goals staircase",
+      "**Money** follows every invoice and what's overdue",
+      "Syncs from each creator's **commission sheet** (Apps Script, 4× a day) and an **inbox notifier** every 10 min",
+      "**Never sends anything** on its own — client names and figures are **blurred** in the recording",
+    ],
     techStack: [
       "Python",
       "SQLite",
@@ -141,8 +169,7 @@ export const projects: Project[] = [
       "DigitalOcean",
     ],
     categories: ["mana-systems", "web-app"],
-    thumbnail: "/images/projects/mana/mana-deals.jpg",
-    images: ["/images/projects/mana/mana-today.jpg"],
+    thumbnail: "/images/projects/mana-os.gif",
     featured: true,
     year: 2026,
     badge: "Live — Daily Use",
@@ -154,8 +181,15 @@ export const projects: Project[] = [
     title: "Mana Reply",
     description:
       "AI reply agent for the agency inbox — reads the whole email thread, the deal notes and the commission sheet, then saves a ready-to-send draft in Gmail, in my voice.",
-    longDescription:
-      "From any client email on the Today feed I tap Reply and type one line of intent. Claude Opus reads the full Gmail thread, the vault notes for that deal and the creator's commission-sheet row, and saves a draft inside the same Gmail thread — it has no send tool, so a human always presses send. Shorter, Warmer and Redo rewrite the draft in place. A Telegram bot pushes a \"reply owed\" card the moment a client email lands. A rules file holds the house voice and bans invented figures (anything unknown becomes a [PLACEHOLDER]), email text is treated as data rather than instructions, and a monitor re-checks thread summaries every 10 minutes. Client details in the screenshot are blurred.",
+    briefing: [
+      "Tap **Reply** on any client email and type **one line of intent**",
+      "**Claude Opus** reads the **full Gmail thread**, the deal notes and the **commission-sheet** row",
+      "Saves a **draft inside the Gmail thread** — **no send tool**, a human always presses send",
+      "**Shorter / Warmer / Redo** rewrite the draft in place",
+      "**Telegram** pushes a \"reply owed\" card the moment a client email lands",
+      "House **voice rules**; unknown figures become **[PLACEHOLDER]**, never invented",
+      "Email text treated as **data, not instructions** — client details **blurred** in the recording",
+    ],
     techStack: [
       "Python",
       "Claude Opus",
@@ -166,7 +200,7 @@ export const projects: Project[] = [
       "Nginx",
     ],
     categories: ["mana-systems", "ai-native"],
-    thumbnail: "/images/projects/mana/mana-today.jpg",
+    thumbnail: "/images/projects/mana-reply.gif",
     featured: true,
     year: 2026,
     badge: "Live — Daily Use",
@@ -178,8 +212,15 @@ export const projects: Project[] = [
     title: "Mana Agent Fleet",
     description:
       "The outreach engine and AI agents that run a talent agency's pipeline — creator scraping, contact discovery, a 7,599-contact outreach CRM, inbox screening and a 24/7 Telegram assistant for each creator.",
-    longDescription:
-      "A fleet of services on one small VPS. Scrapers pulled 1,800+ creator profiles and thousands of brand contacts, enriched through a contact-finding waterfall (Hunter, Tomba, Prospeo and a free parallel site scraper). The outreach CRM tracks every contact, send, reply and follow-up across lanes with per-lane ICP scoring, and a Screener agent scans five inboxes every two minutes for bounces and out-of-office replies. Hugo and Kevin each have their own Telegram assistant: Claude, running headless, answers their questions about deals, money and deadlines read-only from the vault, the deal mirror and their inbox, and escalates anything that needs action to me with a numbered flag. A morning brief bot posts the day's plan at 07:30. One hard lesson baked in: Gmail API sends tripped spam filters after 759 emails, so sending moved to plain SMTP.",
+    briefing: [
+      "**Scrapers** pulled **1,800+ creator profiles** and thousands of brand contacts",
+      "**Contact-finding waterfall**: Hunter → Tomba → Prospeo → my own parallel site scraper",
+      "**Outreach CRM** at **7,599-contact** scale with per-lane **ICP scoring** — board, contacts, emails, setup",
+      "**Screener agent** scans **5 inboxes every 2 minutes** for bounces and out-of-office replies",
+      "**Telegram assistants** for Hugo and Kevin: **Claude headless**, read-only over deals, money and inbox; anything actionable **escalates with a numbered flag**",
+      "**Morning brief bot** posts the day's plan at 07:30",
+      "Lesson baked in: **Gmail API** sends hit spam after 759 emails → moved to **plain SMTP**",
+    ],
     techStack: [
       "Python",
       "SQLite",
@@ -191,7 +232,7 @@ export const projects: Project[] = [
       "Nginx",
     ],
     categories: ["mana-systems", "ai-native"],
-    thumbnail: "/images/projects/mana/mana-outreach.jpg",
+    thumbnail: "/images/projects/mana-fleet.gif",
     featured: true,
     year: 2026,
     badge: "Live on VPS",
@@ -199,12 +240,49 @@ export const projects: Project[] = [
     purpose: "Mana",
   },
   {
+    slug: "anam-hotel-desk",
+    title: "The Anam Desk",
+    description:
+      "Live operating dashboard for my boutique hotel in Colombo — occupancy, ADR, revenue, channel mix and what needs attention today, pulled automatically from the hotel's booking system.",
+    briefing: [
+      "**CEO dashboard** for The Anam Hotel — run from **Melbourne** for a hotel in **Colombo**",
+      "**Desk**: tonight's occupancy, arrivals, departures, **\"needs you\"** alerts and a brief written from the data",
+      "**Hotels**: occupancy, **ADR, RevPAR**, revenue, commission and week-on-week change",
+      "**Company**: trends, **channel mix**, lead time, length of stay and cancellations",
+      "Booking data pulled with **Playwright** from the Mac (Cloudflare blocks the server IP) and normalised into **SQLite**",
+      "Checked against the booking system: tonight **exact**, 3-month and YTD revenue **within 0.2%**",
+      "**Python** server, vault sync over **Syncthing**, weekly reports and a phone **home-screen app** — guest names and figures **blurred**",
+    ],
+    techStack: [
+      "Python",
+      "SQLite",
+      "Playwright",
+      "JavaScript",
+      "Syncthing",
+      "IMAP",
+      "Nginx",
+    ],
+    categories: ["web-app"],
+    thumbnail: "/images/projects/hotel-desk.gif",
+    featured: true,
+    year: 2026,
+    badge: "Live — Daily Use",
+    role: "Solo",
+    purpose: "Anam Hotel",
+  },
+  {
     slug: "dive",
     title: "Dive",
     description:
       "Spatial canvas for branching AI conversations — fork discussions, maintain context, and explore knowledge non-linearly. Solves context collapse in AI workflows.",
-    longDescription:
-      "Dive is a cognitive augmentation tool that transforms documents and web pages into branching chat trees. Instead of linear AI chat, you create concept anchors from any text, start AI conversations from them, and fork responses to explore multiple reasoning paths — all while maintaining full context inheritance. Built in 72 hours at FoundersHack Melbourne 2025 with Team NUU.",
+    briefing: [
+      "Built in **72 hours** at **FoundersHack Melbourne 2025** — **3rd place**",
+      "Turns documents and web pages into **branching chat trees**",
+      "Create **concept anchors** from any text and start AI conversations from them",
+      "**Fork responses** to explore several reasoning paths with **full context inheritance**",
+      "Solves **context collapse** in long, linear AI chats",
+      "I led the **backend** (Convex) with Team NUU",
+    ],
     techStack: [
       "TypeScript",
       "Next.js",
@@ -232,8 +310,14 @@ export const projects: Project[] = [
     title: "MedPal AI",
     description:
       "Mobile app that scans medication labels and translates medical jargon into plain language using AI. Includes dose tracking, smart reminders, and a medication library.",
-    longDescription:
-      "MedPal addresses medication literacy and adherence challenges. Patients scan a prescription label via camera and the AI instantly translates complex medical terminology into clear, understandable language. Features a senior-friendly interface with dose tracking and smart reminders. Built at MelbourneHack 2025.",
+    briefing: [
+      "**1st place** at **MelbourneHack 2025**, built in **48 hours**",
+      "**Scan a prescription label** with the camera",
+      "**Google Cloud Vision** reads it; **Gemini** turns medical jargon into **plain language**",
+      "**Dose tracking**, **smart reminders** and a medication library",
+      "**Senior-friendly** interface built for medication adherence",
+      "I was **team lead** and full-stack",
+    ],
     techStack: [
       "TypeScript",
       "React Native",
@@ -258,8 +342,14 @@ export const projects: Project[] = [
     title: "SpeechMax",
     description:
       "AI-powered speech coaching app that analyzes public speaking across clarity, confidence, pacing, expression, and composure using browser-based computer vision and audio analysis.",
-    longDescription:
-      "SpeechMax analyzes five speaking dimensions through real-time browser-based ML processing. Users complete a 30-second assessment generating an animated radar chart, then engage with five gamified mini-games targeting their weaknesses: Filler Ninja, Eye Lock, Pace Racer, Pitch Surfer, and Stage Presence. An AI coach named Mike provides personalized feedback via in-app chat. Built in 48 hours at UNIHACK 2026.",
+    briefing: [
+      "**Top 5 of 183 teams** at **UNIHACK ANZ 2026**, built in **48 hours**",
+      "**30-second assessment** scores **clarity, confidence, pacing, expression and composure**",
+      "**In-browser ML** (MediaPipe) for vision and audio — nothing uploaded",
+      "Animated **radar chart**, then **5 mini-games** aimed at weak spots: Filler Ninja, Eye Lock, Pace Racer, Pitch Surfer, Stage Presence",
+      "**AI coach \"Mike\"** gives personalised feedback in chat",
+      "I was **team lead**",
+    ],
     techStack: [
       "TypeScript",
       "React",
@@ -286,8 +376,15 @@ export const projects: Project[] = [
     title: "Airtable Clone",
     description:
       "High-performance Airtable clone handling 1 million rows with sub-25s bulk insertion, virtualized scrolling, and keyboard-driven spreadsheet navigation.",
-    longDescription:
-      "A full-featured spreadsheet application built on the T3 Stack. Features cursor-based pagination with virtualized infinite scroll for 1M+ rows, Airtable-style keyboard navigation, JSONB-based flexible column schema, and saved views with persistent filter/sort configurations. Separated read path (serverless) from write path (dedicated worker) for scale.",
+    briefing: [
+      "**T3 Stack** spreadsheet app handling **1 million rows**",
+      "**Sub-25s bulk insertion** through a dedicated **write worker**, separate from the serverless read path",
+      "**Cursor-based pagination** with **virtualised infinite scroll**",
+      "**Airtable-style keyboard navigation**",
+      "**JSONB** column schema for flexible fields",
+      "**Saved views** with persistent filters and sorts",
+      "Built **solo in 9 days**",
+    ],
     techStack: [
       "TypeScript",
       "Next.js",
@@ -312,8 +409,13 @@ export const projects: Project[] = [
     title: "React Liquid Glass",
     description:
       "Open-source React component library with iOS 26-inspired liquid glass effects. Published on npm with zero dependencies beyond React.",
-    longDescription:
-      "A published npm package providing cursor-reactive specular highlights with gaussian falloff, smooth 3D perspective tilt, animated conic rim lighting, inner refraction glow, and chromatic prismatic tinting. Full keyboard and screen-reader accessibility.",
+    briefing: [
+      "**Published on npm** — open-source React component library",
+      "**iOS 26-inspired** liquid glass with **zero dependencies** beyond React",
+      "**Cursor-reactive specular highlights** with gaussian falloff",
+      "**3D perspective tilt**, animated **conic rim lighting**, inner refraction glow and **chromatic tint**",
+      "Full **keyboard and screen-reader** accessibility",
+    ],
     techStack: ["TypeScript", "React"],
     categories: ["passion-project"],
     thumbnail: "/images/projects/liquid-glass.png",
@@ -332,8 +434,13 @@ export const projects: Project[] = [
     title: "Yunmakai",
     description:
       "Immersive digital universe merging music releases with e-commerce — 3D product visualization, Shopify integration, and Stripe payments. Co-developed for Hugo Zbor.",
-    longDescription:
-      "An interactive platform where music releases and physical/digital products are experienced together inside a 3D environment. Features multi-scene interactive environments, a music player, Shopify storefront integration, Stripe payments, Supabase auth and storage, and 3D GLB model rendering. Co-developed as commissioned client work for Hugo Zbor.",
+    briefing: [
+      "**Commissioned client work** for creator **Hugo Zbor**, co-developed over **2+ months**",
+      "Music releases and products experienced together in an **interactive 3D world**",
+      "**Multi-scene environments** with a built-in **music player**",
+      "**Shopify** storefront with **Stripe** payments",
+      "**Supabase** auth and storage; **3D GLB models** via model-viewer",
+    ],
     techStack: [
       "TypeScript",
       "Next.js",
@@ -359,6 +466,13 @@ export const projects: Project[] = [
     title: "PokeAI Scanner",
     description:
       "Mobile app that uses AI-powered OCR to scan physical Pokemon cards via camera, identify them, and display real-time market pricing across card grades.",
+    briefing: [
+      "**Scan physical Pokémon cards** with the phone camera",
+      "**AI-powered OCR** (Google Cloud Vision) identifies the card",
+      "Shows **real-time market pricing** across card grades",
+      "**React Native + Expo**, animated with Reanimated",
+      "Built **solo in 3–4 days**",
+    ],
     techStack: [
       "TypeScript",
       "React Native",
@@ -382,6 +496,13 @@ export const projects: Project[] = [
     title: "AI Anime Companion",
     description:
       "Interactive 3D anime avatar with real-time voice calling, lip-sync, and emotional expression changes driven by conversation sentiment. Multi-model AI support.",
+    briefing: [
+      "Interactive **3D anime avatar** (VRM) in the browser",
+      "**Real-time voice calling** with **lip-sync** (ElevenLabs)",
+      "**Facial expressions** shift with conversation **sentiment**",
+      "**Multi-model AI** support",
+      "**Three.js** exploration, built **solo in 1–2 days**",
+    ],
     techStack: [
       "TypeScript",
       "React",
@@ -406,6 +527,12 @@ export const projects: Project[] = [
     title: "Puff",
     description:
       "Cross-platform mobile app for tracking vaping habits with custom SVG charts, spring-based animated counters, and interactive daily/weekly/monthly analytics.",
+    briefing: [
+      "**Cross-platform** habit tracker for vaping",
+      "**Custom SVG charts** with daily, weekly and monthly analytics",
+      "**Spring-animated counters** (Reanimated)",
+      "**React Native + Expo**, built **solo in 1–2 days**",
+    ],
     techStack: [
       "TypeScript",
       "React Native",
@@ -428,6 +555,12 @@ export const projects: Project[] = [
     title: "HUGOZBOR Website",
     description:
       "Official website for creator Hugo Zbor, with a custom API layer, analytics integration, and full branding suite.",
+    briefing: [
+      "**Official website** for creator **Hugo Zbor**",
+      "**Custom API layer** and **analytics** integration",
+      "Full **branding suite**",
+      "**Vite + Tailwind**, co-developed in **1–2 weeks**",
+    ],
     techStack: ["JavaScript", "Vite", "Tailwind CSS"],
     categories: ["client-website"],
     thumbnail: "/images/ventures/hugozbor-logo.png",
