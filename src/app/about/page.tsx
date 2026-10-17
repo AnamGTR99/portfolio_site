@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { personal } from "@/data/personal";
 import CyberPanel from "@/components/ui/CyberPanel";
+import SectionLabel from "@/components/ui/SectionLabel";
 import DecoderText from "@/components/motion/DecoderText";
 import TrophyShelf from "@/components/ui/TrophyShelf";
 
@@ -101,25 +102,6 @@ export default function AboutPage() {
 
               {/* Data */}
               <div style={{ flex: 1, padding: "26px 28px" }}>
-                <a
-                  href="https://www.eleno.com.au/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-cursor="eleno.com.au"
-                  style={{ display: "inline-block", marginBottom: "20px" }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/eleno-logo.png"
-                    alt="Eleno"
-                    style={{
-                      height: "38px",
-                      filter:
-                        "brightness(0) invert(1) drop-shadow(0 0 8px rgba(0,240,255,0.4))",
-                      opacity: 0.85,
-                    }}
-                  />
-                </a>
                 <h2
                   className="display"
                   style={{
@@ -219,7 +201,7 @@ export default function AboutPage() {
                 title: "SOFTWARE ENGINEERING",
                 accent: "cyan" as const,
                 description:
-                  "AI Engineer at Eleno — building intelligent automation, AI-powered applications, and full-stack products that solve real problems.",
+                  "Forward Deployed Engineer at Foundation — embedded with clients, shipping AI automation and system integrations into real operations. Previously AI Engineer at Eleno.",
               },
               {
                 index: "02",
@@ -338,23 +320,6 @@ export default function AboutPage() {
           </div>
         </motion.div>
       </div>
-    </div>
-  );
-}
-
-function SectionLabel({ children }: { children: string }) {
-  return (
-    <div
-      className="flex items-center"
-      style={{ gap: "12px", marginBottom: "18px" }}
-    >
-      <span className="mono-label" style={{ color: "#ff2a6d", fontSize: "9px" }}>
-        ▸
-      </span>
-      <span className="mono-label" style={{ fontSize: "10px" }}>
-        {children}
-      </span>
-      <div className="hairline" style={{ flex: 1 }} />
     </div>
   );
 }

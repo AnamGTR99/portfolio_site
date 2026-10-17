@@ -47,7 +47,7 @@ export default function VenturesPage() {
             maxWidth: "520px",
           }}
         >
-          What I build outside of Eleno — hospitality, talent, and the spaces
+          What I build outside of engineering — hospitality, talent, and the spaces
           where industries intersect.
         </p>
 

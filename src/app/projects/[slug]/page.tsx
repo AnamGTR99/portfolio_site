@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { projects, getProjectBySlug, categoryLabels } from "@/data/projects";
 import CyberPanel from "@/components/ui/CyberPanel";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
 const PORTRAIT_SLUGS = ["pokemon-ai", "puff", "ai-anime-companion"];
@@ -213,11 +214,42 @@ export default function ProjectDetailPage() {
                 width: "100%",
                 height: "100%",
                 objectFit: "contain",
+                padding: project.logoThumb ? "14% 26%" : 0,
                 opacity: 0.9,
+                filter: project.logoThumb
+                  ? "brightness(0) invert(1) drop-shadow(0 0 16px rgba(0,240,255,0.5))"
+                  : undefined,
               }}
             />
           ) : null}
         </motion.div>
+
+        {/* Gallery */}
+        {project.images && project.images.length > 0 && (
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2"
+            style={{ gap: "12px", marginTop: "-28px", marginBottom: "44px" }}
+          >
+            {project.images.map((src) => (
+              <div
+                key={src}
+                className="chamfer"
+                style={{
+                  border: "1px solid rgba(0,240,255,0.2)",
+                  overflow: "hidden",
+                  maxHeight: "520px",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={src}
+                  alt={`${project.title} screenshot`}
+                  style={{ width: "100%", display: "block" }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Overview */}
         {project.longDescription && (
@@ -239,6 +271,22 @@ export default function ProjectDetailPage() {
               {project.longDescription}
             </p>
           </motion.div>
+        )}
+
+        {/* NDA notice */}
+        {project.nda && (
+          <div style={{ marginBottom: "44px" }}>
+            <CyberPanel accent="amber" corners={false}>
+              <div style={{ padding: "16px 20px" }}>
+                <span
+                  className="mono-label"
+                  style={{ fontSize: "10px", color: "#ffb800" }}
+                >
+                  ▸ CLIENT UNDER NDA — NAME, DATA AND SCREENS WITHHELD
+                </span>
+              </div>
+            </CyberPanel>
+          </div>
         )}
 
         {/* Tech stack */}
@@ -421,26 +469,6 @@ export default function ProjectDetailPage() {
           )}
         </motion.div>
       </div>
-    </div>
-  );
-}
-
-function SectionLabel({ children }: { children: string }) {
-  return (
-    <div
-      className="flex items-center"
-      style={{ gap: "12px", marginBottom: "18px" }}
-    >
-      <span
-        className="mono-label"
-        style={{ color: "#ff2a6d", fontSize: "9px" }}
-      >
-        ▸
-      </span>
-      <span className="mono-label" style={{ fontSize: "10px" }}>
-        {children}
-      </span>
-      <div className="hairline" style={{ flex: 1 }} />
     </div>
   );
 }

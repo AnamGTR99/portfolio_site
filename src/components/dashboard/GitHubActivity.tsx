@@ -314,6 +314,10 @@ export default function GitHubActivity() {
   // Guard against error responses that don't match expected shape
   const isValidData = data && Array.isArray(data.heatmap);
 
+  // Private-repo work doesn't show up in the public graph — an all-zero
+  // panel reads as inactivity, so hide the section instead.
+  if (isValidData && data.heatmap.every((d) => d.count === 0)) return null;
+
   return (
     <section
       ref={ref}

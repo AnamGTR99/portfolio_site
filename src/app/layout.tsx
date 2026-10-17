@@ -28,33 +28,34 @@ const chakra = Chakra_Petch({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.anam.info"),
   title: {
-    default: "Anam — AI Engineer, Talent Manager & Hotelier",
+    default: "Anam — Forward Deployed Engineer",
     template: "%s | Anam",
   },
   description:
-    "Portfolio of Sheik Anam Milfer — AI Engineer, Talent Manager and Hotelier.",
+    "Portfolio of Sheik Anam Milfer — Forward Deployed Engineer at Foundation, building AI systems, automation and full-stack products.",
   openGraph: {
-    title: "Anam — AI Engineer, Talent Manager & Hotelier",
+    title: "Anam — Forward Deployed Engineer",
     description:
-      "Portfolio of Sheik Anam Milfer — AI Engineer, Talent Manager and Hotelier.",
+      "Portfolio of Sheik Anam Milfer — Forward Deployed Engineer at Foundation, building AI systems, automation and full-stack products.",
     type: "website",
-    url: "https://anam.info",
+    url: "https://www.anam.info",
     images: [
       {
-        url: "https://anam.info/og-image.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Anam — AI Engineer at Eleno",
+        alt: "Anam — Forward Deployed Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anam — AI Engineer, Talent Manager & Hotelier",
+    title: "Anam — Forward Deployed Engineer",
     description:
-      "Portfolio of Sheik Anam Milfer — AI Engineer, Talent Manager and Hotelier.",
-    images: ["https://anam.info/og-image.png"],
+      "Portfolio of Sheik Anam Milfer — Forward Deployed Engineer at Foundation, building AI systems, automation and full-stack products.",
+    images: ["/og-image.png"],
   },
 };
 

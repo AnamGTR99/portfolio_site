@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { getFeaturedProjects, type Project } from "@/data/projects";
-import { ventures } from "@/data/ventures";
-import GitHubActivity from "@/components/dashboard/GitHubActivity";
 import CyberPanel from "@/components/ui/CyberPanel";
 import GlitchText from "@/components/motion/GlitchText";
 import DecoderText from "@/components/motion/DecoderText";
@@ -12,8 +10,6 @@ import Marquee from "@/components/motion/Marquee";
 import Magnetic from "@/components/motion/Magnetic";
 
 const featuredProjects = getFeaturedProjects();
-const featuredVenture =
-  ventures.find((v) => v.slug === "anam-hotel") ?? ventures[0];
 
 const EASE = [0.76, 0, 0.24, 1] as const;
 
@@ -92,7 +88,7 @@ export default function Home() {
               style={{ fontSize: "12px", color: "rgba(0,240,255,0.85)" }}
               delay={0.5}
             >
-              ARTIFICIAL INTELLIGENCE ENGINEER @ ELENO
+              FORWARD DEPLOYED ENGINEER @ FOUNDATION
             </DecoderText>
             <span
               aria-hidden
@@ -112,7 +108,7 @@ export default function Home() {
             className="flex items-center"
             style={{ gap: "18px" }}
           >
-            {["AI ENGINEER", "HOTELIER", "TALENT MGMT"].map((tag, i) => (
+            {["AI SYSTEMS", "AUTOMATION", "FULL-STACK"].map((tag, i) => (
               <span key={tag} className="flex items-center" style={{ gap: "18px" }}>
                 {i > 0 && (
                   <span style={{ color: "rgba(255,42,109,0.6)", fontSize: "9px" }}>
@@ -154,102 +150,8 @@ export default function Home() {
           <SectionHeader index="01" title="FEATURED_WORK" />
 
           <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "18px" }}>
-            {/* Venture — full width */}
-            <motion.div
-              style={{ gridColumn: "1 / -1" }}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-8% 0px" }}
-              transition={{ duration: 0.7, ease: EASE }}
-            >
-              <Link
-                href={`/ventures/${featuredVenture.slug}`}
-                data-cursor="open file"
-                style={{ display: "block" }}
-              >
-                <CyberPanel scan>
-                  <div
-                    className="flex flex-col sm:flex-row sm:items-stretch"
-                    style={{ minHeight: "180px" }}
-                  >
-                    <div
-                      style={{
-                        flex: 1,
-                        padding: "26px 28px",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                        gap: "18px",
-                      }}
-                    >
-                      <div>
-                        <div
-                          className="flex items-center"
-                          style={{ gap: "10px", marginBottom: "14px", flexWrap: "wrap" }}
-                        >
-                          <Tag color="cyan">VENTURE</Tag>
-                          <Tag color="lime" dot>
-                            ONGOING
-                          </Tag>
-                        </div>
-                        <h3
-                          className="display"
-                          style={{
-                            fontSize: "clamp(24px, 4vw, 40px)",
-                            color: "#e6f8ff",
-                            marginBottom: "10px",
-                          }}
-                        >
-                          {featuredVenture.title}
-                        </h3>
-                        <p
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: 300,
-                            color: "rgba(230,248,255,0.5)",
-                            lineHeight: 1.7,
-                            maxWidth: "560px",
-                          }}
-                        >
-                          {featuredVenture.description}
-                        </p>
-                      </div>
-                      <span className="mono-label-dim" style={{ fontSize: "9px" }}>
-                        ROLE: {featuredVenture.role.toUpperCase()} — EST.{" "}
-                        {featuredVenture.year}
-                      </span>
-                    </div>
-                    {featuredVenture.thumbnail && (
-                      <div
-                        className="hidden sm:flex items-center justify-center"
-                        style={{
-                          width: "300px",
-                          borderLeft: "1px solid rgba(0,240,255,0.14)",
-                          background:
-                            "radial-gradient(circle at 50% 50%, rgba(0,240,255,0.06), transparent 70%)",
-                        }}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={featuredVenture.thumbnail}
-                          alt={featuredVenture.title}
-                          style={{
-                            maxWidth: "55%",
-                            maxHeight: "60%",
-                            objectFit: "contain",
-                            opacity: 0.7,
-                            filter: "drop-shadow(0 0 14px rgba(0,240,255,0.35))",
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </CyberPanel>
-              </Link>
-            </motion.div>
-
-            {/* Two featured projects */}
-            {featuredProjects.slice(0, 2).map((project, i) => (
+            {/* Featured projects */}
+            {featuredProjects.slice(0, 6).map((project, i) => (
               <motion.div
                 key={project.slug}
                 initial={{ opacity: 0, y: 40 }}
@@ -295,13 +197,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ GIT ACTIVITY ═══ */}
-      <GitHubActivity />
-
       {/* ═══ MARQUEE ═══ */}
       <div style={{ padding: "56px 0" }}>
         <Marquee
-          items={["AI ENGINEER", "HOTELIER", "TALENT MANAGER", "BUILDER"]}
+          items={["FORWARD DEPLOYED", "AI SYSTEMS", "AUTOMATION", "FULL-STACK"]}
         />
       </div>
 
@@ -501,8 +400,11 @@ function FeaturedProjectCard({
               width: "100%",
               height: "100%",
               objectFit: "contain",
-              opacity: 0.65,
-              filter: "saturate(1.15) contrast(1.05)",
+              padding: project.logoThumb ? "48px 22%" : 0,
+              opacity: project.logoThumb ? 0.8 : 0.65,
+              filter: project.logoThumb
+                ? "brightness(0) invert(1) drop-shadow(0 0 12px rgba(0,240,255,0.5))"
+                : "saturate(1.15) contrast(1.05)",
             }}
           />
           <div

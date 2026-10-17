@@ -277,13 +277,7 @@ export default function ContactPage() {
                         color: "rgba(0,240,255,0.75)",
                       }}
                     >
-                      {name === "github"
-                        ? "AnamGTR99"
-                        : name === "linkedin"
-                          ? "Sheik Anam Milfer"
-                          : name === "devpost"
-                            ? "@AnamGTR99"
-                            : "@sheivault"}{" "}
+                      {personal.socialHandles[name] ?? name}{" "}
                       ↗
                     </span>
                   </div>

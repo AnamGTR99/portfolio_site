@@ -4,16 +4,12 @@ import { motion } from "framer-motion";
 import Magnetic from "@/components/motion/Magnetic";
 import LocalTime from "@/components/motion/LocalTime";
 import GlitchText from "@/components/motion/GlitchText";
+import { personal } from "@/data/personal";
 
-const socials = [
-  {
-    label: "LINKEDIN",
-    href: "https://www.linkedin.com/in/sheik-anam-milfer-9aa15b213/",
-  },
-  { label: "INSTAGRAM", href: "https://instagram.com/sheivault" },
-  { label: "DEVPOST", href: "https://devpost.com/AnamGTR99" },
-  { label: "GITHUB", href: "https://github.com/anamgtr99" },
-];
+const socials = Object.entries(personal.socials).map(([name, href]) => ({
+  label: name.toUpperCase(),
+  href,
+}));
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -62,7 +58,7 @@ export default function Footer() {
                 display: "inline-block",
               }}
             />
-            STATUS: BUILDING AT ELENO — MELBOURNE
+            STATUS: FORWARD DEPLOYED @ FOUNDATION — MELBOURNE
           </span>
           <span className="mono-label-dim">
             SYS.TIME <LocalTime />

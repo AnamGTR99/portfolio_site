@@ -24,20 +24,12 @@ export interface HeatmapDay {
   level: 0 | 1 | 2 | 3 | 4;
 }
 
-export interface RecentCommit {
-  repo: string;
-  message: string;
-  date: string;
-  sha: string;
-}
-
 export interface GitHubActivityData {
   commitsToday: number;
   currentStreak: number;
   totalContributions: number;
   contributionYear: number;
   heatmap: HeatmapDay[];
-  recentCommits: RecentCommit[];
   lastUpdated: string;
 }
 
@@ -134,53 +126,6 @@ async function fetchContributionsGraphQL(
   );
 }
 
-/**
- * Recent commits — no token required. Finds the most recently pushed
- * public repos, then reads their latest commits. (The public events API
- * often returns PushEvents with empty commit payloads, so it can't be
- * relied on here.)
- */
-async function fetchRecentCommitsPublic(): Promise<RecentCommit[]> {
-  const headers = { Accept: "application/vnd.github+json" };
-  const reposRes = await fetch(
-    `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=3`,
-    { headers, next: { revalidate: 3600 } },
-  );
-  if (!reposRes.ok) return [];
-  const repos: { name: string; full_name: string }[] = await reposRes.json();
-  if (!Array.isArray(repos)) return [];
-
-  const perRepo = await Promise.all(
-    repos.slice(0, 3).map(async (repo) => {
-      try {
-        const res = await fetch(
-          `https://api.github.com/repos/${repo.full_name}/commits?author=${GITHUB_USERNAME}&per_page=3`,
-          { headers, next: { revalidate: 3600 } },
-        );
-        if (!res.ok) return [];
-        const commits: {
-          sha: string;
-          commit: { message: string; committer: { date: string } };
-        }[] = await res.json();
-        if (!Array.isArray(commits)) return [];
-        return commits.map((c) => ({
-          repo: repo.name,
-          message: c.commit.message.split("\n")[0].slice(0, 72),
-          date: c.commit.committer.date,
-          sha: c.sha.slice(0, 7),
-        }));
-      } catch {
-        return [];
-      }
-    }),
-  );
-
-  return perRepo
-    .flat()
-    .sort((a, b) => (a.date < b.date ? 1 : -1))
-    .slice(0, 5);
-}
-
 export async function fetchGitHubActivity(): Promise<GitHubActivityData> {
   const now = new Date();
   const todayStr = now.toISOString().split("T")[0];
@@ -208,8 +153,6 @@ export async function fetchGitHubActivity(): Promise<GitHubActivityData> {
   const commitsToday =
     days.find((d) => d.date === todayStr)?.count ?? 0;
 
-  const recentCommits = await fetchRecentCommitsPublic().catch(() => []);
-
   return {
     commitsToday,
     currentStreak: calculateStreak(days, todayStr),
@@ -220,7 +163,6 @@ export async function fetchGitHubActivity(): Promise<GitHubActivityData> {
       count: d.count,
       level: d.level,
     })),
-    recentCommits,
     lastUpdated: now.toISOString(),
   };
 }

@@ -16,6 +16,8 @@ const filters: { key: FilterKey; label: string }[] = [
   { key: "ai-native", label: "AI-NATIVE" },
   { key: "web-app", label: "WEB APPS" },
   { key: "mobile", label: "MOBILE" },
+  { key: "eleno-build", label: "ELENO BUILDS" },
+  { key: "mana-systems", label: "MANA SYSTEMS" },
   { key: "client-website", label: "CLIENT WORK" },
   { key: "passion-project", label: "PASSION" },
   { key: "competition", label: "COMPETITIONS" },
@@ -170,11 +172,17 @@ function MissionCard({ project, index }: { project: Project; index: number }) {
               width: "100%",
               height: "100%",
               objectFit: "contain",
-              padding: project.thumbnail.endsWith(".svg") ? "28px" : 0,
+              padding: project.logoThumb
+                ? "18% 22%"
+                : project.thumbnail.endsWith(".svg")
+                  ? "28px"
+                  : 0,
               opacity: hovered ? 0.9 : 0.6,
-              filter: hovered
-                ? "saturate(1.3) contrast(1.08)"
-                : "saturate(1.05)",
+              filter: project.logoThumb
+                ? "brightness(0) invert(1) drop-shadow(0 0 12px rgba(0,240,255,0.5))"
+                : hovered
+                  ? "saturate(1.3) contrast(1.08)"
+                  : "saturate(1.05)",
               transform: hovered ? "scale(1.04)" : "scale(1)",
               transition: "all 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
