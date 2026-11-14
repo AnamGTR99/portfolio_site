@@ -208,7 +208,7 @@ export default function AboutPage() {
                 title: "HOSPITALITY",
                 accent: "magenta" as const,
                 description:
-                  "Owner & operator of The Anam Hotel Colombo — a boutique hotel where design meets genuine Sri Lankan warmth.",
+                  "Owner & operator of The Anam Hotels — two boutique hotels in Colombo, Wellawatte and Maradana, where design meets genuine Sri Lankan warmth.",
               },
               {
                 index: "03",

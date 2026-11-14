@@ -89,11 +89,11 @@ Mana currently represents two creators and has closed 50+ brand collaborations a
   },
   {
     slug: "anam-hotel",
-    title: "The Anam Hotel Colombo",
+    title: "The Anam Hotel · Wellawatte",
     role: "Owner & Operator",
     description:
-      "A boutique hotel in Colombo, Sri Lanka — blending modern hospitality with local culture and warmth.",
-    fullContent: `The Anam Hotel Colombo is a boutique hospitality venture in the heart of Sri Lanka's capital. Born from a vision to create a space that feels both worldly and deeply local, the hotel combines contemporary design with Sri Lankan warmth.
+      "The first Anam hotel — seven rooms in Wellawatte, Colombo, blending modern hospitality with local culture and warmth.",
+    fullContent: `The Anam Hotel · Wellawatte is the first Anam hotel: seven ensuite rooms in Wellawatte, Colombo, Sri Lanka. Born from a vision to create a space that feels both worldly and deeply local, the hotel combines contemporary design with Sri Lankan warmth.
 
 From concept to operations, every detail has been hands-on — from interior design decisions and staff hiring to guest experience strategy and digital presence. The hotel represents the intersection of business acumen, design sensibility, and genuine care for the guest experience.
 
@@ -106,12 +106,38 @@ Running a hotel teaches you things software never will: reading people, managing
       { label: "Instagram", url: "https://instagram.com/theanamlk" },
     ],
     metrics: [
-      { label: "Location", value: "Colombo, Sri Lanka" },
-      { label: "Type", value: "Boutique Hotel" },
+      { label: "Location", value: "Wellawatte, Colombo" },
+      { label: "Rooms", value: "7 Ensuite" },
       { label: "Opened", value: "January 2024" },
       { label: "Status", value: "Operational" },
     ],
     year: 2024,
+  },
+  {
+    slug: "anam-hotel-maradana",
+    title: "The Anam Hotel · Maradana",
+    role: "Owner & Operator",
+    description:
+      "The second Anam hotel — four rooms in Maradana, Colombo, with a courtyard and a rooftop terrace. Opened November 2026.",
+    fullContent: `The Anam Hotel · Maradana is hotel number two: four ensuite rooms in Maradana, Colombo, with a courtyard and a rooftop terrace. It opened in November 2026.
+
+The plan was to open the second hotel within three months of the first. It took three years. This one was built alongside everything else — the margins from running Mana went straight into it. Profit from a service business, re-invested into something longer term that doesn't depend on clients. Not another service to sell. An asset.
+
+Two hotels under one name changes the job. The first taught me how to run a property; the second is about running the same standard twice — the same brand, the same house rules, the same care — from Melbourne, with systems doing the watching.`,
+    status: "ongoing",
+    thumbnail: "/images/ventures/anam-hotel-logo.svg",
+    heroImage: "/images/ventures/anam-hotel-maradana.jpg",
+    links: [
+      { label: "Website", url: "https://anamhostels.com/" },
+      { label: "Instagram", url: "https://instagram.com/theanamlk" },
+    ],
+    metrics: [
+      { label: "Location", value: "Maradana, Colombo" },
+      { label: "Rooms", value: "4 Ensuite" },
+      { label: "Opened", value: "November 2026" },
+      { label: "Status", value: "Operational" },
+    ],
+    year: 2026,
   },
 ];
 
