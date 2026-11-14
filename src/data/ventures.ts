@@ -102,7 +102,7 @@ Running a hotel teaches you things software never will: reading people, managing
     thumbnail: "/images/ventures/anam-hotel-logo.svg",
     heroImage: "/images/ventures/anam-hotel.jpg",
     links: [
-      { label: "Website", url: "https://anamhostels.com/" },
+      { label: "Website", url: "https://theanamhotel.com/" },
       { label: "Instagram", url: "https://instagram.com/theanamlk" },
     ],
     metrics: [
@@ -128,7 +128,7 @@ Two hotels under one name changes the job. The first taught me how to run a prop
     thumbnail: "/images/ventures/anam-hotel-logo.svg",
     heroImage: "/images/ventures/anam-hotel-maradana.jpg",
     links: [
-      { label: "Website", url: "https://anamhostels.com/" },
+      { label: "Website", url: "https://theanamhotel.com/" },
       { label: "Instagram", url: "https://instagram.com/theanamlk" },
     ],
     metrics: [
